@@ -1,5 +1,5 @@
 angular.module 'glasses'
-  .service 'webDevTec', () ->
+  .service 'util', () ->
     'ngInject'
 
     @pagination = ()->

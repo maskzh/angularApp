@@ -16,6 +16,7 @@ angular.module 'glasses'
       return
 
     getWebDevTec = ->
+      console.log webDevTec
       vm.awesomeThings = webDevTec.getTec()
       angular.forEach vm.awesomeThings, (awesomeThing) ->
         awesomeThing.rank = Math.random()
