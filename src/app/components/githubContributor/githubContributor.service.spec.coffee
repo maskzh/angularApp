@@ -1,6 +1,6 @@
 describe 'service githubContributor', () ->
 
-  beforeEach module 'glasses'
+  beforeEach module 'jkbs'
 
   it 'should be registered', inject (githubContributor) ->
     expect(githubContributor).not.toEqual null

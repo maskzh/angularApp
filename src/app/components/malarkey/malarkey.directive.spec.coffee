@@ -8,7 +8,7 @@ describe 'directive malarkey', () ->
   vm = undefined
   element = element
 
-  beforeEach module 'glasses'
+  beforeEach module 'jkbs'
 
   beforeEach inject ($compile, $rootScope, githubContributor, $q) ->
     spyOn(githubContributor, 'getContributors').and.callFake () ->

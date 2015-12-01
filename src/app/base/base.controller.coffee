@@ -1,4 +1,4 @@
-angular.module 'glasses'
+angular.module 'jkbs'
   .controller 'BaseController', ($timeout, webDevTec, toastr) ->
     'ngInject'
     vm = this
@@ -16,7 +16,6 @@ angular.module 'glasses'
       return
 
     getWebDevTec = ->
-      console.log webDevTec
       vm.awesomeThings = webDevTec.getTec()
       angular.forEach vm.awesomeThings, (awesomeThing) ->
         awesomeThing.rank = Math.random()

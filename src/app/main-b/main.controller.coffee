@@ -1,4 +1,4 @@
-angular.module 'glasses'
+angular.module 'jkbs'
   .controller 'MainController', ($timeout, webDevTec, toastr) ->
     'ngInject'
     vm = this

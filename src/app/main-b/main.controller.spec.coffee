@@ -1,7 +1,7 @@
 describe 'controllers', () ->
   vm = undefined
 
-  beforeEach module 'glasses'
+  beforeEach module 'jkbs'
 
   beforeEach inject ($controller, webDevTec, toastr) ->
     spyOn(webDevTec, 'getTec').and.returnValue [{}, {}, {}, {}, {}]

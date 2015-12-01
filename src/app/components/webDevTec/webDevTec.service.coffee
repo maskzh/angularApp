@@ -1,4 +1,4 @@
-angular.module 'glasses'
+angular.module 'jkbs'
   .service 'webDevTec', () ->
     'ngInject'
     data = [

@@ -1,4 +1,4 @@
-angular.module 'glasses'
+angular.module 'jkbs'
   .controller 'DemoController', ($timeout, webDevTec, toastr, $modal) ->
     'ngInject'
     vm = this
@@ -28,7 +28,6 @@ angular.module 'glasses'
     vm.currentPage = 5
     vm.totalItems = 75
 
-    console.log $modal
     vm.open = () ->
       modalInstance = $modal.open({
         templateUrl: 'myModalContent.html',

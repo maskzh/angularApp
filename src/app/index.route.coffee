@@ -1,4 +1,4 @@
-angular.module 'glasses'
+angular.module 'jkbs'
   .config ($stateProvider, $urlRouterProvider) ->
     'ngInject'
     $stateProvider

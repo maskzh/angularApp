@@ -1,6 +1,6 @@
 {
-  "name": "glasses",
-  "version": "0.0.0",
+  "name": "jkbs_admin",
+  "version": "0.0.1",
   "dependencies": {},
   "scripts": {
     "test": "gulp test"
