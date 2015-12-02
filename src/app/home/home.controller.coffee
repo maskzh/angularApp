@@ -1,5 +1,5 @@
 angular.module 'jkbs'
-  .controller 'DemoController', ($timeout, webDevTec, toastr, $modal) ->
+  .controller 'HomeController', ($timeout, webDevTec, toastr, $modal) ->
     'ngInject'
     vm = this
     activate = ->
@@ -31,8 +31,8 @@ angular.module 'jkbs'
     vm.open = () ->
       modalInstance = $modal.open({
         templateUrl: 'myModalContent.html',
-        controller: 'DemoModalInstanceCtrl'
-      });
+        controller: 'HomeModalInstanceCtrl'
+      })
       modalInstance.result.then ()->
         console.log '2222'
 
@@ -61,5 +61,5 @@ angular.module 'jkbs'
     activate()
     return
 
-  .controller 'DemoModalInstanceCtrl', ()->
+  .controller 'HomeModalInstanceCtrl', ()->
     console.log '1111'

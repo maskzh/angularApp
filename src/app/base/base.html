@@ -1,3 +1,13 @@
-<yg-sidebar></yg-sidebar>
 <yg-header></yg-header>
-<div class="wrap" ui-view></div>
+<div class="wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-2">
+        <yg-sidebar></yg-sidebar>
+      </div>
+      <div class="col-xs-10">
+        <div class="main" ui-view></div>
+      </div>
+    </div>
+  </div>
+</div>

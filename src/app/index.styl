@@ -2,8 +2,29 @@
  *  If you want to override some bootstrap variables, you have to change values here.
  *  The list of variables are listed here bower_components/bootstrap-stylus/bootstrap/variables.styl
  */
-$navbar-inverse-link-color = #5AADBB
+$font-family-sans-serif = "Helvetica Neue",Helvetica,"Microsoft Yahei",Arial,Verdana,"Hiragino Sans GB",STHeiti,sans-serif
 $icon-font-path = "../../bower_components/bootstrap-stylus/fonts/"
+$border-radius-base  =      3px
+$border-radius-large =      5px
+$border-radius-small =      2px
+$brand-primary       =      #0dbf2d
+$link-color          =      $brand-primary
+$grid-gutter-width   =      30px
+
+// navs
+$nav-link-hover-bg = #f4f5f9
+$nav-tags-border-color = $nav-tabs-border-color
+$nav-tags-link-hover-border-color = $jkbs-primary
+$nav-tags-active-link-hover-bg = $nav-tabs-active-link-hover-bg
+
+// pagination
+$pagination-color = $text-color
+$pagination-hover-color = $gray-light
+
+// 自定义
+$jkbs-primary = #0dbf2d
+$jsbs-border = solid 1px #e5e5e5
+$jkbs-box-shadow = 0 0 1px 1px #eee
 
 /**
  *  Do not remove the comments below. It's the markers used by wiredep to inject
@@ -12,39 +33,65 @@ $icon-font-path = "../../bower_components/bootstrap-stylus/fonts/"
 // bower:styl
 // endbower
 
-.browsehappy
-  margin 0.2em 0
-  background #ccc
-  color #000
-  padding 0.2em 0
-
-.thumbnail
-  height 200px
-
-  img.pull-right
-    width 50px
-
+// btn
 .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus
   outline 0
 
-html, body
-  height 100%
-  overflow hidden
+// nav
+.nav-tags
+  border-bottom 1px solid $nav-tags-border-color
+  > li
+    float left
+    margin-bottom -1px
+    > a
+      color $gray-light
+      line-height $line-height-base
+      border-bottom 3px solid transparent
+      border-radius $border-radius-base $border-radius-base 0 0
+      &:hover
+        border-color $nav-tags-border-color
+    &.active > a
+      &,
+      &:hover,
+      &:focus
+        color $nav-tags-link-hover-border-color
+        background-color $nav-tags-active-link-hover-bg
+        border-bottom 3px solid $nav-tags-link-hover-border-color
+        cursor default
 
-.container-yg
-  position relative
-  padding-left 0
-  padding-right 0
-  max-width 100%
-  height 100%
+// pagination
+.pagination
+  a
+    color $text-color
 
-.wrap
-  margin 53px 0 0 260px
-  height 100%
-  overflow-y scroll
+// modal
+.modal-content
+  border-radius $border-radius-small
+  box-shadow none
 
-.content
-  padding 15px 15px 50px
+// alerts
+.alert
+  .fa
+    font-size 1.3em
+    margin-right 5px
+    vertical-align -1px
+
+// 自定义
+body
+  background-color #e7e8eb
+
+.wrapper
+  .container
+    background-color #fff
+    border-radius $border-radius-base
+    border $jsbs-border
+    margin-bottom 50px
+
+.main
+  padding 15px
+  h2
+    font-size 16px
+    margin-bottom 30px
 
 /**
  *  Do not remove the comments below. It's the markers used by gulp-inject to inject

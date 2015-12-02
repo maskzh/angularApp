@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>健康帮手-登录</title>
+</head>
+<body class="login">
+  <form name="loginForm" ng-controller="LoginController" ng-submit="login.login(credentials)" novalidate>
+    <label for="username">用户名:</label>
+    <input type="text" id="username" ng-model="login.credentials.username">
+    <label for="password">密码:</label>
+    <input type="password" id="password" ng-model="login.credentials.password">
+    <button type="submit">登录</button>
+  </form>
+</body>
+</html>

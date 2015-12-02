@@ -1,3 +1,39 @@
-<header>
-  <yg-navbar></yg-navbar>
+<header class="j-header">
+  <nav class="navbar j-navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" ng-click="isCollapsed = !isCollapsed">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand j-navbar-brand" href="/"><img height=40 src="assets/common/logo-with-text.png" alt="健康帮手"></a>
+      </div>
+      <!-- <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="搜索">
+        </div>
+        <button type="submit" class="btn btn-default">搜索</button>
+      </form> -->
+
+      <!-- <ol class="breadcrumb navbar-left">
+        <li><a href="／">首````页</a></li>
+        <li><a href="/#/">微店管理</a></li>
+        <li class="active">管理员</li>
+      </ol> -->
+      <div class="navbar-right" collapse="isCollapsed">
+        <ul class="nav navbar-nav">
+          <li dropdown>
+            <a class="j-navbar-portrait" href dropdown-toggle><img class="img-circle" width="30" src="http://notes.maskzh.com/images/default_avatar.jpg" alt="头像"> Elliott <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/#/">用户管理</a></li>
+              <li class="divider"></li>
+              <li><a href="/#/">退出登录</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 </header>
