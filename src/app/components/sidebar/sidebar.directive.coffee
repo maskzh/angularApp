@@ -1,12 +1,11 @@
 angular.module 'jkbs'
-  .directive 'ygSidebar', ->
+  .directive 'jSidebar', ->
 
     SidebarController = (menu, $location) ->
       'ngInject'
       vm = this
       vm.menu = menu.getMenu()
-      vm.currentUrl = $location.url()
-      console.log vm.currentUrl
+      vm.currentUrl = '/#' + $location.url()
       # vm.isCollapsed = []
       # for num in vm.menu
       #   vm.isCollapsed.push(true)

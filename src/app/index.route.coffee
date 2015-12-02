@@ -3,6 +3,7 @@ angular.module 'jkbs'
     'ngInject'
     $stateProvider
       .state 'login',
+        url: '/login'
         templateUrl: 'app/login/login.html'
         controller: 'LoginController'
         controllerAs: 'login'
@@ -18,8 +19,8 @@ angular.module 'jkbs'
         templateUrl: 'app/home/index.html'
         controller: 'HomeController'
         controllerAs: 'home'
-        data:
-          authorizedRoles: [USER_ROLES.shop, USER_ROLES.institution]
+        # data:
+        #   authorizedRoles: [USER_ROLES.shop, USER_ROLES.institution]
 
       # 微店
       .state 'base.shop',

@@ -1,12 +1,9 @@
 angular.module 'jkbs'
-  .directive 'ygHeader', ->
+  .directive 'jHeader', ->
 
-    HeaderController = (moment) ->
+    HeaderController = () ->
       'ngInject'
       vm = this
-      # "vm.creation" is avaible by directive option "bindToController: true"
-      vm.relativeDate = moment(vm.creationDate).fromNow()
-      vm.isCollapsed = false
       return
 
     directive =
