@@ -1,5 +1,5 @@
 angular.module 'jkbs'
-  .controller 'HomeController', ($timeout, webDevTec, toastr, $modal) ->
+  .controller 'HomeController', ($timeout, toastr, $modal) ->
     'ngInject'
     vm = this
     activate = ->

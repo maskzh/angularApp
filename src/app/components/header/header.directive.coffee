@@ -1,9 +1,17 @@
 angular.module 'jkbs'
   .directive 'jHeader', ->
 
-    HeaderController = () ->
+    HeaderController = (User, $http, $rootScope, EVENTS) ->
       'ngInject'
       vm = this
+      vm.user = User.user
+
+      vm.logout = () ->
+        $http
+          .post '/auth/logout'
+          .then () ->
+            $rootScope.$broadcast(EVENTS.logoutSuccess)
+
       return
 
     directive =

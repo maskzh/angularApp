@@ -1,14 +1,18 @@
 angular.module 'jkbs'
-  .run ($rootScope, AUTH_EVENTS, Auth, $log) ->
+  .run ($rootScope, EVENTS, Auth, $log) ->
     'ngInject'
-    $rootScope.$on '$stateChangeStart', (event, next) ->
-      console.log next
-      authorizedRoles = next.data.authorizedRoles
-      if !Auth.isAuthorized(authorizedRoles)
+    $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+      Auth.autoLogin()
+      if toState.name is 'login'
+        return
+
+      if !Auth.isAuthenticated()
         event.preventDefault()
-        if Auth.isAuthenticated()
-          $rootScope.$broadcast AUTH_EVENTS.notAuthorized
-        else
-          $rootScope.$broadcast AUTH_EVENTS.notAuthenticated
+        $rootScope.$broadcast EVENTS.notAuthenticated
+        return
+
+      $rootScope.$broadcast EVENTS.jumpSuccess
+
+      return
 
     $log.debug 'runBlock end'

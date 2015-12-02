@@ -25,11 +25,11 @@
       <div class="navbar-right" collapse="isCollapsed">
         <ul class="nav navbar-nav">
           <li dropdown>
-            <a class="j-navbar-portrait" href dropdown-toggle><img class="img-circle" width="30" src="http://notes.maskzh.com/images/default_avatar.jpg" alt="头像"> Elliott <span class="caret"></span></a>
+            <a class="j-navbar-portrait" href dropdown-toggle><img class="img-circle" width="30" ng-src="{{vm.user.pic}}" alt="头像"> {{vm.user.name}} <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="/#/">用户管理</a></li>
+              <li><a href="/#/user/index">用户管理</a></li>
               <li class="divider"></li>
-              <li><a href="/#/">退出登录</a></li>
+              <li><a href="javascript:;" ng-click="vm.logout()">退出登录</a></li>
             </ul>
           </li>
         </ul>

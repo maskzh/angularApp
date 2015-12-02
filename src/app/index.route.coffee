@@ -38,7 +38,7 @@ angular.module 'jkbs'
 
       # 医生
       .state 'base.doctor',
-        url: '/doctor'
+        url: '/doctor/index'
         templateUrl: 'app/doctor/index.html'
         controller: 'DoctorController'
         controllerAs: 'doctor'
