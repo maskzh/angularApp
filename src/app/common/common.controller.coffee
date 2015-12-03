@@ -1,9 +1,6 @@
 angular.module 'jkbs'
   .controller 'commonController', ($scope, Auth, EVENTS, User, $state, toastr) ->
     'ngInject'
-    $scope.showToastr = (info) ->
-      toastr.info 'info'
-      return
 
     $scope.currentUser = null
     # $scope.userRoles = USER_ROLES
@@ -23,6 +20,10 @@ angular.module 'jkbs'
 
     $scope.$on EVENTS.notAuthenticated, (event) ->
       $state.go 'login'
+
+    toastr.info '欢迎登录健康帮手！'
+
+    return
 
     # $scope.$on EVENTS.notAuthorized, (event) ->
     #   console.log EVENTS.notAuthorized

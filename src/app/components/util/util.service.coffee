@@ -5,6 +5,7 @@ angular.module 'jkbs'
     token = User.token
 
     URL_PREFIX = 'https://api.jkbsapp.com'
+    IMG_PREFIX = 'http://img.jkbsimg.com/'
 
     @ajax = (type, url, data, config) ->
       delay = $q.defer()
@@ -25,5 +26,16 @@ angular.module 'jkbs'
 
     @post = (url, data, config) ->
       @ajax 'post', url, data, config
+
+    @put = (url, data, config) ->
+      @ajax 'put', url, data, config
+
+    @delete = (url, data, config) ->
+      data = angular.extend {'access-token': token}, data
+      config = angular.extend {params: data}, config
+      @ajax 'delete', url, config
+
+    @img = (url) ->
+      IMG_PREFIX + url
 
     return

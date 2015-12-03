@@ -1,7 +1,6 @@
 angular.module 'jkbs'
   .config ($logProvider, localStorageServiceProvider, toastrConfig) ->
     'ngInject'
-
     # Enable log
     $logProvider.debugEnabled true
 
@@ -18,3 +17,5 @@ angular.module 'jkbs'
     toastrConfig.positionClass = 'toast-top-right'
     toastrConfig.preventDuplicates = true
     toastrConfig.progressBar = true
+
+    return

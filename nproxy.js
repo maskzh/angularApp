@@ -1,11 +1,8 @@
-var CSS = '55175442c2';
-var JS = '071dda9c6c';
-
 module.exports = [
 
   // 1. replace single file with local one
   {
-    pattern: 'https://api.jkbsapp.com/admin/styles/app-' + CSS + '.css',      // Match url you wanna replace
+    pattern: /https?:\/\/api\.jkbsapp\.com\/admin\/styles\/app-(.*)\.css/,      // Match url you wanna replace
     responder:  "/Users/zyc/Salt light/jkbs2_admin/.tmp/serve/app/index.css"
   },
 
@@ -16,7 +13,7 @@ module.exports = [
 
   // 3. replace combo file with src with absolute file path
   {
-    pattern: 'https://api.jkbsapp.com/admin/scripts/app-' + JS + '.js',
+    pattern: /https?:\/\/api\.jkbsapp\.com\/admin\/scripts\/app-(.*)\.js/,
     responder: {
       dir: '/Users/zyc/Salt light/jkbs2_admin/.tmp/serve',
       src: [
@@ -31,6 +28,7 @@ module.exports = [
         // directive
         'app/components/sidebar/sidebar.directive.js',
         'app/components/header/header.directive.js',
+        'app/components/grid/grid.directive.js',
 
         // controller
         'app/common/common.controller.js',

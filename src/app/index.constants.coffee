@@ -1,5 +1,4 @@
-angular.module('jkbs')
-
+angular.module 'jkbs'
   # .constant 'malarkey', malarkey
   .constant 'moment', moment    # moment 库
 
