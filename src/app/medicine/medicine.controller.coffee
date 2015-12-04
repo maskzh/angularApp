@@ -1,5 +1,5 @@
 angular.module 'jkbs'
-  .controller 'DoctorController', (Util, $scope) ->
+  .controller 'MedicineController', (Util, $scope) ->
     'ngInject'
     # 表格
     $scope.listUrl = '/doctor/recommend-list'
@@ -38,7 +38,7 @@ angular.module 'jkbs'
     ]
     return
 
-  .controller 'DoctorOrderController', (Util, $scope) ->
+  .controller 'MedicineCatController', (Util, $scope) ->
     'ngInject'
     # 表格
     $scope.listUrl = '/doctor/recommend-list'

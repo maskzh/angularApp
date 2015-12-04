@@ -105,9 +105,9 @@ angular.module 'jkbs'
       return
 
     linkFunc = (scope, el, attr, vm) ->
-      vm.listUrl = attr.listUrl
-      vm.addUrl = attr.addUrl
-      vm.deleteUrl = attr.deleteUrl
+      vm.listUrl = attr.listUrl || scope.listUrl
+      vm.addUrl = attr.addUrl || scope.addUrl
+      vm.deleteUrl = attr.deleteUrl || scope.deleteUrl
       vm.maps = scope.maps
 
       # init

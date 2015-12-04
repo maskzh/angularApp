@@ -37,9 +37,15 @@ module.exports = [
         'app/login/login.controller.js',
 
         //controller business
-        // 'app/order/order.controller.js',
+        'app/agent/agent.controller.js',
+        'app/circle/circle.controller.js',
+        'app/disease/disease.controller.js',
         'app/doctor/doctor.controller.js',
-
+        'app/medicine/medicine.controller.js',
+        'app/news/news.controller.js',
+        'app/order/order.controller.js',
+        'app/shop/shop.controller.js',
+        'app/user/user.controller.js',
 
         'app/index.run.js',
         'app/index.route.js',

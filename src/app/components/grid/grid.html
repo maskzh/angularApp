@@ -29,10 +29,9 @@
       </tr>
     </tbody>
   </table>
+  <div class="grid-loading" ng-if="vm.isLoading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
+  <div class="grid-nodata" ng-if="vm.isNoData">暂无数据</div>
 </div>
-
-<div class="grid-loading" ng-if="vm.isLoading"><i class="fa fa-circle-o-notch fa-spin"></i></div>
-<div class="grid-nodata" ng-if="vm.isNoData">暂无数据</div>
 
 <!-- pagination -->
 <div class="grid-pagination">

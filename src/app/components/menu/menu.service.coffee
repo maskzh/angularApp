@@ -4,15 +4,15 @@ angular.module 'jkbs'
     data = [
       {
         title: '微店|demo',
-        menus: ['#/shop/index/10|药店管理', '#/shop/index/20|机构管理']
+        menus: ['#/shop/10|药店管理', '#/shop/20|机构管理']
       },
       {
         title: '订单|demo',
-        menus: ['#/order/index|订单管理', '#/|报表']
+        menus: ['#/order/index|订单管理', '#/order/report|报表']
       },
       {
         title: '医生|demo',
-        menus: ['#/doctor/index|医生管理', '#/doctor/order|资讯订单']
+        menus: ['#/doctor/index|医生管理', '#/doctor/order|咨询订单']
       },
       {
         title: '疾病|demo',

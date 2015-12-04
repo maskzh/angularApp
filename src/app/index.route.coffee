@@ -19,19 +19,22 @@ angular.module 'jkbs'
         templateUrl: 'app/home/index.html'
         controller: 'HomeController'
         controllerAs: 'home'
-        # data:
-        #   authorizedRoles: [USER_ROLES.shop, USER_ROLES.institution]
 
       # 微店
-      .state 'base.shop',
-        url: '/shop'
+      .state 'base.shop_10',
+        url: '/shop/10'
         templateUrl: 'app/shop/index.html'
         controller: 'ShopController'
+        controllerAs: 'shop'
+      .state 'base.shop_20',
+        url: '/shop/20'
+        templateUrl: 'app/shop/institution.html'
+        controller: 'InstitutionController'
         controllerAs: 'shop'
 
       # 订单
       .state 'base.order',
-        url: '/order'
+        url: '/order/index'
         templateUrl: 'app/order/index.html'
         controller: 'OrderController'
         controllerAs: 'order'
@@ -41,39 +44,64 @@ angular.module 'jkbs'
         url: '/doctor/index'
         templateUrl: 'app/doctor/index.html'
         controller: 'DoctorController'
-        controllerAs: 'doctor'
+        controllerAs: 'vm'
+      .state 'base.doctor_order',
+        url: '/doctor/order'
+        templateUrl: 'app/doctor/order.html'
+        controller: 'DoctorOrderController'
+        controllerAs: 'vm'
 
       # 疾病
       .state 'base.disease',
-        url: '/disease'
+        url: '/disease/index'
         templateUrl: 'app/disease/index.html'
         controller: 'DiseaseController'
+        controllerAs: 'disease'
+      .state 'base.disease_cat',
+        url: '/disease/cat'
+        templateUrl: 'app/disease/cat.html'
+        controller: 'DiseaseCatController'
         controllerAs: 'disease'
 
       # 药品
       .state 'base.medicine',
-        url: '/medicine'
+        url: '/medicine/index'
         templateUrl: 'app/medicine/index.html'
         controller: 'MedicineController'
+        controllerAs: 'medicine'
+      .state 'base.medicine_cat',
+        url: '/medicine/cat'
+        templateUrl: 'app/medicine/cat.html'
+        controller: 'MedicineCatController'
         controllerAs: 'medicine'
 
       # 圈子
       .state 'base.circle',
-        url: '/circle'
+        url: '/circle/index'
         templateUrl: 'app/circle/index.html'
         controller: 'CircleController'
+        controllerAs: 'circle'
+      .state 'base.circle_post',
+        url: '/circle/post'
+        templateUrl: 'app/circle/post.html'
+        controller: 'PostController'
         controllerAs: 'circle'
 
       # 资讯
       .state 'base.news',
-        url: '/news'
+        url: '/news/index'
         templateUrl: 'app/news/index.html'
         controller: 'NewsController'
-        controllerAs: 'newsme'
+        controllerAs: 'news'
+      .state 'base.news_cat',
+        url: '/news/cat'
+        templateUrl: 'app/news/cat.html'
+        controller: 'NewsCatController'
+        controllerAs: 'news'
 
       # 用户
       .state 'base.user',
-        url: '/user'
+        url: '/user/index'
         templateUrl: 'app/user/index.html'
         controller: 'UserController'
         controllerAs: 'user'
@@ -87,7 +115,7 @@ angular.module 'jkbs'
 
       # 代理商
       .state 'base.agent',
-        url: '/agent'
+        url: '/agent/index'
         templateUrl: 'app/agent/index.html'
         controller: 'AgentController'
         controllerAs: 'agent'
