@@ -1,9 +1,8 @@
 angular.module 'jkbs'
   .directive 'grid', ->
-    GridController = (Util, $state, $sce, toastr) ->
+    GridController = (Util, $scope, $state, $sce, toastr) ->
       'ngInject'
       vm = this
-
       # 数据和分页
       vm.list = []
       vm.currentPage = 1
@@ -18,15 +17,15 @@ angular.module 'jkbs'
       vm.ids = [] # 被选中的条目的 id
       vm.bindGetList = null # 根据参数生成的获取数据列表方法
 
-      # 根据提供的 表格maps 处理数据
-      handleList = (items, maps) ->
+      # 根据提供的 表格table 处理数据
+      handleList = (items, table) ->
         result = []
         for item in items
           # 循环 items
           tmp = []
           tmp.id = item.id
-          for map in maps
-            # 根据 maps 处理每个 item
+          for map in table
+            # 根据 table 处理每个 item
             key = map.field
             value = if key? then item[key] else ''
             # 如果有 render 方法
@@ -55,7 +54,7 @@ angular.module 'jkbs'
               return
 
             # 赋值
-            vm.list = handleList res.data.items, vm.maps
+            vm.list = handleList res.data.items, vm.table
             vm.currentPage = res.data._meta.currentPage
             vm.totalItems = res.data._meta.totalCount
             vm.noData = false
@@ -64,9 +63,9 @@ angular.module 'jkbs'
         return
 
       # 获取标头标题们
-      vm.getThs = (maps) ->
+      vm.getThs = (table) ->
         result = []
-        for map in maps
+        for map in table
           result.push map.text
         result
 
@@ -76,7 +75,7 @@ angular.module 'jkbs'
 
       # 删除某一个条目
       vm.deleteItem = (url, id) ->
-        if confirm '确定删除？'
+        if confirm '确定删除该条目？'
           Util.delete "#{url}/#{id}", {id: id}
             .then (res) ->
               toastr.info '删除成功'
@@ -84,8 +83,8 @@ angular.module 'jkbs'
 
       # 删除多个条目
       vm.deleteItems = (url, ids) ->
-        if confirm '确定删除？'
-          Util.delete url, {ids: ids}
+        if confirm(if ids.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
+          Util.delete url, {ids: ids.join(',')}
             .then (res) ->
               toastr.info '删除成功'
               vm.pageChanged()
@@ -100,18 +99,18 @@ angular.module 'jkbs'
 
       # 删除多个
       vm.delete = () ->
-        vm.deleteItems vm.deleteUrl, vm.ids.join(',')
+        vm.deleteItems vm.deleteUrl, vm.ids
 
       return
 
     linkFunc = (scope, el, attr, vm) ->
-      vm.listUrl = attr.listUrl || scope.listUrl
-      vm.addUrl = attr.addUrl || scope.addUrl
-      vm.deleteUrl = attr.deleteUrl || scope.deleteUrl
-      vm.maps = scope.maps
+      vm.listUrl =  scope.grid.listUrl || attr.listUrl
+      vm.addUrl =  scope.grid.addUrl || attr.addUrl
+      vm.deleteUrl = scope.grid.deleteUrl || attr.deleteUrl
+      vm.table = scope.grid.table || attr.table
 
       # init
-      vm.ths = vm.getThs(vm.maps)
+      vm.ths = vm.getThs(vm.table)
       vm.bindGetList = vm.getList.bind(vm, vm.listUrl)
       vm.bindGetList()
 
@@ -121,19 +120,26 @@ angular.module 'jkbs'
         if checked
           $cboxs
             .prop 'checked', true
+            .parents('tr').addClass('active')
+            .end()
             .each (item) ->
               vm.ids.push $(item).val()
         else
           $cboxs
             .prop 'checked', false
+            .parents('tr').removeClass('active')
+            .end()
             .each (item) ->
               vm.ids = []
 
       el.on 'click', 'tbody input', (e) ->
-        checked = $(this).prop 'checked'
+        $this = $(this)
+        checked = $this.prop 'checked'
         if checked
+          $this.parents('tr').addClass('active')
           vm.ids.push $(this).val()
         else
+          $this.parents('tr').removeClass('active')
           for id, i in vm.ids
             if $(this).val() is id
               vm.ids.splice i, 1
@@ -149,9 +155,10 @@ angular.module 'jkbs'
 
     directive =
       restrict: 'E'
-      scope: true
+      scope:
+        grid: '='
       templateUrl: 'app/components/grid/grid.html'
       link: linkFunc
       controller: GridController
       controllerAs: 'vm'
-      # bindToController: true
+      #bindToController: true
