@@ -3,37 +3,44 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.grid =
-      listUrl: '/doctor/recommend-list'
+      listUrl: '/news'
       addUrl: ''
-      deleteUrl: '/doctor'
+      deleteUrl: '/news'
       table: [
         { text:"ID", field: "id"},
-        { text:"姓名", field: "user_name"},
+        { text:"标题", field: "title"},
         {
-          text:"头像",
-          field: "user_pic",
+          text:"封面",
+          field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<img width=30 src=#{imgUrl} alt=#{full.user_name}>"
+            "<a href=#{imgUrl}><img width=120 src=#{imgUrl}></a>"
         },
-        { text:"类型", field: "type"},
-        { text:"职称", field: "title"},
         {
-          text:"医院/科室",
-          field: null,
+          text:"创建时间",
+          field: "created_at",
           render: (field, full) ->
-            return "#{full.hospital}/#{full.department}"
+            Util.timeFormat field
         },
-        { text:"咨询费用", field: "consultation_fee"},
-        { text:"评价", field: "star"},
+        {
+          text:"最后修改",
+          field: "updated_at",
+          render: (field, full) ->
+            Util.timeFormat field
+        },
+        {
+          text:"推送时间",
+          field: "send_at",
+          render: (field, full) ->
+            Util.timeFormat field
+        },
         {
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group'>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/order/#{full.id}'>订单</a>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/#{full.id}'>编辑</a>"+
-            "<a class='btn btn-sm btn-danger' alt='#{full.id}'>删除</a>"+
+            "<div class='btn-group table-btns'>"+
+            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/news/#{full.id}'><i class='fa fa-edit'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]
@@ -43,37 +50,19 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.grid =
-      listUrl: '/doctor/recommend-list'
+      listUrl: '/news/news_category/index'
       addUrl: ''
-      deleteUrl: '/doctor'
+      deleteUrl: '/news/news_category'
       table: [
         { text:"ID", field: "id"},
-        { text:"姓名", field: "user_name"},
-        {
-          text:"头像",
-          field: "user_pic",
-          render: (field, full) ->
-            imgUrl = Util.img field
-            "<img width=30 src=#{imgUrl} alt=#{full.user_name}>"
-        },
-        { text:"类型", field: "type"},
-        { text:"职称", field: "title"},
-        {
-          text:"医院/科室",
-          field: null,
-          render: (field, full) ->
-            return "#{full.hospital}/#{full.department}"
-        },
-        { text:"咨询费用", field: "consultation_fee"},
-        { text:"评价", field: "star"},
+        { text:"名称", field: "title"},
         {
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group'>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/order/#{full.id}'>订单</a>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/#{full.id}'>编辑</a>"+
-            "<a class='btn btn-sm btn-danger' alt='#{full.id}'>删除</a>"+
+            "<div class='btn-group table-btns'>"+
+            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/news/news_category/#{full.id}'><i class='fa fa-edit'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]

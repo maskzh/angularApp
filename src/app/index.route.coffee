@@ -21,15 +21,10 @@ angular.module 'jkbs'
         controllerAs: 'home'
 
       # 微店
-      .state 'base.shop_10',
-        url: '/shop/10'
+      .state 'base.shop',
+        url: '/shop/:type'
         templateUrl: 'app/shop/index.html'
         controller: 'ShopController'
-        controllerAs: 'shop'
-      .state 'base.shop_20',
-        url: '/shop/20'
-        templateUrl: 'app/shop/institution.html'
-        controller: 'InstitutionController'
         controllerAs: 'shop'
 
       # 订单
@@ -45,8 +40,13 @@ angular.module 'jkbs'
         templateUrl: 'app/doctor/index.html'
         controller: 'DoctorController'
         controllerAs: 'vm'
-      .state 'base.doctor_order',
+      .state 'base.doctors_order',
         url: '/doctor/order'
+        templateUrl: 'app/doctor/order.html'
+        controller: 'DoctorOrderController'
+        controllerAs: 'vm'
+      .state 'base.doctor_order',
+        url: '/doctor/order/:id'
         templateUrl: 'app/doctor/order.html'
         controller: 'DoctorOrderController'
         controllerAs: 'vm'

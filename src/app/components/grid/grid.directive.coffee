@@ -11,6 +11,7 @@ angular.module 'jkbs'
       # 状态字段
       vm.isNoData = false
       vm.isLoading = true
+      vm.isError = false
 
       # 其它字段
       vm.ths = [] # 表头的标题们
@@ -51,6 +52,7 @@ angular.module 'jkbs'
             if res.data.items.length is 0
               vm.noData = true
               vm.isLoading = false
+              vm.isError = false
               return
 
             # 赋值
@@ -59,7 +61,13 @@ angular.module 'jkbs'
             vm.totalItems = res.data._meta.totalCount
             vm.noData = false
             vm.isLoading = false
+            vm.isError = false
             return
+          , (res) ->
+            vm.noData = false
+            vm.isLoading = false
+            vm.isError = true
+            toastr.error '请求失败'
         return
 
       # 获取标头标题们
@@ -80,6 +88,8 @@ angular.module 'jkbs'
             .then (res) ->
               toastr.info '删除成功'
               vm.pageChanged()
+            , (res) ->
+              toastr.error '删除失败'
 
       # 删除多个条目
       vm.deleteItems = (url, ids) ->
@@ -88,6 +98,8 @@ angular.module 'jkbs'
             .then (res) ->
               toastr.info '删除成功'
               vm.pageChanged()
+            , (res) ->
+              toastr.error '删除失败'
 
       # 根据字段搜索并加载数据
       vm.search = (query) ->
@@ -100,6 +112,9 @@ angular.module 'jkbs'
       # 删除多个
       vm.delete = () ->
         vm.deleteItems vm.deleteUrl, vm.ids
+
+      vm.reload = () ->
+        vm.bindGetList()
 
       return
 

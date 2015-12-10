@@ -1,4 +1,6 @@
 angular.module 'jkbs'
-  .controller 'BaseController', ($scope) ->
+  .controller 'BaseController', (toastr) ->
     'ngInject'
+
+    toastr.info '欢迎登录健康帮手！'
     return

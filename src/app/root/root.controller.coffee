@@ -1,5 +1,5 @@
 angular.module 'jkbs'
-  .controller 'commonController', ($scope, Auth, EVENTS, User, $state, toastr) ->
+  .controller 'rootController', ($scope, Auth, EVENTS, User, $state) ->
     'ngInject'
 
     $scope.currentUser = null
@@ -21,7 +21,6 @@ angular.module 'jkbs'
     $scope.$on EVENTS.notAuthenticated, (event) ->
       $state.go 'login'
 
-    toastr.info '欢迎登录健康帮手！'
 
     return
 

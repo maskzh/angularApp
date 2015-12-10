@@ -2,38 +2,43 @@ angular.module 'jkbs'
   .controller 'MedicineController', (Util, $scope) ->
     'ngInject'
     # 表格
+    $scope.title = '药品管理'
     $scope.grid =
-      listUrl: '/doctor/recommend-list'
+      listUrl: '/medicine'
       addUrl: ''
-      deleteUrl: '/doctor'
+      deleteUrl: '/medicine'
       table: [
         { text:"ID", field: "id"},
-        { text:"姓名", field: "user_name"},
         {
-          text:"头像",
-          field: "user_pic",
+          text:"图片",
+          field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<img width=30 src=#{imgUrl} alt=#{full.user_name}>"
+            "<a href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
         },
-        { text:"类型", field: "type"},
-        { text:"职称", field: "title"},
         {
-          text:"医院/科室",
-          field: null,
+          text:"规格",
+          field: "spec",
           render: (field, full) ->
-            return "#{full.hospital}/#{full.department}"
+            field + " #{full.unit}"
         },
-        { text:"咨询费用", field: "consultation_fee"},
-        { text:"评价", field: "star"},
+        { text:"生产厂商", field: "company"},
+        { text:"注册号", field: "register_number"},
+        { text:"类型", field: "type"},
+        {
+          text:"二维码",
+          field: 'barcode',
+          render: (field, full) ->
+            imgUrl = Util.img field
+            "<a href='#{imgUrl}'><img width=30 src='#{imgUrl}'></a>"
+        },
         {
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group'>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/order/#{full.id}'>订单</a>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/#{full.id}'>编辑</a>"+
-            "<a class='btn btn-sm btn-danger' alt='#{full.id}'>删除</a>"+
+            "<div class='btn-group table-btns'>"+
+            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/medicine/#{full.id}'><i class='fa fa-edit'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]
@@ -42,38 +47,29 @@ angular.module 'jkbs'
   .controller 'MedicineCatController', (Util, $scope) ->
     'ngInject'
     # 表格
+    $scope.title = '药品分类'
     $scope.grid =
-      listUrl: '/doctor/recommend-list'
+      listUrl: '/medicine-category/get-category'
       addUrl: ''
-      deleteUrl: '/doctor'
+      deleteUrl: '/medicine-category'
       table: [
         { text:"ID", field: "id"},
-        { text:"姓名", field: "user_name"},
         {
-          text:"头像",
-          field: "user_pic",
+          text:"图标",
+          field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<img width=30 src=#{imgUrl} alt=#{full.user_name}>"
+            "<a href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
         },
-        { text:"类型", field: "type"},
-        { text:"职称", field: "title"},
-        {
-          text:"医院/科室",
-          field: null,
-          render: (field, full) ->
-            return "#{full.hospital}/#{full.department}"
-        },
-        { text:"咨询费用", field: "consultation_fee"},
-        { text:"评价", field: "star"},
+        { text:"名称", field: "title"},
+        { text:"描述", field: "description"},
         {
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group'>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/order/#{full.id}'>订单</a>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/#{full.id}'>编辑</a>"+
-            "<a class='btn btn-sm btn-danger' alt='#{full.id}'>删除</a>"+
+            "<div class='btn-group table-btns'>"+
+            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/medicine-category//#{full.id}'><i class='fa fa-edit'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]

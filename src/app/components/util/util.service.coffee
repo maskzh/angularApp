@@ -38,4 +38,49 @@ angular.module 'jkbs'
     @img = (url) ->
       IMG_PREFIX + url
 
+    @timeFormat = (timestamp, fmt) ->
+      date = new Date parseInt(timestamp)*1000
+      fmt = fmt || 'yyyy-MM-dd hh:mm'
+
+      o =
+        "M+": date.getMonth() + 1 #月份
+        "d+": date.getDate() #日
+        "h+": if date.getHours() % 12 is 0 then 12 else date.getHours() % 12 #小时
+        "H+": date.getHours() #小时
+        "m+": date.getMinutes() #分
+        "s+": date.getSeconds() #秒
+        "q+": Math.floor((date.getMonth() + 3) / 3) #季度
+        "S": date.getMilliseconds() #毫秒
+
+      week =
+          cn:
+            "0": "/u65e5"
+            "1": "/u4e00"
+            "2": "/u4e8c"
+            "3": "/u4e09"
+            "4": "/u56db"
+            "5": "/u4e94"
+            "6": "/u516d"
+
+      if /(y+)/.test(fmt)
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length))
+
+      if /(E+)/.test(fmt)
+        if RegExp.$1.length > 1
+          if RegExp.$1.length > 2
+            r = "/u661f/u671f"
+          else
+            r = "/u5468"
+        else
+          r = ""
+        fmt = fmt.replace RegExp.$1, r + week[date.getDay() + ""]
+
+      for k of o
+        if new RegExp("(" + k + ")").test(fmt)
+          x = if RegExp.$1.length is 1 then o[k] else ("00" + o[k]).substr(("" + o[k]).length)
+          fmt = fmt.replace(RegExp.$1, x)
+
+      fmt
+
+
     return

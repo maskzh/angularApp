@@ -31,7 +31,7 @@ module.exports = [
         'app/components/grid/grid.directive.js',
 
         // controller
-        'app/common/common.controller.js',
+        'app/root/root.controller.js',
         'app/base/base.controller.js',
         'app/home/home.controller.js',
         'app/login/login.controller.js',
