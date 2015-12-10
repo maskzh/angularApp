@@ -8,35 +8,35 @@ angular.module 'jkbs'
       },
       {
         title: '订单|demo',
-        menus: ['#/order/index|订单管理', '#/order/report|报表']
+        menus: ['#/order|订单管理', '#/|报表']
       },
       {
         title: '医生|demo',
-        menus: ['#/doctor/index|医生管理', '#/doctor/order|咨询订单']
+        menus: ['#/doctor|医生管理', '#/doctor/order|咨询订单']
       },
       {
         title: '疾病|demo',
-        menus: ['#/disease/index|疾病管理', '#/disease/cat|疾病分类']
+        menus: ['#/disease|疾病管理', '#/disease/cat|疾病分类']
       },
       {
         title: '药品|demo',
-        menus: ['#/medicine/index|药品管理', '#/medicine/cat|药品分类']
+        menus: ['#/medicine|药品管理', '#/medicine/cat|药品分类']
       },
       {
         title: '圈子|demo',
-        menus: ['#/circle/index|圈子管理', '#/circle/post|帖子管理']
+        menus: ['#/circle|圈子管理', '#/circle/post|帖子管理']
       },
       {
         title: '资讯|demo',
-        menus: ['#/news/index|资讯管理', '#/news/cat|资讯分类']
+        menus: ['#/news|资讯管理', '#/news/cat|资讯分类']
       },
       {
         title: '用户|demo',
-        menus: ['#/user/index|用户管理']
+        menus: ['#/user|用户管理']
       },
       {
         title: '代理商|demo',
-        menus: ['#/agent/index|代理商管理']
+        menus: ['#/agent|代理商管理']
       },
     ]
 

@@ -24,6 +24,7 @@ module.exports = [
         'app/components/sha1/sha1.service.js',
         'app/components/menu/menu.service.js',
         'app/components/auth/auth.service.js',
+        'app/components/filter/filter.filter.js',
 
         // directive
         'app/components/sidebar/sidebar.directive.js',
@@ -43,6 +44,7 @@ module.exports = [
         'app/doctor/doctor.controller.js',
         'app/medicine/medicine.controller.js',
         'app/news/news.controller.js',
+        'app/order/order.service.js',
         'app/order/order.controller.js',
         'app/shop/shop.controller.js',
         'app/user/user.controller.js',

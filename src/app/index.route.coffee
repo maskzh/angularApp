@@ -29,14 +29,19 @@ angular.module 'jkbs'
 
       # 订单
       .state 'base.order',
-        url: '/order/index'
+        url: '/order'
         templateUrl: 'app/order/index.html'
         controller: 'OrderController'
-        controllerAs: 'order'
+        controllerAs: 'vm'
+      .state 'base.order_show',
+        url: '/order/:id'
+        templateUrl: 'app/order/show.html'
+        controller: 'OrderShowController'
+        controllerAs: 'vm'
 
       # 医生
       .state 'base.doctor',
-        url: '/doctor/index'
+        url: '/doctor'
         templateUrl: 'app/doctor/index.html'
         controller: 'DoctorController'
         controllerAs: 'vm'
@@ -53,7 +58,7 @@ angular.module 'jkbs'
 
       # 疾病
       .state 'base.disease',
-        url: '/disease/index'
+        url: '/disease'
         templateUrl: 'app/disease/index.html'
         controller: 'DiseaseController'
         controllerAs: 'disease'
@@ -65,7 +70,7 @@ angular.module 'jkbs'
 
       # 药品
       .state 'base.medicine',
-        url: '/medicine/index'
+        url: '/medicine'
         templateUrl: 'app/medicine/index.html'
         controller: 'MedicineController'
         controllerAs: 'medicine'
@@ -77,7 +82,7 @@ angular.module 'jkbs'
 
       # 圈子
       .state 'base.circle',
-        url: '/circle/index'
+        url: '/circle'
         templateUrl: 'app/circle/index.html'
         controller: 'CircleController'
         controllerAs: 'circle'
@@ -89,7 +94,7 @@ angular.module 'jkbs'
 
       # 资讯
       .state 'base.news',
-        url: '/news/index'
+        url: '/news'
         templateUrl: 'app/news/index.html'
         controller: 'NewsController'
         controllerAs: 'news'
@@ -101,7 +106,7 @@ angular.module 'jkbs'
 
       # 用户
       .state 'base.user',
-        url: '/user/index'
+        url: '/user'
         templateUrl: 'app/user/index.html'
         controller: 'UserController'
         controllerAs: 'user'
@@ -115,7 +120,7 @@ angular.module 'jkbs'
 
       # 代理商
       .state 'base.agent',
-        url: '/agent/index'
+        url: '/agent'
         templateUrl: 'app/agent/index.html'
         controller: 'AgentController'
         controllerAs: 'agent'

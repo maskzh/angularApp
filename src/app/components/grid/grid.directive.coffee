@@ -8,6 +8,13 @@ angular.module 'jkbs'
       vm.currentPage = 1
       vm.totalItems = 0
 
+      # 请求发送的数据
+      vm.data = {page: 1, 'per-page': 10}
+      vm.resetData = ->
+        vm.tabs && vm.tabs[0].active = true
+        vm.tabs2 && vm.tabs2[0].active = true
+        vm.data = {page: 1, 'per-page': 10}
+
       # 状态字段
       vm.isNoData = false
       vm.isLoading = true
@@ -58,12 +65,17 @@ angular.module 'jkbs'
         result
 
       # 发起请求获取数据，并处理生成传递到模板中的字段
-      vm.getList = (url, data) ->
+      vm.getList = (url, data, isSearch) ->
         # reset
         vm.ids = []
         status.loading()
 
-        data = angular.extend {page: 1, 'per-page': 10}, data
+        if !isSearch?
+          data = angular.extend {}, vm.data, data
+        else
+          vm.resetData()
+
+
         Util.get url, data
           .then (res)->
             if !res.data.items or res.data.items.length is 0
@@ -88,10 +100,6 @@ angular.module 'jkbs'
           result.push map.text
         result
 
-      # 页码修改，重新请求
-      vm.pageChanged = ()->
-        vm.bindGetList {page: vm.currentPage}
-
       # 删除某一个条目
       vm.deleteItem = (url, id) ->
         if confirm '确定删除该条目？'
@@ -113,9 +121,13 @@ angular.module 'jkbs'
             , (res) ->
               toastr.error '删除失败'
 
+      # 页码修改，重新请求
+      vm.pageChanged = ()->
+        vm.bindGetList {page: vm.currentPage}
+
       # 根据字段搜索并加载数据
       vm.search = (query) ->
-        vm.bindGetList {query: query}
+        vm.bindGetList {query: query}, true
 
       # 增加条目
       vm.add = () ->
@@ -131,10 +143,12 @@ angular.module 'jkbs'
       return
 
     linkFunc = (scope, el, attr, vm) ->
-      vm.listUrl =  scope.grid.listUrl || attr.listUrl
-      vm.addUrl =  scope.grid.addUrl || attr.addUrl
-      vm.deleteUrl = scope.grid.deleteUrl || attr.deleteUrl
-      vm.table = scope.grid.table || attr.table
+      vm.listUrl =  scope.grid.listUrl || attr.listUrl || false
+      vm.addUrl =  scope.grid.addUrl || attr.addUrl || false
+      vm.deleteUrl = scope.grid.deleteUrl || attr.deleteUrl || false
+      vm.tabs = scope.grid.tabs || attr.tabs || false
+      vm.tabs2 = scope.grid.tabs2 || attr.tabs2 || false
+      vm.table = scope.grid.table || attr.table || false
 
       # init
       vm.ths = vm.getThs(vm.table)

@@ -1,7 +1,9 @@
 angular.module 'jkbs'
   # .constant 'malarkey', malarkey
   .constant 'moment', moment    # moment 库
-
+  .constant 'URL',
+    img: 'http://img.jkbsimg.com/'
+    root: 'https://api.jkbsapp.com'
   .constant 'EVENTS',
     loginSuccess: 'auth-login-success'
     loginFailed: 'auth-login-failed'
@@ -10,6 +12,7 @@ angular.module 'jkbs'
     notAuthorized: 'auth-not-authorized'
     sessionTimeout: 'auth-session-timeout'
     jumpSuccess: 'jump-success'
+
   .constant 'USER_ROLES',
     all: '*'
     public: 'public'

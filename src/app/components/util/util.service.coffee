@@ -1,11 +1,7 @@
 angular.module 'jkbs'
-  .service 'Util', (User, $http, $q) ->
+  .service 'Util', (User, $http, $q, URL) ->
     'ngInject'
-
     token = User.token
-
-    URL_PREFIX = 'https://api.jkbsapp.com'
-    IMG_PREFIX = 'http://img.jkbsimg.com/'
 
     @ajax = (type, url, data, config) ->
       delay = $q.defer()
@@ -36,7 +32,19 @@ angular.module 'jkbs'
       @ajax 'delete', url, config
 
     @img = (url) ->
-      IMG_PREFIX + url
+      URL.img + url
+
+    @genBtns = (btns, id) ->
+      html = '<div class="btn-group table-btns">'
+      for btn in btns
+        html += "<a class='btn btn-sm hint hint--top btn-#{btn.type}'" +
+                " title='#{btn.title}'" +
+                " href='#/#{btn.href}'>" +
+                "<i class='fa fa-#{btn.icon}'></i>" +
+                "</a>"
+      if id?
+        html += "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{id}'><i class='fa fa-close'></i></a>"
+      html += '</div>'
 
     @timeFormat = (timestamp, fmt) ->
       date = new Date parseInt(timestamp)*1000

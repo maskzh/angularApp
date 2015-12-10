@@ -1,5 +1,5 @@
 angular.module 'jkbs'
-  .controller 'OrderController', (Util, $scope, User) ->
+  .controller 'OrderController', (Util, $scope, orderService, User) ->
     'ngInject'
     # 表格
     $scope.title = '订单管理'
@@ -7,6 +7,19 @@ angular.module 'jkbs'
       listUrl: '/order/order-list/?user_id=' + User.user.id
       addUrl: ''
       deleteUrl: '/order'
+      tabs: [
+        {title:'全部', query: {whether_done:0}},
+        {title:'未完成', query:{whether_done:2}},
+        {title:'已完成', query:{whether_done:1}}
+      ]
+      tabs2: [
+        {title: '全部', query: {type: 10}},
+        {title: '药店', query: {type: 10}},
+        {title: '机构', query: {type: 20}}
+      ]
+      btns: [
+        {type: 'default', title: '查看', url: 'order/', icon: ''}
+      ]
       table: [
         { text:"ID", field: "id"},
         { text:"姓名", field: "name"},
@@ -16,16 +29,13 @@ angular.module 'jkbs'
           text:"支付方式",
           field: 'pay',
           render: (field, full) ->
-            return '在线支付' if field is '10'
-            return '当面支付' if field is '20'
+            orderService.pay field
         },
         {
           text:"发货方式",
           field: 'delivery',
           render: (field, full) ->
-            return '普通快递' if field is '10'
-            return '上门自取' if field is '20'
-            return '送货上门' if field is '30'
+            orderService.delivery field
         },
         {
           text:"下单时间",
@@ -33,22 +43,38 @@ angular.module 'jkbs'
           render: (field, full) ->
             return Util.timeFormat field
         },
-        {
-          text:"发货时间",
-          field: "ship_dateline",
-          render: (field, full) ->
-            return Util.timeFormat field
-        },
         { text:"订单价格", field: "price"},
-        { text:"状态", field: "status"},
+        {
+          text:"状态",
+          field: "status",
+          render: (field, full) ->
+            orderService.status field
+        },
         {
           text:"操作",
-          field: "",
+          field:"",
           render: (field, full) ->
-            "<div class='btn-group table-btns'>"+
-            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/order/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
-            "</div>"
+            Util.genBtns([
+              {type: 'default', title: '查看', href: "order/#{full.id}", icon: 'eye'}
+            ], full.id)
+
         }
       ]
+    return
+
+  .controller 'OrderShowController', (Util, $scope, $stateParams, orderService, toastr) ->
+    'ngInject'
+    # 表格
+    vm = this
+    $scope.title = '订单详情'
+    id = $stateParams.id
+    handleData = (data) ->
+      data.delivery = orderService.delivery data.delivery
+      data.pay = orderService.pay data.pay
+      data
+    Util.get "/order/order-info?order_id=#{id}"
+      .then (res) ->
+        $scope.data = handleData res.data
+      ,(res) ->
+        toastr.error '请求发生错误，请刷新重试'
     return

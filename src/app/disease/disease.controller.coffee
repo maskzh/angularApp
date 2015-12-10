@@ -20,10 +20,9 @@ angular.module 'jkbs'
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group table-btns'>"+
-            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/disease/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
-            "</div>"
+            Util.genBtns([
+              {type: 'default', title: '编辑', href: "disease/#{full.id}", icon: 'edit'}
+            ], full.id)
         }
       ]
     return
