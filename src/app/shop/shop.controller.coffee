@@ -17,7 +17,7 @@ angular.module 'jkbs'
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.title}></a>"
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.title}></a>"
         },
         { text:"公司名", field: "company"},
         {
@@ -43,7 +43,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             "<div class='btn-group table-btns'>"+
             "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/shop/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]

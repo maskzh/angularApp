@@ -15,7 +15,7 @@ angular.module 'jkbs'
           field: "user_pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
         },
         { text:"类型", field: "type"},
         { text:"职称", field: "title"},
@@ -32,9 +32,10 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             "<div class='btn-group table-btns'>"+
-            "<a class='btn btn-sm btn-default' href='#/doctor/order/#{full.id}?name=#{full.user_name}'>订单</a>"+
+            "<a class='btn btn-sm btn-default hint hint--top' title='订单' href='#/doctor/order/#{full.id}?name=#{full.user_name}'>"+
+            "<i class='fa fa-navicon'></i></a>"+
             "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/doctor/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]
@@ -43,7 +44,7 @@ angular.module 'jkbs'
   .controller 'DoctorOrderController', (Util, $scope, $stateParams, $location) ->
     'ngInject'
     # 表格
-    $scope.title = $location.search().name + '医生咨询订单'
+    $scope.title = ($location.search().name or '') + '医生咨询订单'
     listUrl = '/order-doctor/get-list'
     listUrl = listUrl + "?doctor_id=#{$stateParams.id}" if $stateParams.id?
     $scope.grid =
@@ -57,7 +58,7 @@ angular.module 'jkbs'
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
+            "<a class='J_image' href=#{imgUrl} alt='img'><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
         },
         {
           text:"用户信息",
@@ -86,8 +87,10 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             "<div class='btn-group table-btns'>"+
-            "<a class='btn btn-sm btn-default' href='#/order-doctor/#{full.id}'>编辑</a>"+
-            "<a class='btn btn-sm btn-danger' alt='#{full.id}'>删除</a>"+
+            "<a class='btn btn-sm btn-default hint hint--top' title='订单' href='#/doctor/order/#{full.id}?name=#{full.user_name}'>"+
+            "<i class='fa fa-navicon'></i></a>"+
+            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/doctor/#{full.id}'><i class='fa fa-edit'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]

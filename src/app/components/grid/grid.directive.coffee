@@ -12,6 +12,23 @@ angular.module 'jkbs'
       vm.isNoData = false
       vm.isLoading = true
       vm.isError = false
+      status =
+        error: () ->
+          vm.noData = false
+          vm.isLoading = false
+          vm.isError = true
+        loading: () ->
+          vm.isLoading = true
+          vm.noData = false
+          vm.isError = false
+        noData: () ->
+          vm.noData = true
+          vm.isLoading = false
+          vm.isError = false
+        hide: () ->
+          vm.noData = false
+          vm.isLoading = false
+          vm.isError = false
 
       # 其它字段
       vm.ths = [] # 表头的标题们
@@ -44,29 +61,23 @@ angular.module 'jkbs'
       vm.getList = (url, data) ->
         # reset
         vm.ids = []
-        vm.isLoading = true
+        status.loading()
 
         data = angular.extend {page: 1, 'per-page': 10}, data
         Util.get url, data
           .then (res)->
-            if res.data.items.length is 0
-              vm.noData = true
-              vm.isLoading = false
-              vm.isError = false
+            if !res.data.items or res.data.items.length is 0
+              status.noData()
               return
 
             # 赋值
             vm.list = handleList res.data.items, vm.table
-            vm.currentPage = res.data._meta.currentPage
-            vm.totalItems = res.data._meta.totalCount
-            vm.noData = false
-            vm.isLoading = false
-            vm.isError = false
+            vm.currentPage = (res.data._meta and res.data._meta.currentPage) || 1
+            vm.totalItems = (res.data._meta and res.data._meta.totalCount) || 0
+            status.hide()
             return
           , (res) ->
-            vm.noData = false
-            vm.isLoading = false
-            vm.isError = true
+            status.error()
             toastr.error '请求失败'
         return
 
@@ -93,6 +104,7 @@ angular.module 'jkbs'
 
       # 删除多个条目
       vm.deleteItems = (url, ids) ->
+        return false if ids.length is 0
         if confirm(if ids.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
           Util.delete url, {ids: ids.join(',')}
             .then (res) ->
@@ -159,8 +171,11 @@ angular.module 'jkbs'
             if $(this).val() is id
               vm.ids.splice i, 1
 
-      el.on 'click', 'a[alt]', (e) ->
+      el.on 'click', '.J_delete', (e) ->
         vm.deleteItem vm.deleteUrl, $(this).attr 'alt'
+
+      el.on 'hover', '.J_image', (e) ->
+        toastr.info '展示图片TODO'
 
       scope.$on '$destroy', ->
         el.off()

@@ -14,7 +14,7 @@ angular.module 'jkbs'
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
         },
         {
           text:"规格",
@@ -30,7 +30,7 @@ angular.module 'jkbs'
           field: 'barcode',
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a href='#{imgUrl}'><img width=30 src='#{imgUrl}'></a>"
+            "<a class='J_image' href='#{imgUrl}'><img width=30 src='#{imgUrl}'></a>"
         },
         {
           text:"操作",
@@ -38,7 +38,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             "<div class='btn-group table-btns'>"+
             "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/medicine/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]
@@ -59,7 +59,7 @@ angular.module 'jkbs'
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
         },
         { text:"名称", field: "title"},
         { text:"描述", field: "description"},
@@ -69,7 +69,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             "<div class='btn-group table-btns'>"+
             "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/medicine-category//#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]

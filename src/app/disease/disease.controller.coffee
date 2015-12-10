@@ -22,7 +22,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             "<div class='btn-group table-btns'>"+
             "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/disease/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]
@@ -42,7 +42,7 @@ angular.module 'jkbs'
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<img width=30 src=#{imgUrl} alt=#{full.title}>"
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.title}></a>"
         },
         { text:"类别", field: "type" },
         { text:"标题", field: "title" },
@@ -52,7 +52,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             "<div class='btn-group'>"+
             "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/disease-title/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
+            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
             "</div>"
         }
       ]
