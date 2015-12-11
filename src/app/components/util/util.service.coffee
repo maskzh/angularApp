@@ -12,10 +12,10 @@ angular.module 'jkbs'
           if res.result
             delay.resolve res
           else
-            toastr.warn res.message
+            toastr.warn (res and res.message) or '请求发生错误'
             delay.reject res
         .error (res, status, headers, config) ->
-          toastr.error res.message
+          toastr.error (res and res.message) or '请求发生错误'
           delay.reject res, status, headers, config
       delay.promise
 

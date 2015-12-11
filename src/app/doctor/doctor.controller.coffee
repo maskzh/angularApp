@@ -6,9 +6,9 @@ angular.module 'jkbs'
     $scope.title = '医生管理'
     $scope.grid =
       api:
-        list: '/doctor/recommend-list'
-        delete: '/doctor'
-        search: '/doctor/search-list'
+        base: '/doctor'
+        list: 'recommend-list'
+        search: 'search-list'
       addHref: 'base.doctor_new'
       table: [
         { text:"ID", field: "id"},
@@ -47,12 +47,11 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.title = ($location.search().name or '') + '医生咨询订单'
-    listUrl = '/order-doctor/get-list'
-    listUrl = listUrl + "?doctor_id=#{$stateParams.id}" if $stateParams.id?
+    listUrl = "get-list?doctor_id=#{$stateParams.id}" if $stateParams.id?
     $scope.grid =
       api:
+        base: '/order-doctor'
         list: listUrl
-        delete: '/order-doctor'
       table: [
         { text:"订单ID", field: "id"},
         {

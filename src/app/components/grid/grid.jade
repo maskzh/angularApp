@@ -1,9 +1,9 @@
- //- operation
+//- operation
 .grid-operation
   .btn-group.grid-buttons
-    button.btn.btn-default(ng-if="vm.addHref" data-role="add" type="button" ng-click="vm.add()") 添加
-    button.btn.btn-danger(ng-if="vm.api.delete" data-role="delete" type="button" ng-click="vm.delete()") 删除
-  .form-inline.grid-search(ng-if="vm.api.search")
+    button.btn.btn-default(ng-if="vm.operation.add" type="button" href="{{vm.api.addHref}}") 添加
+    button.btn.btn-danger(ng-if="vm.operation.delete" type="button" ng-click="vm.delete()") 删除
+  .form-inline.grid-search(ng-if="vm.operation.search")
     .form-group
       label.sr-only(for="search") 搜索
       input#search.form-control(ng-model="vm.query" type="text" placeholder="输入您要搜索的关键字" ng-keyup="vm.search(vm.query)")
@@ -13,9 +13,10 @@
   tabset(type="tags")
     tab(heading="{{tab.title}}" active="tab.active" disable="tab.disabled" ng-click="vm.switchTab(tab.query)" ng-repeat="tab in vm.tabs")
 
-    .grid-tabs(ng-if="vm.tabs2")
-      tabset(type="tags")
-        tab(heading="{{tab.title}}" active="tab.active" disable="tab.disabled" ng-click="vm.switchTab(tab.query)" ng-repeat="tab in vm.tabs2")
+.grid-tabs(ng-if="vm.tabs2")
+  tabset(type="pills")
+    tab(heading="{{tab.title}}" active="tab.active" disable="tab.disabled" ng-click="vm.switchTab(tab.query)" ng-repeat="tab in vm.tabs2")
+
 //- table
 .grid-list
   table.table.table-hover
@@ -29,7 +30,8 @@
         th
           input(type="checkbox" value="{{item.id}}")
         td(ng-repeat="value in item track by $index" ng-bind-html="value")
-  .grid-loading(ng-if="vm.isLoading"): i.fa fa-circle-o-notch fa-spin
+  .grid-loading(ng-if="vm.isLoading")
+    i.fa.fa-circle-o-notch.fa-spin
   .grid-nodata(ng-if="vm.isNoData") 暂无数据
   .grid-error(ng-if="vm.isError") 请求出现错误，
     a(href="javascript:;" ng-click="vm.reload()") 重试

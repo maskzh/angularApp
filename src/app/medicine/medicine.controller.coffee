@@ -4,9 +4,10 @@ angular.module 'jkbs'
     # 表格
     $scope.title = '药品管理'
     $scope.grid =
-      listUrl: '/medicine'
-      addUrl: ''
-      deleteUrl: '/medicine'
+      api:
+        base: '/medicine'
+        list: ''
+      addHref: ''
       table: [
         { text:"ID", field: "id"},
         {
@@ -48,9 +49,9 @@ angular.module 'jkbs'
     # 表格
     $scope.title = '药品分类'
     $scope.grid =
-      listUrl: '/medicine-category/get-category'
-      addUrl: ''
-      deleteUrl: '/medicine-category'
+      api:
+        base: '/medicine-category'
+        list: 'get-category'
       table: [
         { text:"ID", field: "id"},
         {

@@ -17,7 +17,7 @@ angular.module 'jkbs'
     toastrConfig.tapToDismiss = true
     toastrConfig.timeOut = 1000
     toastrConfig.positionClass = 'toast-top-right'
-    toastrConfig.preventDuplicates = true
+    toastrConfig.preventDuplicates = false
     # toastrConfig.progressBar = true
 
     return

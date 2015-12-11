@@ -4,9 +4,9 @@ angular.module 'jkbs'
     # 表格
     $scope.title = '用户管理'
     $scope.grid =
-      listUrl: '/user'
-      addUrl: ''
-      deleteUrl: '/user'
+      api:
+        base: '/user'
+        list: ''
       table: [
         { text:"ID", field: "id"},
         { text:"姓名", field: "name"},

@@ -3,9 +3,9 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.grid =
-      listUrl: '/news'
-      addUrl: ''
-      deleteUrl: '/news'
+      api:
+        base: '/news'
+        list: ''
       table: [
         { text:"ID", field: "id"},
         { text:"标题", field: "title"},
@@ -50,9 +50,9 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.grid =
-      listUrl: '/news/news_category/index'
-      addUrl: ''
-      deleteUrl: '/news/news_category'
+      api:
+        base: '/news/news_category'
+        list: 'index'
       table: [
         { text:"ID", field: "id"},
         { text:"名称", field: "title"},

@@ -15,6 +15,7 @@ angular.module 'jkbs'
 
       # 其它字段
       vm.currentListApi = '' # 当前请求的地址
+      vm.operation = null
       vm.ths = [] # 表头的标题们
       vm.ids = [] # 被选中的条目的 id
 
@@ -42,6 +43,7 @@ angular.module 'jkbs'
         vm.tabs && vm.tabs[0].active = true
         vm.tabs2 && vm.tabs2[0].active = true
         sendData = {page: 1, 'per-page': 10}
+      vm.toastr = toastr
 
       # 根据提供的 表格table 处理数据
       handleList = (items, table) ->
@@ -146,14 +148,40 @@ angular.module 'jkbs'
 
       return
 
-    linkFunc = (scope, el, attr, vm) ->
-      vm.api = scope.grid.api or attr.addHref or false
-      vm.addHref =  scope.grid.addHref or attr.addHref or false
-      vm.tabs = scope.grid.tabs or attr.tabs or false
-      vm.tabs2 = scope.grid.tabs2 or attr.tabs2 or false
-      vm.table = scope.grid.table or attr.table or false
+    handleApi = (api) ->
+      throw new Error "api and api.base must be set" if !api? or !api.base?
+      api.list = if api.list? then "#{api.base}/#{api.list}" else api.base
+      api.search = if api.search? then "#{api.base}/#{api.search}" else api.base
+      api.delete = if api.delete? then "#{api.base}/#{api.delete}" else api.base
+      api.addHref = if api.list? then "##{api.addHref}/new" else "##{api.base}/new"
+      api
 
-      events = scope.grid.events or false
+    handleOperation = (operation) ->
+      if !operation?
+        return {
+          add: true
+          delete: true
+          search: true
+        }
+      a = {}
+      os = operation.split(' ')
+      for o in os
+        a[o] = true
+      a
+
+    handleEvents = (events, el) ->
+      return if !events?
+      for event in events
+        el.on event.type, event.selector, event.fn
+      return
+
+    linkFunc = (scope, el, attr, vm) ->
+      throw new Error 'must set grid in controller' if !scope.grid?
+      vm.api = handleApi scope.grid.api
+      vm.operation = handleOperation scope.grid.operation
+      vm.tabs = scope.grid.tabs
+      vm.tabs2 = scope.grid.tabs2
+      vm.table = scope.grid.table
 
       # init
       vm.ths = vm.getThs(vm.table)
@@ -161,9 +189,7 @@ angular.module 'jkbs'
       vm.reload()
 
       # 绑定事件
-      if events
-        for event in events
-          el.on event.type, event.selector, event.fn
+      handleEvents scope.grid.events
 
       el.on 'click', 'thead input', (e) ->
         checked = $(this).prop 'checked'
@@ -200,9 +226,9 @@ angular.module 'jkbs'
         vm.deleteItem vm.api.delete, $(this).attr 'alt'
 
       el.on 'mouseenter', '.J_image', (e) ->
-        toastr.info '展示图片TODO'
+        vm.toastr.info '展示图片TODO'
       el.on 'mouseleave', '.J_image', (e) ->
-        toastr.clear()
+        vm.toastr.clear()
 
       scope.$on '$destroy', ->
         el.off()

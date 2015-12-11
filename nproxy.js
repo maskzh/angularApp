@@ -34,7 +34,6 @@ module.exports = [
 
         //controller business
         'app/agent/agent.controller.js',
-        'app/circle/circle.controller.js',
         'app/disease/disease.controller.js',
         'app/doctor/doctor.controller.js',
         'app/medicine/medicine.controller.js',

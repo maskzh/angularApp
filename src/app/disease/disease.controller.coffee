@@ -3,9 +3,10 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.grid =
-      listUrl: '/disease'
-      addUrl: ''
-      deleteUrl: '/disease'
+      api:
+        base: '/disease'
+        list: ''
+      addHref: ''
       table: [
         { text:"ID", field: "id"},
         { text:"名称", field: "title"},
@@ -31,9 +32,10 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.grid =
-      listUrl: '/disease-title/title-list'
-      addUrl: '/disease/add'
-      deleteUrl: '/disease-title'
+      api:
+        base: '/disease-title'
+        list: 'title-list'
+      addHref: 'base.disease_new'
       table: [
         { text:"ID", field: "id"},
         {

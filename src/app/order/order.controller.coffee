@@ -5,10 +5,8 @@ angular.module 'jkbs'
     $scope.title = '订单管理'
     $scope.grid =
       api:
-        list: '/order/order-list/?user_id=' + User.user.id
-        delete: '/order'
-        search: ''
-      addHref: ''
+        base: '/order'
+        list: 'order-list/?user_id=' + User.user.id
       tabs: [
         {title:'全部', query: {whether_done:0}},
         {title:'未完成', query:{whether_done:2}},
@@ -73,6 +71,4 @@ angular.module 'jkbs'
     Util.get "/order/order-info?order_id=#{id}"
       .then (res) ->
         $scope.data = handleData res.data
-      ,(res) ->
-        toastr.error '请求发生错误，请刷新重试'
     return

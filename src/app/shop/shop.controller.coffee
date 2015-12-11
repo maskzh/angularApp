@@ -6,9 +6,9 @@ angular.module 'jkbs'
     $scope.title = if $stateParams.type is '10' then '药店管理' else '机构管理'
 
     $scope.grid =
-      listUrl: "/shop/shop-list?type=#{type}"
-      addUrl: ''
-      deleteUrl: '/shop'
+      api:
+        base: '/shop'
+        list: "shop-list?type=#{type}"
       table: [
         { text:"ID", field: "id"},
         { text:"店名", field: "title"},
