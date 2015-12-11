@@ -1,0 +1,19 @@
+header.j-header
+  nav.navbar.j-navbar
+    .container
+      .navbar-header
+        a.navbar-brand.j-navbar-brand(href="/admin")
+          img(height=40 src="assets/common/logo-with-text.png" alt="健康帮手")
+      .navbar-right
+        ul.nav.navbar-nav
+          li(dropdown)
+            a.j-navbar-portrait(href="javascript:;" dropdown-toggle)
+              img.img-circle(width="30" height="30" ng-src="{{'http://img.jkbsimg.com/' + vm.user.pic}}" alt="头像")
+              span {{vm.user.name}}
+              span.caret
+            ul.dropdown-menu
+              li
+                a(href="/#/user/index") 用户管理
+              li.divider
+              li
+                a(href="javascript:;" ng-click="vm.logout()") 退出登录

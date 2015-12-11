@@ -1,0 +1,5 @@
+.sidebar
+  dl.menu(ng-repeat="item in vm.menu")
+    dt {{item.text}}
+    dd(ng-repeat="menu in item.menus" ng-class="{active: vm.currentUrl == menu.href}")
+      a(href="{{menu.href}}") {{menu.text}}

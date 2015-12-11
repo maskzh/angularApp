@@ -23,7 +23,7 @@
       <li class="list-group-item">积分：{{data.bonus}}</li>
     </ul>
   </div>
-  <div class="panel panel-success">
+  <div class="panel panel-success" ng-if="data.shop">
     <div class="panel-heading">店铺详情</div>
     <div class="panel-body">
       <table class="table">
@@ -46,7 +46,7 @@
       </table>
     </div>
   </div>
-  <div class="panel panel-success">
+  <div class="panel panel-success" ng-if="data.medicine">
     <div class="panel-heading">商品详情</div>
     <div class="panel-body">
       <table class="table">

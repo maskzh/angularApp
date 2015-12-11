@@ -6,11 +6,6 @@ module.exports = [
     responder:  "/Users/zyc/Salt light/jkbs2_admin/.tmp/serve/app/index.css"
   },
 
-  {
-    pattern: 'https://api.jkbsapp.com/admin/app',      // Match url you wanna replace
-    responder:  "/Users/zyc/Salt light/jkbs2_admin/src/app/"
-  },
-
   // 3. replace combo file with src with absolute file path
   {
     pattern: /https?:\/\/api\.jkbsapp\.com\/admin\/scripts\/app-(.*)\.js/,
@@ -55,5 +50,10 @@ module.exports = [
         'app/index.config.js'
       ]
     }
+  },
+
+  {
+    pattern: 'https://api.jkbsapp.com/admin/app',      // Match url you wanna replace
+    responder:  "/Users/zyc/Salt light/jkbs2_admin/.tmp/serve/app/"
   },
 ]

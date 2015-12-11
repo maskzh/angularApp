@@ -7,9 +7,9 @@
   <div class="form-inline grid-search" ng-if="vm.api.search">
     <div class="form-group">
       <label class="sr-only" for="search">搜索</label>
-      <input ng-model="vm.query" type="text" class="form-control" id="search" placeholder="输入您要搜索的关键字">
+      <input ng-model="vm.query" type="text" class="form-control" id="search" placeholder="输入您要搜索的关键字" ng-keyup="vm.search(vm.query)">
     </div>
-    <button data-role="search" class="btn btn-default" ng-click="vm.search(vm.query)">搜索</button>
+    <!-- <button data-role="search" class="btn btn-default" ng-click="vm.search(vm.query)">搜索</button> -->
   </div>
 </div>
 <div class="grid-tabs" ng-if="vm.tabs">

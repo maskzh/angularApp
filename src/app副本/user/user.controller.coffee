@@ -2,7 +2,6 @@ angular.module 'jkbs'
   .controller 'UserController', (Util, $scope) ->
     'ngInject'
     # 表格
-    $scope.title = '用户管理'
     $scope.grid =
       listUrl: '/user'
       addUrl: ''
