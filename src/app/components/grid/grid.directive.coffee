@@ -8,17 +8,16 @@ angular.module 'jkbs'
       vm.currentPage = 1
       vm.totalItems = 0
 
-      # 请求发送的数据
-      vm.data = {page: 1, 'per-page': 10}
-      vm.resetData = ->
-        vm.tabs && vm.tabs[0].active = true
-        vm.tabs2 && vm.tabs2[0].active = true
-        vm.data = {page: 1, 'per-page': 10}
-
       # 状态字段
       vm.isNoData = false
       vm.isLoading = true
       vm.isError = false
+
+      # 其它字段
+      vm.currentListApi = ''
+      vm.ths = [] # 表头的标题们
+      vm.ids = [] # 被选中的条目的 id
+
       status =
         error: () ->
           vm.noData = false
@@ -37,10 +36,12 @@ angular.module 'jkbs'
           vm.isLoading = false
           vm.isError = false
 
-      # 其它字段
-      vm.ths = [] # 表头的标题们
-      vm.ids = [] # 被选中的条目的 id
-      vm.bindGetList = null # 根据参数生成的获取数据列表方法
+      # 请求发送的数据
+      sendData = {page: 1, 'per-page': 10}
+      resetSendData = ->
+        vm.tabs && vm.tabs[0].active = true
+        vm.tabs2 && vm.tabs2[0].active = true
+        sendData = {page: 1, 'per-page': 10}
 
       # 根据提供的 表格table 处理数据
       handleList = (items, table) ->
@@ -65,16 +66,10 @@ angular.module 'jkbs'
         result
 
       # 发起请求获取数据，并处理生成传递到模板中的字段
-      vm.getList = (url, data, isSearch) ->
+      getList = (url, data) ->
         # reset
         vm.ids = []
         status.loading()
-
-        if !isSearch?
-          data = angular.extend {}, vm.data, data
-        else
-          vm.resetData()
-
 
         Util.get url, data
           .then (res)->
@@ -105,7 +100,7 @@ angular.module 'jkbs'
         if confirm '确定删除该条目？'
           Util.delete "#{url}/#{id}", {id: id}
             .then (res) ->
-              toastr.info '删除成功'
+              toastr.success '删除成功'
               vm.pageChanged()
             , (res) ->
               toastr.error '删除失败'
@@ -116,44 +111,60 @@ angular.module 'jkbs'
         if confirm(if ids.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
           Util.delete url, {ids: ids.join(',')}
             .then (res) ->
-              toastr.info '删除成功'
+              toastr.success '删除成功'
               vm.pageChanged()
             , (res) ->
               toastr.error '删除失败'
 
+      # tab 切换
+      vm.switchTab = (query) ->
+        if vm.currentListApi isnt vm.api.list
+          resetSendData()
+        sendData.page = 1
+        getList vm.api.list, angular.extend sendData, query
+        vm.currentListApi = vm.api.list
+
       # 页码修改，重新请求
-      vm.pageChanged = ()->
-        vm.bindGetList {page: vm.currentPage}
+      vm.pageChanged = () ->
+        getList vm.currentListApi, angular.extend sendData, {page: vm.currentPage}
 
       # 根据字段搜索并加载数据
-      vm.search = (query) ->
-        vm.bindGetList {query: query}, true
+      vm.search = (keywords) ->
+        resetSendData()
+        getList vm.api.search, {keywords: keywords}
+        vm.currentListApi = vm.api.search
+
+      vm.reload = () ->
+        vm.pageChanged()
 
       # 增加条目
       vm.add = () ->
-        $state.go vm.addUrl
+        $state.go vm.addHref
 
       # 删除多个
       vm.delete = () ->
         vm.deleteItems vm.deleteUrl, vm.ids
 
-      vm.reload = () ->
-        vm.bindGetList()
-
       return
 
     linkFunc = (scope, el, attr, vm) ->
-      vm.listUrl =  scope.grid.listUrl || attr.listUrl || false
-      vm.addUrl =  scope.grid.addUrl || attr.addUrl || false
-      vm.deleteUrl = scope.grid.deleteUrl || attr.deleteUrl || false
-      vm.tabs = scope.grid.tabs || attr.tabs || false
-      vm.tabs2 = scope.grid.tabs2 || attr.tabs2 || false
-      vm.table = scope.grid.table || attr.table || false
+      vm.api = scope.grid.api or attr.addHref or false
+      vm.addHref =  scope.grid.addHref or attr.addHref or false
+      vm.tabs = scope.grid.tabs or attr.tabs or false
+      vm.tabs2 = scope.grid.tabs2 or attr.tabs2 or false
+      vm.table = scope.grid.table or attr.table or false
+
+      events = scope.grid.events or false
 
       # init
       vm.ths = vm.getThs(vm.table)
-      vm.bindGetList = vm.getList.bind(vm, vm.listUrl)
-      vm.bindGetList()
+      vm.currentListApi = vm.api.list
+      vm.reload()
+
+      # 绑定事件
+      if events
+        for event in events
+          el.on event.type, event.selector, event.fn
 
       el.on 'click', 'thead input', (e) ->
         checked = $(this).prop 'checked'
@@ -172,6 +183,7 @@ angular.module 'jkbs'
             .end()
             .each (item) ->
               vm.ids = []
+        return
 
       el.on 'click', 'tbody input', (e) ->
         $this = $(this)
@@ -188,13 +200,14 @@ angular.module 'jkbs'
       el.on 'click', '.J_delete', (e) ->
         vm.deleteItem vm.deleteUrl, $(this).attr 'alt'
 
-      el.on 'hover', '.J_image', (e) ->
+      el.on 'mouseenter', '.J_image', (e) ->
         toastr.info '展示图片TODO'
+      el.on 'mouseleave', '.J_image', (e) ->
+        toastr.clear()
 
       scope.$on '$destroy', ->
         el.off()
         return
-
       return
 
     directive =

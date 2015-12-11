@@ -4,9 +4,11 @@ angular.module 'jkbs'
     # 表格
     $scope.title = '订单管理'
     $scope.grid =
-      listUrl: '/order/order-list/?user_id=' + User.user.id
-      addUrl: ''
-      deleteUrl: '/order'
+      api:
+        list: '/order/order-list/?user_id=' + User.user.id
+        delete: '/order'
+        search: ''
+      addHref: ''
       tabs: [
         {title:'全部', query: {whether_done:0}},
         {title:'未完成', query:{whether_done:2}},
@@ -16,9 +18,6 @@ angular.module 'jkbs'
         {title: '全部', query: {type: 10}},
         {title: '药店', query: {type: 10}},
         {title: '机构', query: {type: 20}}
-      ]
-      btns: [
-        {type: 'default', title: '查看', url: 'order/', icon: ''}
       ]
       table: [
         { text:"ID", field: "id"},
@@ -57,7 +56,6 @@ angular.module 'jkbs'
             Util.genBtns([
               {type: 'default', title: '查看', href: "order/#{full.id}", icon: 'eye'}
             ], full.id)
-
         }
       ]
     return

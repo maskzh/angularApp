@@ -45,15 +45,25 @@ angular.module 'jkbs'
         templateUrl: 'app/doctor/index.html'
         controller: 'DoctorController'
         controllerAs: 'vm'
-      .state 'base.doctors_order',
+      .state 'base.doctors_order', # 所有医生订单
         url: '/doctor/order'
         templateUrl: 'app/doctor/order.html'
         controller: 'DoctorOrderController'
         controllerAs: 'vm'
-      .state 'base.doctor_order',
+      .state 'base.doctor_order', # 具体医生订单
         url: '/doctor/order/:id'
         templateUrl: 'app/doctor/order.html'
         controller: 'DoctorOrderController'
+        controllerAs: 'vm'
+      .state 'base.doctor_add', # 添加医生
+        url: '/doctor/add'
+        templateUrl: 'app/doctor/new.html'
+        controller: 'DoctorNewController'
+        controllerAs: 'vm'
+      .state 'base.doctor_edit', # 编辑医生
+        url: '/doctor/:id/edit'
+        templateUrl: 'app/doctor/new.html'
+        controller: 'DoctorNewController'
         controllerAs: 'vm'
 
       # 疾病

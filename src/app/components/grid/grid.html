@@ -1,10 +1,10 @@
 <!-- operation -->
 <div class="grid-operation">
   <div class="btn-group grid-buttons">
-    <button ng-if="vm.addUrl" data-role="add" type="button" class="btn btn-default" ng-click="vm.add()">添加</button>
-    <button ng-if="vm.deleteUrl" data-role="delete" type="button" class="btn btn-danger" ng-click="vm.delete()">删除</button>
+    <button ng-if="vm.addHref" data-role="add" type="button" class="btn btn-default" ng-click="vm.add()">添加</button>
+    <button ng-if="vm.api.delete" data-role="delete" type="button" class="btn btn-danger" ng-click="vm.delete()">删除</button>
   </div>
-  <div class="form-inline grid-search">
+  <div class="form-inline grid-search" ng-if="vm.api.search">
     <div class="form-group">
       <label class="sr-only" for="search">搜索</label>
       <input ng-model="vm.query" type="text" class="form-control" id="search" placeholder="输入您要搜索的关键字">
@@ -14,12 +14,12 @@
 </div>
 <div class="grid-tabs" ng-if="vm.tabs">
   <tabset type="tags">
-    <tab heading="{{tab.title}}" active="tab.active" disable="tab.disabled" ng-click="vm.bindGetList(tab.query)" ng-repeat="tab in vm.tabs"></tab>
+    <tab heading="{{tab.title}}" active="tab.active" disable="tab.disabled" ng-click="vm.switchTab(tab.query)" ng-repeat="tab in vm.tabs"></tab>
   </tabset>
 </div>
 <div class="grid-tabs" ng-if="vm.tabs2">
   <tabset type="pills">
-    <tab heading="{{tab.title}}" active="tab.active" disable="tab.disabled" ng-click="vm.bindGetList(tab.query)" ng-repeat="tab in vm.tabs2"></tab>
+    <tab heading="{{tab.title}}" active="tab.active" disable="tab.disabled" ng-click="vm.switchTab(tab.query)" ng-repeat="tab in vm.tabs2"></tab>
   </tabset>
 </div>
 <!-- table -->

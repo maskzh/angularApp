@@ -1,4 +1,5 @@
 angular.module 'jkbs'
+  # 医生列表
   .controller 'DoctorController', (Util, $scope) ->
     'ngInject'
     # 表格
@@ -39,6 +40,7 @@ angular.module 'jkbs'
       ]
     return
 
+  # 医生咨询订单
   .controller 'DoctorOrderController', (Util, $scope, $stateParams, $location) ->
     'ngInject'
     # 表格
@@ -84,12 +86,14 @@ angular.module 'jkbs'
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group table-btns'>"+
-            "<a class='btn btn-sm btn-default hint hint--top' title='订单' href='#/doctor/order/#{full.id}?name=#{full.user_name}'>"+
-            "<i class='fa fa-navicon'></i></a>"+
-            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/doctor/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
-            "</div>"
+            Util.genBtns([
+              # {type: 'default', title: '订单', href: "doctor/order/#{full.id}?name=#{full.user_name}", icon: 'navicon'}
+              # {type: 'default', title: '编辑', href: "disease/#{full.id}", icon: 'edit'}
+            ], full.id)
         }
       ]
     return
+
+  # 医生新增和编辑
+  .controller 'DoctorNewController', (Util, $scope, $stateParams) ->
+    'ngInject'
