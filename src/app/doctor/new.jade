@@ -1,2 +1,105 @@
-.form
-  p= '哈哈哈哈'
+.form-horizontal
+  .form-group(ng-if="vm.state")
+    label#mobile.control-label.col-md-4.required 手机号
+    .col-md-4
+      input#mobile.form-control(type="text" ng-model="vm.formData.mobile" required)
+      span.help-block 医生/专家手机号，必须已经是注册用户
+  .form-group
+    label#type.control-label.col-md-4 医生类别
+    .col-md-4
+      select#type.form-control(ng-model="vm.formData.type" ng-options="i for i in vm.doctor_type_list" )
+        option(value="") 选择类别
+  .form-group
+    label#title.control-label.col-md-4 职称
+    .col-md-4
+      input#title.form-control(type="text" ng-model="vm.formData.title")
+  
+  .form-group
+    label#hospital.control-label.col-md-4 医院
+    .col-md-4
+      input#hospital.form-control(type="text" ng-model="vm.formData.hospital")
+  
+  .form-group
+    label#department.control-label.col-md-4 科室
+    .col-md-4
+      select#department.form-control(ng-model="vm.formData.department" ng-options="i for i in hospital_department_list")
+        option(value="") 选择科室
+      
+  .form-group
+    label#sign.control-label.col-md-4 个性签名
+    .col-md-4
+      text#sign.form-control(rows="10" ng-model="vm.formData.sign")
+  
+  .form-group
+    label#description.control-label.col-md-4 诊所服务
+    .col-md-4
+      textarea#description.form-control(rows="10" ng-model="vm.formData.description")
+      
+  .form-group
+    label#consultation_fee.control-label.col-md-4 咨询费用
+    .col-md-4
+      input#consultation_fee.form-control(type="text" ng-model="vm.formData.consultation_fee")
+    
+    
+  .form-group
+    label#onsale.control-label.col-md-4.required 是否义诊
+    .col-md-4
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.onsale" value="1")
+          义诊
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.onsale" value="0")
+          不义诊
+      span.help-block 是否义诊，义诊时全部收费1元，类似促销
+    
+  .form-group
+    label#star.control-label.col-md-4 用户评价
+    .col-md-4
+      input#star.form-control(type="text" ng-model="vm.formData.star")
+      span.help-block 用户评价星级，1-5
+  
+  .form-group
+    label#star.control-label.col-md-4.required 身份证图片
+    .col-md-4
+      input#pic1.form-control(type="file")
+      #preview1(ng-show="vm.formData.pic1")
+        img(ng-src="{{vm.formData.pic1 | img}}")
+      input(type="hidden" ng-model="vm.formData.pic1")
+      
+  .form-group
+    label#star.control-label.col-md-4.required 医师职业证盖章页图片
+    .col-md-4
+      input#pic2.form-control(type="file")
+      #preview2(ng-show="vm.formData.pic2")
+        img(ng-src="{{vm.formData.pic2 | img}}")
+      input(type="hidden" ng-model="vm.formData.pic1")
+          
+  .form-group
+    label#star.control-label.col-md-4.required 医师职称证
+    .col-md-4
+      input#pic3.form-control(type="file")
+      #preview3(ng-show="vm.formData.pic3")
+        img(ng-src="{{vm.formData.pic3 | img}}")
+      input(type="hidden" ng-model="vm.formData.pic3")
+      
+      
+  .form-group
+    label#status.control-label.col-md-4.required 状态
+    .col-md-4
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="1")
+          正常
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="0")
+          未审核
+      span.help-block 是否审核正常
+  
+  .form-group
+    .col-sm-offset-4.col-sm-8
+      input(type="hidden" ng-model="vm.formData.id")
+      button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消返回
+      button.btn.btn-success(type="button" ng-click="form_save()") 提交保存

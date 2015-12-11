@@ -8,7 +8,7 @@ angular.module 'jkbs'
       },
       {
         title: '订单|demo',
-        menus: ['#/order|订单管理', '#/|报表']
+        menus: ['#/order|订单管理'] #, '#/|报表'
       },
       {
         title: '医生|demo',

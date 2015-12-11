@@ -1,7 +1,7 @@
 //- operation
 .grid-operation
   .btn-group.grid-buttons
-    button.btn.btn-default(ng-if="vm.operation.add" type="button" href="{{vm.api.addHref}}") 添加
+    a.btn.btn-default(ng-if="vm.operation.add" href="{{vm.api.addHref}}") 添加
     button.btn.btn-danger(ng-if="vm.operation.delete" type="button" ng-click="vm.delete()") 删除
   .form-inline.grid-search(ng-if="vm.operation.search")
     .form-group

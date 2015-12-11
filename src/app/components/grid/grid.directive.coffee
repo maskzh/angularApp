@@ -153,7 +153,7 @@ angular.module 'jkbs'
       api.list = if api.list? then "#{api.base}/#{api.list}" else api.base
       api.search = if api.search? then "#{api.base}/#{api.search}" else api.base
       api.delete = if api.delete? then "#{api.base}/#{api.delete}" else api.base
-      api.addHref = if api.list? then "##{api.addHref}/new" else "##{api.base}/new"
+      api.addHref = if api.addHref? then "##{api.addHref}/new" else "##{api.base}/new"
       api
 
     handleOperation = (operation) ->

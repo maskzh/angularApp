@@ -9,8 +9,6 @@ angular.module 'jkbs'
         list: ''
       table: [
         { text:"ID", field: "id"},
-        { text:"姓名", field: "name"},
-        { text:"手机号", field: "mobile"},
         {
           text:"头像",
           field: "pic",
@@ -18,6 +16,8 @@ angular.module 'jkbs'
             imgUrl = Util.img field
             "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
         },
+        { text:"姓名", field: "name"},
+        { text:"手机号", field: "mobile"},
         { text:"用户组", field: "group_id"},
         { text:"管理员组", field: "admin_group_id"},
         {

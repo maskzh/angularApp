@@ -91,11 +91,11 @@ body
   margin-left -15px
   margin-right -15px
   border-left $jsbs-border
-  padding 20px 0 50px
+  padding 20px 15px 50px
   min-height 915px
   h2
     font-size 16px
-    margin 0 0 30px 15px
+    margin-bottom 30px
   > *
     -webkit-animation-duration 0.5s
     animation-duration 0.5s
@@ -117,8 +117,6 @@ body
 // plr15
 .content
   position relative
-  padding-left 15px
-  padding-right 15px
 
 // table
 .table-btns
@@ -131,6 +129,18 @@ body
   top 50%
   margin-left -15px
   margin-top -15px
+
+label
+  font-weight normal
+.required
+  &:after
+    content '*'
+    color red
+    margin-right -5px
+
+.help-block
+  color #999
+  font-size 12px
 
 // login
 .login-wrapper

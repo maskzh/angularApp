@@ -11,14 +11,14 @@ angular.module 'jkbs'
         list: "shop-list?type=#{type}"
       table: [
         { text:"ID", field: "id"},
-        { text:"店名", field: "title"},
         {
           text:"Logo",
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.title}></a>"
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
         },
+        { text:"店名", field: "title"},
         { text:"公司名", field: "company"},
         {
           text:"联系",
@@ -28,14 +28,9 @@ angular.module 'jkbs'
             "联系人：#{full.contact}<br>"+
             "联系电话：#{full.tel}<br>"
         },
-        {
-          text: '地址',
-          field: '',
-          render: (field, full) ->
-            "#{full.province}#{full.city}#{full.county}#{address}"
-        },
-        { text:"营业时间", field: "open_time"},
-        { text:"主营内容", field: "sale_content"},
+        { text: '地址', field: 'address' },
+        # { text:"营业时间", field: "open_time"},
+        # { text:"主营内容", field: "sale_content"},
         { text:"评价", field: "star"},
         {
           text:"操作",

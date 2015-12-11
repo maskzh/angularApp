@@ -1,12 +1,13 @@
 angular.module 'jkbs'
-  .controller 'OrderController', (Util, $scope, orderService, User) ->
+  .controller 'OrderController', (Util, $scope, orderService) ->
     'ngInject'
     # 表格
     $scope.title = '订单管理'
     $scope.grid =
       api:
         base: '/order'
-        list: 'order-list/?user_id=' + User.user.id
+        list: 'order-list'
+      operation: 'delete search'
       tabs: [
         {title:'全部', query: {whether_done:0}},
         {title:'未完成', query:{whether_done:2}},
