@@ -1,0 +1,65 @@
+form.form-horizontal
+  .form-group
+    label#title.control-label.col-md-4.required 资讯标题
+    .col-md-4
+      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+      
+  .form-group
+    label#parent.control-label.col-md-4.required 所属分类
+    .col-md-4
+      select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as category_format(i) for i in vm.category_list")
+        option(value="") --选择分类--
+
+  .form-group
+    label#star.control-label.col-md-4.required 图片
+    .col-md-4
+      input#pic.form-control(type="file")
+      #preview(ng-show="vm.formData.pic")
+        img(ng-src="{{vm.formData.pic | img}}")
+      input(type="hidden" ng-model="vm.formData.pic")
+      
+  .form-group
+    label#summary.control-label.col-md-4 摘要
+    .col-md-4
+      input#summary.form-control(type="text" ng-model="vm.formData.summary")
+      
+  .form-group
+    label#source.control-label.col-md-4 资讯来源
+    .col-md-4
+      input#source.form-control(type="text" ng-model="vm.formData.source")
+      
+  .form-group
+    label#author.control-label.col-md-4 作者
+    .col-md-4
+      input#author.form-control(type="text" ng-model="vm.formData.author")
+    
+  .form-group
+    label#order_id.control-label.col-md-4.required 置顶
+    .col-md-4
+      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" required)
+      span.help-block 大于0则置顶，从大到小排列
+    
+  .form-group
+    label#status.control-label.col-md-4.required 状态
+    .col-md-4
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="1")
+          正常
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="0")
+          隐藏
+      span.help-block 是否隐藏
+      
+  
+  .form-group
+    label#content.control-label.col-md-4 作者
+    .col-md-4
+      textarea#content.form-control(row="5" ng-model="vm.formData.content")
+
+  .form-group
+    .col-sm-offset-4.col-sm-8
+      input(type="hidden" ng-model="vm.formData.id")
+      button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消
+      button.btn.btn-success(type="button" ng-click="vm.save()") 保存

@@ -27,10 +27,12 @@ angular.module 'jkbs'
 
     # ajax post
     @post = (url, data, config) ->
+      data = angular.extend {'access-token': token}, data
       @ajax 'post', url, data, config
 
     # ajax put
     @put = (url, data, config) ->
+      data = angular.extend {'access-token': token}, data
       @ajax 'put', url, data, config
 
     # ajax delete

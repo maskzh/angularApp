@@ -1,0 +1,20 @@
+style.
+  body{
+    background-color: #364150
+  }
+
+.login-wrapper
+  .login-logo
+    img(ng-src="assets/common/logo-with-text-big.png" alt="健康帮手")
+
+  form#loginForm(ng-submit="login.login(login.credentials)" novalidate)
+    .form-group
+      label(for="mobile") 用户名:
+      input.form-control(type="text" ng-model="login.credentials.mobile" placeholder="请输入用户名")
+    
+    .form-group
+      label(for="mobile") 密码:
+      input.form-control(type="password" ng-model="login.credentials.password" placeholder="请输入密码")
+    
+    button.btn.btn-primary.btn-block(type="submit") 登录
+      

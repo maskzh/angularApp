@@ -1,0 +1,49 @@
+form.form-horizontal
+  .form-group(ng-if="vm.state")
+    label#mobile.control-label.col-md-4.required 手机号
+    .col-md-4
+      input#mobile.form-control(type="text" ng-model="vm.formData.mobile" required)
+      
+  .form-group
+    label#name.control-label.col-md-4.required 姓名
+    .col-md-4
+      input#name.form-control(type="text" ng-model="vm.formData.name" required)
+
+  .form-group
+    label#password.control-label.col-md-4.required 密码
+    .col-md-4
+      input#password.form-control(type="text" ng-model="vm.formData.password" required)
+      span.help-block(ng-show="{{form_data.mobile}}") 不填则不修改密码
+
+  .form-group
+    label#star.control-label.col-md-4.required 头像
+    .col-md-4
+      input#pic.form-control(type="file")
+      #preview1(ng-show="vm.formData.pic")
+        img(ng-src="{{vm.formData.pic | img}}")
+      input(type="hidden" ng-model="vm.formData.pic")
+
+  .form-group
+    label#admin_group_id.control-label.col-md-4.required 管理员类型
+    .col-md-4
+      select#admin_group_id.form-control(ng-model="vm.formData.admin_group_id" ng-options="i as i for i in vm.admin_group_list" required)
+      span.help-block 目前支持无管理权限、一般管理、总管理三种类型
+  
+  .form-group
+    label#status.control-label.col-md-4.required 状态
+    .col-md-4
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="1")
+          正常
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="0")
+          隐藏
+      span.help-block 是否禁止用户登录
+
+  .form-group
+    .col-sm-offset-4.col-sm-8
+      input(type="hidden" ng-model="vm.formData.id")
+      button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消
+      button.btn.btn-success(type="button" ng-click="vm.save()") 保存

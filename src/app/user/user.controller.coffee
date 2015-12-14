@@ -32,8 +32,29 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "user/#{full.id}", icon: 'edit'}
+              {type: 'default', title: '编辑', href: "user/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
+    return
+
+  .controller 'UserNewController', (Util, $stateParams, toastr) ->
+    'ngInject'
+    vm = this
+    vm.formData = {}
+    id = if $stateParams.id? then $stateParams.id else false
+    resMethods = Util.res('/user')
+
+    vm.save = () ->
+      resMethods.save vm.formData, id
+        .then (res) ->
+          toastr.success '已成功提交'
+
+    # init
+    if id
+      resMethods.get id
+        .then (res) ->
+          vm.formData = res.data
+    else
+      vm.state = true
     return

@@ -54,17 +54,6 @@ angular.module 'jkbs'
       operation: 'delete search'
       table: [
         { text:"订单ID", field: "id"},
-        # {
-        #   text:"用户头像",
-        #   field: "pic",
-        #   render: (field, full) ->
-        #     imgUrl = Util.img field
-        #     "<a class='J_image' href=#{imgUrl} alt='img'><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
-        # },
-        # render: (field, full) ->
-        #   "#{full.user_id}<br>"
-        #   "#{full.name}<br>"+
-        #   "#{full.mobile}"
         { text:"用户ID", field: "user_id" },
         { text:"医生ID", field: "doctor_id" },
         {
@@ -108,6 +97,8 @@ angular.module 'jkbs'
 
     vm.save = () ->
       resMethods.save vm.formData, vm.id
+        .then (res) ->
+          toastr.success '已成功提交'
 
     # init
     if vm.id

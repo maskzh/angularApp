@@ -1,0 +1,114 @@
+form.form-horizontal
+  .form-group
+    label#title.control-label.col-md-4.required 药品名称
+    .col-md-4
+      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+      
+  .form-group
+    label#buy_online.control-label.col-md-4.required 在线支付
+    .col-md-4
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.buy_online" value="1")
+          支持
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.buy_online" value="0")
+          不支持
+      span.help-block 是否能在线支付购买
+      
+  .form-group
+    label#category_id.control-label.col-md-4 所属分类
+    .col-md-4
+      select#category_id.form-control(ng-model="vm.formData.category_id" ng-options="i for i in vm.category_list" )
+        option(value="") 选择分类
+        span.help-block 所属分类，只能选择③开头的分类
+        
+  .form-group
+    label#star.control-label.col-md-4.required 图片
+    .col-md-4
+      input#pic.form-control(type="file")
+      #preview(ng-show="vm.formData.pic")
+        img(ng-src="{{vm.formData.pic | img}}")
+      input(type="hidden" ng-model="vm.formData.pic")
+      
+  .form-group
+    label#spec.control-label.col-md-4 规格
+    .col-md-4
+      input#spec.form-control(type="text" ng-model="vm.formData.spec" required)
+      
+  .form-group
+    label#unit.control-label.col-md-4 单位
+    .col-md-4
+      input#unit.form-control(type="text" ng-model="vm.formData.unit")
+      
+  .form-group
+    label#company.control-label.col-md-4 生产厂商
+    .col-md-4
+      input#company.form-control(type="text" ng-model="vm.formData.company")
+          
+  .form-group
+    label#barcode.control-label.col-md-4 条码
+    .col-md-4
+      input#barcode.form-control(type="text" ng-model="vm.formData.barcode")
+          
+  .form-group
+    label#register_number.control-label.col-md-4 注册号
+    .col-md-4
+      input#register_number.form-control(type="text" ng-model="vm.formData.register_number")
+          
+  .form-group
+    label#type.control-label.col-md-4 类型
+    .col-md-4
+      input#type.form-control(type="text" ng-model="vm.formData.type")
+      
+  .form-group
+    label#contain_ephedrine.control-label.col-md-4.required 麻黄碱
+    .col-md-4
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.contain_ephedrine" value="1")
+          含有
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.contain_ephedrine" value="0")
+          不含
+      span.help-block 是否含有麻黄碱
+              
+  .form-group
+    label#order_id.control-label.col-md-4.required 排序ID
+    .col-md-4
+      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" required)
+      span.help-block 从大到小排
+      
+  .form-group
+    label#status.control-label.col-md-4.required 状态
+    .col-md-4
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="1")
+          正常
+      .radio
+        label
+          input(type="radio" ng-model="vm.formData.status" value="0")
+          隐藏
+      span.help-block 是否隐藏
+      
+  .form-group
+    label#content_html.control-label.col-md-4.required 药品内容
+    .col-md-4
+      textarea#content_html.form-control(type="text" row="5" ng-model="vm.formData.content_html" required)
+
+  .form-group
+    label#content.control-label.col-md-4.required 药品内容(详细)
+    .col-md-4
+      .form-group(ng-repeat="c in vm.formData.content")
+        input.form-control(value="{{c.title}}" ng-model="c.title")
+        textarea.form-control(rows="5" placeholder="{{c.title}}" ng-model="c.content")
+      span.help-block 没有的信息请留空
+          
+  .form-group
+    .col-sm-offset-4.col-sm-8
+      input(type="hidden" ng-model="vm.formData.id")
+      button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消
+      button.btn.btn-success(type="button" ng-click="vm.save()") 保存

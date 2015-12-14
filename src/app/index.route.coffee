@@ -71,36 +71,64 @@ angular.module 'jkbs'
         url: '/disease'
         templateUrl: 'app/disease/index.html'
         controller: 'DiseaseController'
-        controllerAs: 'disease'
+        controllerAs: 'vm'
+      .state 'base.disease_new', # 添加疾病
+        url: '/disease/new'
+        templateUrl: 'app/disease/new.html'
+        controller: 'DiseaseNewController'
+        controllerAs: 'vm'
+      .state 'base.disease_edit', # 修改疾病
+        url: '/disease/:id/edit'
+        templateUrl: 'app/disease/new.html'
+        controller: 'DiseaseNewController'
+        controllerAs: 'vm'
       .state 'base.disease_cat',
-        url: '/disease/cat'
+        url: '/disease-title'
         templateUrl: 'app/disease/cat.html'
         controller: 'DiseaseCatController'
-        controllerAs: 'disease'
+        controllerAs: 'vm'
+      .state 'base.disease_cat_new', # 添加疾病分类
+        url: '/disease-title/new'
+        templateUrl: 'app/disease/new-cat.html'
+        controller: 'DiseaseNewCatController'
+        controllerAs: 'vm'
+      .state 'base.disease_cat_edit', # 修改疾病分类
+        url: '/disease-title/:id/edit'
+        templateUrl: 'app/disease/new-cat.html'
+        controller: 'DiseaseNewCatController'
+        controllerAs: 'vm'
 
       # 药品
       .state 'base.medicine',
         url: '/medicine'
         templateUrl: 'app/medicine/index.html'
         controller: 'MedicineController'
-        controllerAs: 'medicine'
+        controllerAs: 'vm'
+      .state 'base.medicine_new', # 添加疾病
+        url: '/medicine/new'
+        templateUrl: 'app/medicine/new.html'
+        controller: 'MedicineNewController'
+        controllerAs: 'vm'
+      .state 'base.medicine_edit', # 修改疾病
+        url: '/medicine/:id/edit'
+        templateUrl: 'app/medicine/new.html'
+        controller: 'MedicineNewController'
+        controllerAs: 'vm'
       .state 'base.medicine_cat',
-        url: '/medicine/cat'
+        url: '/medicine-category'
         templateUrl: 'app/medicine/cat.html'
         controller: 'MedicineCatController'
-        controllerAs: 'medicine'
-
-      # 圈子
-      .state 'base.circle',
-        url: '/circle'
-        templateUrl: 'app/circle/index.html'
-        controller: 'CircleController'
-        controllerAs: 'circle'
-      .state 'base.circle_post',
-        url: '/circle/post'
-        templateUrl: 'app/circle/post.html'
-        controller: 'PostController'
-        controllerAs: 'circle'
+        controllerAs: 'vm'
+      .state 'base.medicine_cat_new', # 添加疾病分类
+        url: '/medicine-category/new'
+        templateUrl: 'app/medicine/new-cat.html'
+        controller: 'MedicineNewCatController'
+        controllerAs: 'vm'
+      .state 'base.medicine_cat_edit', # 修改疾病分类
+        url: '/medicine-category/:id/edit'
+        templateUrl: 'app/medicine/new-cat.html'
+        controller: 'MedicineNewCatController'
+        controllerAs: 'vm'
 
       # 资讯
       .state 'base.news',
@@ -108,18 +136,49 @@ angular.module 'jkbs'
         templateUrl: 'app/news/index.html'
         controller: 'NewsController'
         controllerAs: 'news'
+      .state 'base.news_new', # 添加疾病
+        url: '/news/new'
+        templateUrl: 'app/news/new.html'
+        controller: 'NewsNewController'
+        controllerAs: 'vm'
+      .state 'base.news_edit', # 修改疾病
+        url: '/news/:id/edit'
+        templateUrl: 'app/news/new.html'
+        controller: 'NewsNewController'
+        controllerAs: 'vm'
       .state 'base.news_cat',
-        url: '/news/cat'
+        url: '/news-category'
         templateUrl: 'app/news/cat.html'
         controller: 'NewsCatController'
-        controllerAs: 'news'
+        controllerAs: 'vm'
+      .state 'base.news_cat_new', # 添加疾病分类
+        url: '/news-category/new'
+        templateUrl: 'app/news/new-cat.html'
+        controller: 'NewsNewCatController'
+        controllerAs: 'vm'
+      .state 'base.new_cat_edit', # 修改疾病分类
+        url: '/news-category/:id/edit'
+        templateUrl: 'app/news/new-cat.html'
+        controller: 'NewsNewCatController'
+        controllerAs: 'vm'
 
       # 用户
       .state 'base.user',
         url: '/user'
         templateUrl: 'app/user/index.html'
         controller: 'UserController'
-        controllerAs: 'user'
+        controllerAs: 'vm'
+      .state 'base.user_new',
+        url: '/user/new'
+        templateUrl: 'app/user/new.html'
+        controller: 'UserNewController'
+        controllerAs: 'vm'
+      .state 'base.user_edit',
+        url: '/user/:id/edit'
+        templateUrl: 'app/user/new.html'
+        controller: 'UserNewController'
+        controllerAs: 'vm'
+
 
       # # 提成
       # .state 'base.home',
@@ -127,6 +186,18 @@ angular.module 'jkbs'
       #   templateUrl: 'app/home/index.html'
       #   controller: 'HomeController'
       #   controllerAs: 'home'
+
+      # # 圈子
+      # .state 'base.circle',
+      #   url: '/circle'
+      #   templateUrl: 'app/circle/index.html'
+      #   controller: 'CircleController'
+      #   controllerAs: 'circle'
+      # .state 'base.circle_post',
+      #   url: '/circle/post'
+      #   templateUrl: 'app/circle/post.html'
+      #   controller: 'PostController'
+      #   controllerAs: 'circle'
 
       # 代理商
       .state 'base.agent',

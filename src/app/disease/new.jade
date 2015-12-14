@@ -1,0 +1,73 @@
+form.form-horizontal
+  .form-group
+    label#title.control-label.col-md-4.required 疾病名称
+    .col-md-4
+      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+
+  .form-group
+    label#treat.control-label.col-md-4 可能的治疗方法
+    .col-md-4
+      textarea#treat.form-control(rows="5" ng-model="vm.formData.treat")
+      span.help-block 可能的治疗方法，每行一个。支持：药店/机构名、医生/健康天使手机号、药品名、机构套餐名
+      
+  .form-group
+    label#link.control-label.col-md-4 链接疾病
+    .col-md-4
+      textarea#link.form-control(rows="5" ng-model="vm.formData.link")
+      span.help-block 链接疾病列表，每个名称用空格隔开
+  
+  .form-group
+    label#description.control-label.col-md-4 疾病描述
+    .col-md-4
+      textarea#description.form-control(rows="5" ng-model="vm.formData.description")
+          
+  .form-group
+    label#attention.control-label.col-md-4 注意事项
+    .col-md-4
+      textarea#attention.form-control(rows="5" ng-model="vm.formData.attention")
+              
+  .form-group
+    label#cure.control-label.col-md-4 治疗
+    .col-md-4
+      textarea#cure.form-control(rows="5" ng-model="vm.formData.cure")
+      
+  .form-group
+    label#checkups.control-label.col-md-4 检查
+    .col-md-4
+      textarea#checkups.form-control(rows="5" ng-model="vm.formData.checkups")
+    
+  .form-group
+    label#symptoms.control-label.col-md-4 症状
+    .col-md-4
+      textarea#symptoms.form-control(rows="5" ng-model="vm.formData.symptoms")
+    
+  .form-group
+    label#con_symptoms.control-label.col-md-4 并发症状
+    .col-md-4
+      textarea#con_symptoms.form-control(rows="5" ng-model="vm.formData.con_symptoms")
+          
+  .form-group
+    label#diagnosis.control-label.col-md-4 诊断
+    .col-md-4
+      textarea#diagnosis.form-control(rows="5" ng-model="vm.formData.diagnosis")
+              
+  .form-group
+    label#cause.control-label.col-md-4 影响
+    .col-md-4
+      textarea#cause.form-control(rows="5" ng-model="vm.formData.cause")
+  
+  .form-group
+    label#prevention.control-label.col-md-4 预防和预后
+    .col-md-4
+      textarea#prevention.form-control(rows="5" ng-model="vm.formData.prevention")
+      
+  .form-group
+    label#department.control-label.col-md-4 科室
+    .col-md-4
+      input#department.form-control(type="text" ng-model="vm.formData.department")
+  
+  .form-group
+    .col-sm-offset-4.col-sm-8
+      input(type="hidden" ng-model="vm.formData.id")
+      button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消
+      button.btn.btn-success(type="button" ng-click="vm.save()") 保存

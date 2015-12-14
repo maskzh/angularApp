@@ -22,7 +22,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "disease/#{full.id}", icon: 'edit'}
+              {type: 'default', title: '编辑', href: "disease/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
@@ -51,10 +51,51 @@ angular.module 'jkbs'
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group'>"+
-            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/disease-title/#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
-            "</div>"
+            Util.genBtns([
+              {type: 'default', title: '编辑', href: "disease-title/#{full.id}/edit", icon: 'edit'}
+            ], full.id)
         }
       ]
+    return
+
+  .controller 'DiseaseNewCatController', (Util, $stateParams, toastr) ->
+    'ngInject'
+    vm = this
+    vm.formData = {}
+    id = if $stateParams.id? then $stateParams.id else false
+    resMethods = Util.res('/disease-title')
+
+    vm.save = () ->
+      resMethods.save vm.formData, id
+        .then (res) ->
+          toastr.success '已成功提交'
+
+    # init
+    if id
+      resMethods.get id
+        .then (res) ->
+          vm.formData = res.data
+    else
+      vm.state = true
+    return
+
+  .controller 'DiseaseNewController', (Util, $stateParams, toastr) ->
+    'ngInject'
+    vm = this
+    vm.formData = {}
+    id = if $stateParams.id? then $stateParams.id else false
+    resMethods = Util.res('/disease')
+
+    vm.save = () ->
+      resMethods.save vm.formData, id
+        .then (res) ->
+          toastr.success '已成功提交'
+
+    # init
+    if id
+      resMethods.get id
+        .then (res) ->
+          vm.formData = res.data
+    else
+      vm.state = true
     return

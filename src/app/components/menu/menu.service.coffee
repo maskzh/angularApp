@@ -16,15 +16,15 @@ angular.module 'jkbs'
       },
       {
         title: '疾病|demo',
-        menus: ['#/disease|疾病管理', '#/disease/cat|疾病分类']
+        menus: ['#/disease|疾病管理', '#/disease-title|疾病分类']
       },
       {
         title: '药品|demo',
-        menus: ['#/medicine|药品管理', '#/medicine/cat|药品分类']
+        menus: ['#/medicine|药品管理', '#/medicine-category|药品分类']
       },
       {
         title: '资讯|demo',
-        menus: ['#/news|资讯管理', '#/news/cat|资讯分类']
+        menus: ['#/news|资讯管理', '#/news-category|资讯分类']
       },
       {
         title: '用户|demo',

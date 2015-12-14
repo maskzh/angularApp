@@ -38,7 +38,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "medicine/#{full.id}", icon: 'edit'}
+              {type: 'default', title: '编辑', href: "medicine/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
@@ -67,10 +67,52 @@ angular.module 'jkbs'
           text:"操作",
           field: "",
           render: (field, full) ->
-            "<div class='btn-group table-btns'>"+
-            "<a class='btn btn-sm btn-default hint hint--top' title='编辑' href='#/medicine-category//#{full.id}'><i class='fa fa-edit'></i></a>"+
-            "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{full.id}'><i class='fa fa-close'></i></a>"+
-            "</div>"
+            Util.genBtns([
+              {type: 'default', title: '编辑', href: "medicine-category/#{full.id}/edit", icon: 'edit'}
+            ], full.id)
         }
       ]
+    return
+
+  .controller 'MedicineNewCatController', (Util, $stateParams, toastr) ->
+    'ngInject'
+    vm = this
+    vm.formData = {}
+    vm.formData.order_id = 0
+    id = if $stateParams.id? then $stateParams.id else false
+    resMethods = Util.res('/medicine-category')
+
+    vm.save = () ->
+      resMethods.save vm.formData, id
+        .then (res) ->
+          toastr.success '已成功提交'
+
+    # init
+    if id
+      resMethods.get id
+        .then (res) ->
+          vm.formData = res.data
+    else
+      vm.state = true
+    return
+
+  .controller 'MedicineNewController', (Util, $stateParams, toastr) ->
+    'ngInject'
+    vm = this
+    vm.formData = {}
+    id = if $stateParams.id? then $stateParams.id else false
+    resMethods = Util.res('/medicine')
+
+    vm.save = () ->
+      resMethods.save vm.formData, id
+        .then (res) ->
+          toastr.success '已成功提交'
+
+    # init
+    if id
+      resMethods.get id
+        .then (res) ->
+          vm.formData = res.data
+    else
+      vm.state = true
     return
