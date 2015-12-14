@@ -2,13 +2,16 @@ angular.module 'jkbs'
   .controller 'ShopController', (Util, $scope, $stateParams) ->
     'ngInject'
     # 表格
-    type = $stateParams.type
-    $scope.title = if $stateParams.type is '10' then '药店管理' else '机构管理'
+    $scope.title = '微店管理'
 
     $scope.grid =
       api:
         base: '/shop'
-        list: "shop-list?type=#{type}"
+        list: "shop-list"
+      tabs: [
+        {title:'药店', query: {type:10}},
+        {title:'机构', query:{type:20}},
+      ]
       table: [
         { text:"ID", field: "id"},
         {
@@ -37,8 +40,33 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "shop/#{full.id}", icon: 'edit'}
+              {type: 'default', title: '编辑', href: "shop/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
+    return
+
+  .controller 'ShopNewController', (Util, $stateParams, toastr) ->
+    'ngInject'
+    vm = this
+    vm.formData = {}
+    vm.formData.is_boss_customer_service = 0
+    vm.formData.service_chinese_medicine ＝ 0
+    vm.formData.chain = 0
+    vm.formData.status = 1
+    id = if $stateParams.id? then $stateParams.id else false
+    resMethods = Util.res('/shop')
+
+    vm.save = () ->
+      resMethods.save vm.formData, id
+        .then (res) ->
+          toastr.success '已成功提交'
+
+    # init
+    if id
+      resMethods.get id
+        .then (res) ->
+          vm.formData = res.data
+    else
+      vm.state = true
     return

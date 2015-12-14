@@ -4,7 +4,7 @@ angular.module 'jkbs'
     data = [
       {
         title: '微店|demo',
-        menus: ['#/shop/10|药店管理', '#/shop/20|机构管理']
+        menus: ['#/shop|微店管理']
       },
       {
         title: '订单|demo',

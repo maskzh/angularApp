@@ -22,10 +22,15 @@ angular.module 'jkbs'
 
       # 微店
       .state 'base.shop',
-        url: '/shop/:type'
+        url: '/shop'
         templateUrl: 'app/shop/index.html'
         controller: 'ShopController'
-        controllerAs: 'shop'
+        controllerAs: 'vm'
+      .state 'base.shop_new',
+        url: '/shop/new'
+        templateUrl: 'app/shop/new.html'
+        controller: 'ShopNewController'
+        controllerAs: 'vm'
 
       # 订单
       .state 'base.order',
@@ -104,12 +109,12 @@ angular.module 'jkbs'
         templateUrl: 'app/medicine/index.html'
         controller: 'MedicineController'
         controllerAs: 'vm'
-      .state 'base.medicine_new', # 添加疾病
+      .state 'base.medicine_new', # 添加药品
         url: '/medicine/new'
         templateUrl: 'app/medicine/new.html'
         controller: 'MedicineNewController'
         controllerAs: 'vm'
-      .state 'base.medicine_edit', # 修改疾病
+      .state 'base.medicine_edit', # 修改药品
         url: '/medicine/:id/edit'
         templateUrl: 'app/medicine/new.html'
         controller: 'MedicineNewController'
@@ -119,12 +124,12 @@ angular.module 'jkbs'
         templateUrl: 'app/medicine/cat.html'
         controller: 'MedicineCatController'
         controllerAs: 'vm'
-      .state 'base.medicine_cat_new', # 添加疾病分类
+      .state 'base.medicine_cat_new', # 添加药品分类
         url: '/medicine-category/new'
         templateUrl: 'app/medicine/new-cat.html'
         controller: 'MedicineNewCatController'
         controllerAs: 'vm'
-      .state 'base.medicine_cat_edit', # 修改疾病分类
+      .state 'base.medicine_cat_edit', # 修改药品分类
         url: '/medicine-category/:id/edit'
         templateUrl: 'app/medicine/new-cat.html'
         controller: 'MedicineNewCatController'
@@ -136,12 +141,12 @@ angular.module 'jkbs'
         templateUrl: 'app/news/index.html'
         controller: 'NewsController'
         controllerAs: 'news'
-      .state 'base.news_new', # 添加疾病
+      .state 'base.news_new', # 添加资讯
         url: '/news/new'
         templateUrl: 'app/news/new.html'
         controller: 'NewsNewController'
         controllerAs: 'vm'
-      .state 'base.news_edit', # 修改疾病
+      .state 'base.news_edit', # 修改资讯
         url: '/news/:id/edit'
         templateUrl: 'app/news/new.html'
         controller: 'NewsNewController'
@@ -151,12 +156,12 @@ angular.module 'jkbs'
         templateUrl: 'app/news/cat.html'
         controller: 'NewsCatController'
         controllerAs: 'vm'
-      .state 'base.news_cat_new', # 添加疾病分类
+      .state 'base.news_cat_new', # 添加资讯分类
         url: '/news-category/new'
         templateUrl: 'app/news/new-cat.html'
         controller: 'NewsNewCatController'
         controllerAs: 'vm'
-      .state 'base.new_cat_edit', # 修改疾病分类
+      .state 'base.new_cat_edit', # 修改资讯分类
         url: '/news-category/:id/edit'
         templateUrl: 'app/news/new-cat.html'
         controller: 'NewsNewCatController'
