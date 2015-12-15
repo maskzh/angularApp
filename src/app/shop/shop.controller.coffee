@@ -51,7 +51,7 @@ angular.module 'jkbs'
     vm = this
     vm.formData = {}
     vm.formData.is_boss_customer_service = 0
-    vm.formData.service_chinese_medicine ＝ 0
+    vm.formData.service_chinese_medicine = 0
     vm.formData.chain = 0
     vm.formData.status = 1
     id = if $stateParams.id? then $stateParams.id else false

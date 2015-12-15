@@ -31,6 +31,11 @@ angular.module 'jkbs'
         templateUrl: 'app/shop/new.html'
         controller: 'ShopNewController'
         controllerAs: 'vm'
+      .state 'base.shop_edit',
+        url: '/shop/:id/edit'
+        templateUrl: 'app/shop/new.html'
+        controller: 'ShopNewController'
+        controllerAs: 'vm'
 
       # 订单
       .state 'base.order',
