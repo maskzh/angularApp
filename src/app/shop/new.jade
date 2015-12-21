@@ -8,7 +8,7 @@ form.form-horizontal
     label#mobile.control-label.col-md-4.required 店主手机号
     .col-md-4
       input#mobile.form-control(type="text" ng-model="vm.formData.mobile" required)
-      span.help-block 店主手机号，必须已经是注册用户
+      span.help-block.fa.fa-warn 店主手机号，必须已经是注册用户
       
   .form-group(ng-hide="vm.formData.type==10")
     label#category.control-label.col-md-4.required 机构类别
