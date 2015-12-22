@@ -74,11 +74,12 @@ angular.module 'jkbs'
       ]
     return
 
-  .controller 'MedicineNewCatController', (Util, $stateParams, toastr) ->
+  .controller 'MedicineNewCatController', (Util, $stateParams, toastr, Uploader, medicineService) ->
     'ngInject'
     vm = this
     vm.formData = {}
     vm.formData.order_id = 0
+    vm.typeList = medicineService.catType()
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/medicine-category')
 
@@ -86,6 +87,7 @@ angular.module 'jkbs'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+    vm.upload = Uploader.upload
 
     # init
     if id
@@ -96,10 +98,17 @@ angular.module 'jkbs'
       vm.state = true
     return
 
-  .controller 'MedicineNewController', (Util, $stateParams, toastr) ->
+  .controller 'MedicineNewController', (Util, $stateParams, toastr, Uploader, medicineService) ->
     'ngInject'
     vm = this
     vm.formData = {}
+    vm.formData.buy_online = 0
+    vm.formData.contain_ephedrine = 0
+    vm.formData.status = 0
+    # Util.get '/medicine-category/get-category'
+    # .then (res) ->
+    #   vm.typeList = res.data.items
+    vm.typeList = medicineService.type()
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/medicine')
 
@@ -107,6 +116,7 @@ angular.module 'jkbs'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+    vm.upload = Uploader.upload
 
     # init
     if id

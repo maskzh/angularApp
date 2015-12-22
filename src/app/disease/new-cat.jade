@@ -1,37 +1,34 @@
 form.form-horizontal
   .form-group
-    label#type.control-label.col-md-4.required 疾病分类
+    label.control-label.col-md-4.required(for="type") 疾病分类
     .col-md-4
-      select#type.form-control(ng-model="vm.formData.type" required)
+      select#type.form-control(ng-model="vm.formData.type" ng-options="i for i in ['典型人群', '科室分类']" required)
         option(value="") 请选择
-        option(value="典型人群") 典型人群
-        option(value="科室分类") 科室分类
       span.help-block 目前只支持按典型人群、科室分类两种
+
   .form-group
-    label#title.control-label.col-md-4.required 分类名称
+    label.control-label.col-md-4.required(for="title") 分类名称
     .col-md-4
-      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+      input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="分类名称" required)
       
   .form-group
     label#pic.control-label.col-md-4.required 分类图标
     .col-md-4
-      input#pic.form-control(type="file")
-      #preview(ng-show="vm.formData.pic")
-        img(ng-src="{{vm.formData.pic | img}}")
-      input(type="hidden" ng-model="vm.formData.pic")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
   
   .form-group
     label#pic2.control-label.col-md-4.required 当前分类图标
     .col-md-4
-      input#pic2.form-control(type="file")
-      #preview(ng-show="vm.formData.pic2")
-        img(ng-src="{{vm.formData.pic2 | img}}")
-      input(type="hidden" ng-model="vm.formData.pic2")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic2')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic2") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic2 | img}}" ng-show="vm.formData.pic2")
   
   .form-group
     label#title_list.control-label.col-md-4 疾病名称列表
     .col-md-4
-      textarea#title_list.form-control(rows="5" ng-model="vm.formData.title_list")
+      textarea#title_list.form-control(rows="5" ng-model="vm.formData.title_list" placeholder="疾病名称列表")
       span.help-block 疾病名称列表，每个名称用空格隔开，请直接填写，不要回车
 
   .form-group

@@ -1,17 +1,17 @@
 form.form-horizontal
   .form-group
-    label#title.control-label.col-md-4.required 分类名称
+    label.control-label.col-md-4.required(for="title") 分类名称
     .col-md-4
-      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+      input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="分类名称" required)
     
   .form-group
-    label#parent.control-label.col-md-4.required 上级分类
+    label.control-label.col-md-4.required(for="parent") 上级分类
     .col-md-4
-      select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as category_format(i) for i in vm.category_list")
+      select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as i.label for i in vm.typeList")
         option(value="") --选择上级分类--
 
   .form-group
-    label#order_id.control-label.col-md-4.required 排序ID
+    label.control-label.col-md-4.required(for="order_id") 排序ID
     .col-md-4
       input#order_id.form-control(type="text" ng-model="vm.formData.order_id" required)
       span.help-block 从大到小排

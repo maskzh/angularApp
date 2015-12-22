@@ -1,101 +1,104 @@
 form.form-horizontal
   .form-group(ng-if="vm.state")
-    label#mobile.control-label.col-md-4.required 手机号
+    label.control-label.col-md-4.required(for="mobile") 手机号
     .col-md-4
-      input#mobile.form-control(type="text" ng-model="vm.formData.mobile" required)
+      input#mobile.form-control(type="text" ng-model="vm.formData.mobile" required placeholder="手机号")
       span.help-block 医生/专家手机号，必须已经是注册用户
+      
   .form-group
-    label#type.control-label.col-md-4 医生类别
+    label.control-label.col-md-4(for="type") 医生类别
     .col-md-4
-      select#type.form-control(ng-model="vm.formData.type" ng-options="i for i in vm.doctor_type_list" )
+      select#type.form-control(ng-model="vm.formData.type" ng-options="i for i in vm.typeList")
         option(value="") 选择类别
+
   .form-group
-    label#title.control-label.col-md-4 职称
+    label.control-label.col-md-4(for="title") 职称
     .col-md-4
-      input#title.form-control(type="text" ng-model="vm.formData.title")
+      input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="职称")
   
   .form-group
-    label#hospital.control-label.col-md-4 医院
+    label.control-label.col-md-4(for="hospital") 医院
     .col-md-4
-      input#hospital.form-control(type="text" ng-model="vm.formData.hospital")
+      input#hospital.form-control(type="text" ng-model="vm.formData.hospital" placeholder="医院")
   
   .form-group
-    label#department.control-label.col-md-4 科室
+    label.control-label.col-md-4(for="department") 科室
     .col-md-4
-      select#department.form-control(ng-model="vm.formData.department" ng-options="i for i in hospital_department_list")
+      select#department.form-control(ng-model="vm.formData.department" ng-options="i.value as i.label for i in vm.departmentList")
         option(value="") 选择科室
       
   .form-group
-    label#sign.control-label.col-md-4 个性签名
+    label.control-label.col-md-4(for="sign") 个性签名
     .col-md-4
-      textarea#sign.form-control(rows="2" ng-model="vm.formData.sign")
+      textarea#sign.form-control(rows="2" ng-model="vm.formData.sign"  placeholder="个性签名")
   
   .form-group
-    label#description.control-label.col-md-4 诊所服务
+    label.control-label.col-md-4(for="description") 诊所服务
     .col-md-4
-      textarea#description.form-control(rows="5" ng-model="vm.formData.description")
+      textarea#description.form-control(rows="5" ng-model="vm.formData.description" placeholder="诊所服务")
       
   .form-group
-    label#consultation_fee.control-label.col-md-4 咨询费用
+    label.control-label.col-md-4(for="consultation_fee") 咨询费用
     .col-md-4
-      input#consultation_fee.form-control(type="text" ng-model="vm.formData.consultation_fee")
-    
+      input#consultation_fee.form-control(type="text" ng-model="vm.formData.consultation_fee" placeholder="咨询费用")
     
   .form-group
-    label#onsale.control-label.col-md-4.required 是否义诊
+    label.control-label.col-md-4.required(for="onsale") 是否义诊
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.onsale" value="1")
-          义诊
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.onsale" value="0")
-          不义诊
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.onsale" value="1")
+              义诊
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.onsale" value="0")
+              不义诊
       span.help-block 是否义诊，义诊时全部收费1元，类似促销
     
   .form-group
-    label#star.control-label.col-md-4 用户评价
+    label.control-label.col-md-4(for="star") 用户评价
     .col-md-4
-      input#star.form-control(type="text" ng-model="vm.formData.star")
+      input#star.form-control(type="text" ng-model="vm.formData.star" placeholder="手机号")
       span.help-block 用户评价星级，1-5
   
   .form-group
-    label#star.control-label.col-md-4.required 身份证图片
+    label.control-label.col-md-4.required(for="pic1") 身份证图片
     .col-md-4
-      input#pic1.form-control(type="file")
-      #preview1(ng-show="vm.formData.pic1")
-        img(ng-src="{{vm.formData.pic1 | img}}")
-      input(type="hidden" ng-model="vm.formData.pic1")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic1')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic1") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic1 | img}}" ng-show="vm.formData.pic1")
       
   .form-group
-    label#star.control-label.col-md-4.required 医师职业证盖章页图片
+    label.control-label.col-md-4.required(for="pic2") 医师职业证盖章页图片
     .col-md-4
-      input#pic2.form-control(type="file")
-      #preview2(ng-show="vm.formData.pic2")
-        img(ng-src="{{vm.formData.pic2 | img}}")
-      input(type="hidden" ng-model="vm.formData.pic2")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic2')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic2") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic2 | img}}" ng-show="vm.formData.pic2")
           
   .form-group
-    label#star.control-label.col-md-4.required 医师职称证
+    label.control-label.col-md-4.required(for="pic3") 医师职称证
     .col-md-4
-      input#pic3.form-control(type="file")
-      #preview3(ng-show="vm.formData.pic3")
-        img(ng-src="{{vm.formData.pic3 | img}}")
-      input(type="hidden" ng-model="vm.formData.pic3")
-      
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic3')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic3") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic3 | img}}" ng-show="vm.formData.pic3")
       
   .form-group
-    label#status.control-label.col-md-4.required 状态
+    label.control-label.col-md-4.required(for="status") 状态
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="1")
-          正常
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="0")
-          未审核
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="1")
+              正常
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="0")
+              未审核
       span.help-block 是否审核正常
   
   .form-group

@@ -38,23 +38,33 @@ angular.module 'jkbs'
       ]
     return
 
-  .controller 'UserNewController', (Util, $stateParams, toastr) ->
+  .controller 'UserNewController', (Util, $stateParams, toastr, Uploader, Sha1) ->
     'ngInject'
     vm = this
     vm.formData = {}
+    vm.formData.status = 0
+    vm.admin_group_list = [
+      {id: 0,label: "无管理权限"}
+      {id: 1,label: "日常管理"}
+      {id: 2,label: "总管理"}
+    ]
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/user')
 
     vm.save = () ->
+      if vm.formData.password
+        vm.formData.password = Sha1.hash vm.formData.password
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+    vm.upload = Uploader.upload
 
     # init
     if id
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
+          vm.formData.password = ''
     else
       vm.state = true
     return

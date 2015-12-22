@@ -9,5 +9,6 @@ angular.module 'jkbs',
     'ui.bootstrap',
     'toastr',
     'picardy.fontawesome',
-    'LocalStorageModule'
+    'LocalStorageModule',
+    'ngFileUpload'
   ]

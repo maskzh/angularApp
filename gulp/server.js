@@ -36,8 +36,13 @@ function browserSyncInit(baseDir, browser) {
   // server.middleware = proxyMiddleware('/users', {target: 'http://jsonplaceholder.typicode.com', proxyHost: 'jsonplaceholder.typicode.com'});
   server.middleware = proxyMiddleware([
     '**',
-    '!/#/'
-  ], {target: 'https://api.jkbsapp.com'});
+    '!/',
+    '!/(app|bower_components|browser-sync|assets)/**/*',
+  ], {
+    target: 'https://api.jkbsapp.com',
+    logLevel: 'debug',
+    changeOrigin: true
+  });
 
   browserSync.instance = browserSync.init({
     startPath: '/',

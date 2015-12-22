@@ -1,5 +1,5 @@
 angular.module 'jkbs'
-  .factory 'Auth', ($http, User) ->
+  .factory 'Auth', ($http, User, toastr) ->
     'ngInject'
 
     @getToken = (userId) ->
@@ -10,13 +10,13 @@ angular.module 'jkbs'
 
     @login = (credentials) ->
       $http
-        .post '/auth/admin-login', credentials
+        .post '/auth/admin-login', $.extend credentials, {client: 0, app_id: 10}
         .then (res) ->
           if res.data.result is true
             User.set res.data.data, res.data.message
             res.data.data
           else
-            alert '登录发生错误'
+            toastr.error res.data.message
             false
 
     @autoLogin = () ->

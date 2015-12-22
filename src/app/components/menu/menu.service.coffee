@@ -30,10 +30,10 @@ angular.module 'jkbs'
         title: '用户|demo',
         menus: ['#/user|用户管理']
       },
-      {
-        title: '代理商|demo',
-        menus: ['#/agent|代理商管理']
-      },
+      # {
+      #   title: '代理商|demo',
+      #   menus: ['#/agent|代理商管理']
+      # },
     ]
 
     getMenu = ->

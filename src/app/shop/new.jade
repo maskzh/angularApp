@@ -2,233 +2,245 @@ form.form-horizontal
   .form-group
     label#title.control-label.col-md-4.required 店名
     .col-md-4
-      input#title.form-control(type="text" ng-model="vm.formData.title" required)
-  
+      input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="店名" required)
+    
   .form-group
     label#mobile.control-label.col-md-4.required 店主手机号
     .col-md-4
-      input#mobile.form-control(type="text" ng-model="vm.formData.mobile" required)
-      span.help-block.fa.fa-warn 店主手机号，必须已经是注册用户
+      input#mobile.form-control(type="text" ng-model="vm.formData.mobile" placeholder="店主手机号" required)
+      span.help-block 店主手机号，必须已经是注册用户
       
-  .form-group(ng-hide="vm.formData.type==10")
-    label#category.control-label.col-md-4.required 机构类别
-    .col-md-4
-      select#category.form-control(ng-model="vm.formData.category" ng-options="i.id as category_format(i) for i in vm.category_list")
-        option(value="") --选择类别--
+  //- .form-group(ng-hide="vm.formData.type==10")
+  //-   label#category.control-label.col-md-4.required 机构类别
+  //-   .col-md-4
+  //-     select#category.form-control(ng-model="vm.formData.category")
+  //-       option(value="") --选择类别--
 
   .form-group
     label#star.control-label.col-md-4 店 Logo
     .col-md-4
-      input#pic.form-control(type="file")
-      #preview(ng-show="vm.formData.pic")
-        img(ng-src="{{vm.formData.pic | img}}")
-      input(type="hidden" ng-model="vm.formData.pic")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
       
   .form-group
     label#star.control-label.col-md-4 顶部图片
     .col-md-4
-      input#bg.form-control(type="file")
-      #preview(ng-show="vm.formData.bg")
-        img(ng-src="{{vm.formData.bg | img}}")
-      input(type="hidden" ng-model="vm.formData.bg")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'bg')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.bg") 点击或拖拽上传
+        img(ng-src="{{vm.formData.bg | img}}" ng-show="vm.formData.bg")
       
   .form-group
     label#company.control-label.col-md-4 公司
     .col-md-4
-      input#company.form-control(type="text" ng-model="vm.formData.company")
+      input#company.form-control(type="text" ng-model="vm.formData.company" placeholder="公司")
       
   .form-group
     label#contact.control-label.col-md-4 联系人
     .col-md-4
-      input#contact.form-control(type="text" ng-model="vm.formData.contact")
+      input#contact.form-control(type="text" ng-model="vm.formData.contact" placeholder="联系人")
           
   .form-group
     label#tel.control-label.col-md-4 电话
     .col-md-4
-      input#tel.form-control(type="text" ng-model="vm.formData.tel")
+      input#tel.form-control(type="text" ng-model="vm.formData.tel" placeholder="电话")
               
   .form-group
     label#is_boss_customer_service.control-label.col-md-4.required 客服
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.is_boss_customer_service" value="1")
-          span 是
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.is_boss_customer_service" value="0")
-          span 否
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.is_boss_customer_service" value="1")
+              span 是
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.is_boss_customer_service" value="0")
+              span 否
       span.help-block 管理员帐号是否作为客服出现
 
   .form-group
     label#province.control-label.col-md-4.required 所在省
     .col-md-4
-      select#province.form-control(ng-model="vm.formData.province" ng-options="i.id as category_format(i) for i in vm.category_list")
-        option(value="") --选择省--
+      select#province.form-control(ng-model="vm.formData.province" ng-options="item.name as item.name for item in vm.province_list" ng-click="vm.getLocaleList(vm.formData.province, 'province_list', 'city_list')")
+        option(value="") 选择省
+      input#province.form-control.input-cover(type="text" ng-model="vm.formData.province" ng-hide="vm.state || tmpProvince" ng-click="tmpProvince = true" placeholder="选择省")
   
   .form-group
     label#city.control-label.col-md-4.required 所在市
     .col-md-4
-      select#city.form-control(ng-model="vm.formData.city" ng-options="i.id as category_format(i) for i in vm.category_list")
-        option(value="") --选择市--
+      select#city.form-control(ng-model="vm.formData.city" ng-options="item.name as item.name for item in vm.city_list" ng-click="vm.getLocaleList(vm.formData.city, 'city_list', 'country_list')")
+        option(value="") 选择市
+      input#city.form-control.input-cover(type="text" ng-model="vm.formData.city" ng-hide="vm.state || tmpCity" ng-click="tmpCity = true" placeholder="选择市")
         
   .form-group
     label#county.control-label.col-md-4.required 所在区/县
     .col-md-4
-      select#county.form-control(ng-model="vm.formData.county" ng-options="i.id as category_format(i) for i in vm.category_list")
-        option(value="") --选择区/县--
+      select#county.form-control(ng-model="vm.formData.county" ng-options="item.name as item.name for item in vm.country_list")
+        option(value="") 选择区/县
+      input#county.form-control.input-cover(type="text" ng-model="vm.formData.county" ng-hide="vm.state || tmpCountry" ng-click="tmpCountry = true" placeholder="选择区/县")
         
   .form-group
     label#address.control-label.col-md-4 地址
     .col-md-4
-      input#address.form-control(type="text" ng-model="vm.formData.address")
+      input#address.form-control(type="text" ng-model="vm.formData.address" placeholder="地址")
           
   .form-group
     label#zipcode.control-label.col-md-4 邮编
     .col-md-4
-      input#zipcode.form-control(type="text" ng-model="vm.formData.zipcode")
+      input#zipcode.form-control(type="text" ng-model="vm.formData.zipcode" placeholder="邮编")
 
   .form-group
     label#open_time.control-label.col-md-4 营业时间
     .col-md-4
-      input#open_time.form-control(type="text" ng-model="vm.formData.open_time")
+      input#open_time.form-control(type="text" ng-model="vm.formData.open_time" placeholder="营业时间")
       
   .form-group
     label#sale_content.control-label.col-md-4 主营内容
     .col-md-4
-      input#sale_content.form-control(type="text" ng-model="vm.formData.sale_content")
-      
+      textarea#description.form-control(row="10" ng-model="vm.formData.sale_content" placeholder="主营内容")
+        
   .form-group
     label#service_insurance.control-label.col-md-4 医保支持
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_insurance" value="1")
-          支持
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_insurance" value="0")
-          不支持
-      span.help-block 管理员帐号是否作为客服出现
-  
-  .form-group
-    label#service_insurance.control-label.col-md-4 医保支持
-    .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_insurance" value="1")
-          支持
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_insurance" value="0")
-          不支持
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.service_insurance" value="1")
+              支持
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.service_insurance" value="0")
+              不支持
           
   .form-group
     label#service_chinese_medicine.control-label.col-md-4 中药有售
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_chinese_medicine" value="1")
-          支持
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_chinese_medicine" value="0")
-          不支持
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.service_chinese_medicine" value="1")
+              支持
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.service_chinese_medicine" value="0")
+              不支持
     
   .form-group
     label#service_chinese_medicine_agent.control-label.col-md-4 中药代煎
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_chinese_medicine_agent" value="1")
-          支持
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.service_chinese_medicine_agent" value="0")
-          不支持
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.service_chinese_medicine_agent" value="1")
+              支持
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.service_chinese_medicine_agent" value="0")
+              不支持
     
   .form-group
     label#description.control-label.col-md-4 简介
     .col-md-4
-      textarea#description.form-control(row="5" ng-model="vm.formData.description")
+      textarea#description.form-control(row="10" ng-model="vm.formData.description" placeholder="简介")
       
   .form-group(ng-hide="form_data.type==20")
     label#template_id.control-label.col-md-4.required 店铺模板
     .col-md-4
-      select#template_id.form-control(ng-model="vm.formData.template_id" ng-options="i.id as category_format(i) for i in vm.template_list")
-        option(value="") --选择模板--
-      span.help-block 药店模板 a(href="#") 点击此处预览模板
+      select#template_id.form-control(ng-model="vm.formData.template_id")
+        option(value="0" ng-selected="vm.formData.template_id == 0") 默认模板
+        option(value="1" ng-selected="vm.formData.template_id == 1") 模板1
+        option(value="2" ng-selected="vm.formData.template_id == 2") 模板2
+        option(value="3" ng-selected="vm.formData.template_id == 3") 模板3
+      span.help-block 药店模板
+      //- 点击此处预览模板
   
   .form-group
-    label#chain.control-label.col-md-4 中药代煎
+    label#chain.control-label.col-md-4 是否连锁
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.chain" value="1")
-          连锁
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.chain" value="0")
-          单店
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.chain" value="1")
+              连锁
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.chain" value="0")
+              单店
           
   .form-group
     label#parent.control-label.col-md-4 总店ID
     .col-md-4
-      input#parent.form-control(type="text" ng-model="vm.formData.parent")
+      input#parent.form-control(type="text" ng-model="vm.formData.parent" placeholder="总店ID")
       span.help-block 如果为连锁店：总店此值保持0，子店请填写总店ID
     
   .form-group
-    label#agent_id.control-label.col-md-4 总店ID
+    label#agent_id.control-label.col-md-4 代理商
     .col-md-4
-      input#agent_id.form-control(type="text" ng-model="vm.formData.agent_id")
+      input#agent_id.form-control(type="text" ng-model="vm.formData.agent_id" placeholder="代理商")
       span.help-block 代理商，暂为0
       
   .form-group
     label#order_id.control-label.col-md-4 排序ID
     .col-md-4
-      input#order_id.form-control(type="text" ng-model="vm.formData.order_id")
+      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" placeholder="排序ID")
       span.help-block 从大到小排
       
   .form-group
     label#deposit.control-label.col-md-4 保证金余额
     .col-md-4
-      input#deposit.form-control(type="text" ng-model="vm.formData.deposit")
+      input#deposit.form-control(type="text" ng-model="vm.formData.deposit" placeholder="保证金余额")
       
   .form-group
     label#status.control-label.col-md-4.required 状态
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="1")
-          正常
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="0")
-          禁用
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="1")
+              正常
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="0")
+              禁用
       span.help-block 是否启用
       
-  .form-group
-    label#status.control-label.col-md-4.required 地图
-    .col-md-4
-      #map
-      span.help-block 点击地图上的点，自动获取经纬度
-  
-  .form-group
-    label#keyword.control-label.col-md-4 搜索地点
-    .col-md-4
-      input#keyword.form-control(type="text" ng-model="keyword")
-      buttonb.btn.btn-default(type="button" ng-click="vm.locationSearch()") 搜索
-      span.help-block 在地图上搜索地点、药店名称或标志性地点
+  //- .form-group
+  //-   label#status.control-label.col-md-4.required 地图
+  //-   .col-md-4
+  //-     #map
+  //-     span.help-block 点击地图上的点，自动获取经纬度
+  //- 
+  //- .form-group
+  //-   label#keyword.control-label.col-md-4 搜索地点
+  //-   .col-md-4
+  //-     input#keyword.form-control(type="text" ng-model="keyword")
+  //-     buttonb.btn.btn-default(type="button" ng-click="vm.locationSearch()") 搜索
+  //-     span.help-block 在地图上搜索地点、药店名称或标志性地点
       
   .form-group
-    label#lon.control-label.col-md-4 经度
+    label#lon.control-label.col-md-4 经纬度
     .col-md-4
-      input#lon.form-control(type="text" ng-model="vm.formData.lon")
-      
-  .form-group
-    label#lat.control-label.col-md-4 纬度
-    .col-md-4
-      input#lat.form-control(type="text" ng-model="vm.formData.lat")
+      .row
+        .col-xs-6
+          input#lon.form-control(type="text" ng-model="vm.formData.lon" placeholder="经度" ng-change="vm.setLonAndLat(vm.formData.lon)")
+        .col-xs-6
+          input#lat.form-control(type="text" ng-model="vm.formData.lat" placeholder="纬度")
+      span.help-block
+        a(href="http://api.map.baidu.com/lbsapi/getpoint/" target="_blank") 点击这里获取经纬度
+    
       
   .form-group
     .col-sm-offset-4.col-sm-8

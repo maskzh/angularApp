@@ -54,7 +54,19 @@ angular.module 'jkbs'
       operation: 'delete search'
       table: [
         { text:"订单ID", field: "id"},
-        { text:"用户ID", field: "user_id" },
+        {
+          text:"用户信息",
+          field: "",
+          render: (field, full) ->
+            if full.user?
+              "<div class='row'>"+
+              "<div class='col-xs-4'><img class='J_image' src='#{Util.img full.user.pic}' width=30></div>" +
+              "<div class='col-xs-8'>"+
+              "<div>#{full.user_id}</div>" +
+              "<div>#{full.user.name}</div>" +
+              "<div>#{full.user.mobile}</div>"+
+              "</div></div>"
+        },
         { text:"医生ID", field: "doctor_id" },
         {
           text:"下单时间",
@@ -62,12 +74,12 @@ angular.module 'jkbs'
           render: (field, full) ->
             Util.timeFormat field
         },
-        {
-          text:"最后修改",
-          field: "updated_at",
-          render: (field, full) ->
-            Util.timeFormat field
-        },
+        # {
+        #   text:"最后修改",
+        #   field: "updated_at",
+        #   render: (field, full) ->
+        #     Util.timeFormat field
+        # },
         { text:"咨询价格", field: "amount"},
         {
           text:"订单状态",
@@ -86,12 +98,15 @@ angular.module 'jkbs'
     return
 
   # 医生新增和编辑
-  .controller 'DoctorNewController', (Util, $stateParams, toastr) ->
+  .controller 'DoctorNewController', (Util, $stateParams, toastr, doctorService, Uploader) ->
     'ngInject'
     vm = this
     vm.formData = {}
     vm.formData.onsale = 0
     vm.formData.status = 0
+    vm.typeList = doctorService.type()
+    vm.departmentList = doctorService.department()
+
     vm.id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/doctor')
 
@@ -99,6 +114,7 @@ angular.module 'jkbs'
       resMethods.save vm.formData, vm.id
         .then (res) ->
           toastr.success '已成功提交'
+    vm.upload = Uploader.upload
 
     # init
     if vm.id

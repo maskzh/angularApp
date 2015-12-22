@@ -1,55 +1,57 @@
 form.form-horizontal
   .form-group
-    label#title.control-label.col-md-4.required 资讯标题
+    label.control-label.col-md-4.required(for="title") 资讯标题
     .col-md-4
-      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+      input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="资讯标题" required)
       
   .form-group
     label#parent.control-label.col-md-4.required 所属分类
     .col-md-4
-      select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as category_format(i) for i in vm.category_list")
+      select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as i.title for i in vm.typeList")
         option(value="") --选择分类--
 
   .form-group
     label#star.control-label.col-md-4.required 图片
     .col-md-4
-      input#pic.form-control(type="file")
-      #preview(ng-show="vm.formData.pic")
-        img(ng-src="{{vm.formData.pic | img}}")
-      input(type="hidden" ng-model="vm.formData.pic")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
       
   .form-group
-    label#summary.control-label.col-md-4 摘要
+    label.control-label.col-md-4(for="summary") 摘要
     .col-md-4
-      input#summary.form-control(type="text" ng-model="vm.formData.summary")
+      textarea#summary.form-control(row="5" ng-model="vm.formData.summary" placeholder="摘要")
       
   .form-group
-    label#source.control-label.col-md-4 资讯来源
+    label.control-label.col-md-4(for="source") 资讯来源
     .col-md-4
-      input#source.form-control(type="text" ng-model="vm.formData.source")
+      input#source.form-control(type="text" ng-model="vm.formData.source" placeholder="资讯来源")
       
   .form-group
-    label#author.control-label.col-md-4 作者
+    label.control-label.col-md-4(for="author") 作者
     .col-md-4
-      input#author.form-control(type="text" ng-model="vm.formData.author")
+      input#author.form-control(type="text" ng-model="vm.formData.author" placeholder="作者")
     
   .form-group
-    label#order_id.control-label.col-md-4.required 置顶
+    label.control-label.col-md-4.required(for="order_id") 置顶
     .col-md-4
-      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" required)
+      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" placeholder="置顶" required)
       span.help-block 大于0则置顶，从大到小排列
     
   .form-group
     label#status.control-label.col-md-4.required 状态
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="1")
-          正常
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="0")
-          隐藏
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="1")
+              正常
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="0")
+              隐藏
       span.help-block 是否隐藏
       
   

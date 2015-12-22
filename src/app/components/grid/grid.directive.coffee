@@ -151,7 +151,7 @@ angular.module 'jkbs'
     handleApi = (api) ->
       throw new Error "api and api.base must be set" if !api? or !api.base?
       api.list = if api.list? then "#{api.base}/#{api.list}" else api.base
-      api.search = if api.search? then "#{api.base}/#{api.search}" else api.base
+      api.search = if api.search? then "#{api.base}/#{api.search}" else "#{api.base}/search"
       api.delete = if api.delete? then "#{api.base}/#{api.delete}" else api.base
       api.addHref = if api.addHref? then "##{api.addHref}/new" else "##{api.base}/new"
       api
@@ -226,9 +226,10 @@ angular.module 'jkbs'
         vm.deleteItem vm.api.delete, $(this).attr 'alt'
 
       el.on 'mouseenter', '.J_image', (e) ->
-        vm.toastr.info '展示图片TODO'
+        $(this).addClass 'on'
+
       el.on 'mouseleave', '.J_image', (e) ->
-        vm.toastr.clear()
+        $(this).removeClass 'on'
 
       scope.$on '$destroy', ->
         el.off()

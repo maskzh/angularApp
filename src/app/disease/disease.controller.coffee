@@ -58,7 +58,7 @@ angular.module 'jkbs'
       ]
     return
 
-  .controller 'DiseaseNewCatController', (Util, $stateParams, toastr) ->
+  .controller 'DiseaseNewCatController', (Util, $stateParams, toastr, Uploader) ->
     'ngInject'
     vm = this
     vm.formData = {}
@@ -69,6 +69,7 @@ angular.module 'jkbs'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+    vm.upload = Uploader.upload
 
     # init
     if id

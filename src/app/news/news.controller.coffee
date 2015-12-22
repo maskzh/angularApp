@@ -70,9 +70,10 @@ angular.module 'jkbs'
     'ngInject'
     vm = this
     vm.formData = {}
+    vm.formData.status = 0
+
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/news-category')
-
     vm.save = () ->
       resMethods.save vm.formData, id
         .then (res) ->
@@ -91,9 +92,13 @@ angular.module 'jkbs'
     'ngInject'
     vm = this
     vm.formData = {}
+    vm.formData.status = 1
+    Util.get '/news-category/index'
+    .then (res) ->
+      vm.typeList = res.data.items
+
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/news')
-
     vm.save = () ->
       resMethods.save vm.formData, id
         .then (res) ->

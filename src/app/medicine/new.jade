@@ -1,106 +1,114 @@
 form.form-horizontal
   .form-group
-    label#title.control-label.col-md-4.required 药品名称
+    label.control-label.col-md-4.required(for="title") 药品名称
     .col-md-4
-      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+      input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="药品名称" required)
       
   .form-group
-    label#buy_online.control-label.col-md-4.required 在线支付
+    label.control-label.col-md-4.required(for="buy_online") 在线支付
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.buy_online" value="1")
-          支持
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.buy_online" value="0")
-          不支持
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.buy_online" value="1")
+              支持
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.buy_online" value="0")
+              不支持
       span.help-block 是否能在线支付购买
       
   .form-group
-    label#category_id.control-label.col-md-4 所属分类
+    label.control-label.col-md-4(for="category_id") 所属分类
     .col-md-4
-      select#category_id.form-control(ng-model="vm.formData.category_id" ng-options="i for i in vm.category_list" )
+      select#category_id.form-control(ng-model="vm.formData.category_id" ng-options="i.id as i.label for i in vm.typeList")
         option(value="") 选择分类
-        span.help-block 所属分类，只能选择③开头的分类
+      span.help-block 所属分类，只能选择③开头的分类
         
   .form-group
     label#star.control-label.col-md-4.required 图片
     .col-md-4
-      input#pic.form-control(type="file")
-      #preview(ng-show="vm.formData.pic")
-        img(ng-src="{{vm.formData.pic | img}}")
-      input(type="hidden" ng-model="vm.formData.pic")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
       
   .form-group
-    label#spec.control-label.col-md-4 规格
+    label.control-label.col-md-4(for="spec") 规格
     .col-md-4
-      input#spec.form-control(type="text" ng-model="vm.formData.spec" required)
+      input#spec.form-control(type="text" ng-model="vm.formData.spec" placeholder="规格" equired)
       
   .form-group
-    label#unit.control-label.col-md-4 单位
+    label.control-label.col-md-4(for="unit") 单位
     .col-md-4
-      input#unit.form-control(type="text" ng-model="vm.formData.unit")
+      input#unit.form-control(type="text" ng-model="vm.formData.unit" placeholder="单位")
       
   .form-group
-    label#company.control-label.col-md-4 生产厂商
+    label.control-label.col-md-4(for="company") 生产厂商
     .col-md-4
-      input#company.form-control(type="text" ng-model="vm.formData.company")
+      input#company.form-control(type="text" ng-model="vm.formData.company" placeholder="生产厂商")
           
   .form-group
-    label#barcode.control-label.col-md-4 条码
+    label.control-label.col-md-4(for="barcode") 条码
     .col-md-4
-      input#barcode.form-control(type="text" ng-model="vm.formData.barcode")
+      input#barcode.form-control(type="text" ng-model="vm.formData.barcode" placeholder="条码")
           
   .form-group
-    label#register_number.control-label.col-md-4 注册号
+    label.control-label.col-md-4(for="register_number") 注册号
     .col-md-4
-      input#register_number.form-control(type="text" ng-model="vm.formData.register_number")
+      input#register_number.form-control(type="text" ng-model="vm.formData.register_number" placeholder="注册号")
           
   .form-group
-    label#type.control-label.col-md-4 类型
+    label.control-label.col-md-4(for="type") 类型
     .col-md-4
-      input#type.form-control(type="text" ng-model="vm.formData.type")
+      input#type.form-control(type="text" ng-model="vm.formData.type" placeholder="类型")
       
   .form-group
-    label#contain_ephedrine.control-label.col-md-4.required 麻黄碱
+    label.control-label.col-md-4.required(for="contain_ephedrine") 麻黄碱
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.contain_ephedrine" value="1")
-          含有
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.contain_ephedrine" value="0")
-          不含
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.contain_ephedrine" value="1")
+              含有
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.contain_ephedrine" value="0")
+              不含
       span.help-block 是否含有麻黄碱
               
   .form-group
-    label#order_id.control-label.col-md-4.required 排序ID
+    label.control-label.col-md-4.required(for="order_id") 排序ID
     .col-md-4
-      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" required)
+      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" required placeholder="排序ID")
       span.help-block 从大到小排
       
   .form-group
     label#status.control-label.col-md-4.required 状态
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="1")
-          正常
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="0")
-          隐藏
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="1")
+              正常
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="0")
+              隐藏
       span.help-block 是否隐藏
       
   .form-group
-    label#content_html.control-label.col-md-4.required 药品内容
+    label.control-label.col-md-4.required(for="content_html") 药品内容
     .col-md-4
-      textarea#content_html.form-control(type="text" row="5" ng-model="vm.formData.content_html" required)
+      textarea#content_html.form-control(type="text" row="5" ng-model="vm.formData.content_html" required placeholder="药品内容")
 
   .form-group
-    label#content.control-label.col-md-4.required 药品内容(详细)
+    label.control-label.col-md-4.required(for="content") 药品内容(详细)
     .col-md-4
       .form-group(ng-repeat="c in vm.formData.content")
         input.form-control(value="{{c.title}}" ng-model="c.title")

@@ -20,9 +20,14 @@ angular.module 'jkbs'
       ]
       table: [
         { text:"ID", field: "id"},
-        { text:"姓名", field: "name"},
-        { text:"电话", field: "tel"},
-        { text:"地址", field: "address"},
+        {
+          text:"用户信息",
+          field: "",
+          render: (field, full) ->
+            "#{full.name}<br>"+
+            "#{full.tel}<br>"+
+            "#{full.address}"
+        },
         {
           text:"支付方式",
           field: 'pay',
@@ -41,7 +46,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             return Util.timeFormat field
         },
-        { text:"订单价格", field: "price"},
+        { text:"总价", field: "price"},
         {
           text:"状态",
           field: "status",

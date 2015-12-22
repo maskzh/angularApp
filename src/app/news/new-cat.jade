@@ -1,26 +1,29 @@
 form.form-horizontal
   .form-group
-    label#title.control-label.col-md-4.required 分类名称
+    label.control-label.col-md-4.required(for="title") 分类名称
     .col-md-4
-      input#title.form-control(type="text" ng-model="vm.formData.title" required)
+      input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="分类名称" required)
     
   .form-group
-    label#order_id.control-label.col-md-4.required 排序ID
+    label.control-label.col-md-4.required(for="order_id") 排序ID
     .col-md-4
-      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" required)
+      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" placeholder="排序ID" required)
       span.help-block 从大到小排
   
   .form-group
     label#status.control-label.col-md-4.required 状态
     .col-md-4
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="1")
-          正常
-      .radio
-        label
-          input(type="radio" ng-model="vm.formData.status" value="0")
-          隐藏
+      .row
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="1")
+              正常
+        .col-xs-6
+          .radio
+            label
+              input(type="radio" ng-model="vm.formData.status" value="0")
+              隐藏
       span.help-block 是否隐藏
   
   .form-group
