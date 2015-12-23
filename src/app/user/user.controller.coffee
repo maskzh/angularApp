@@ -42,7 +42,7 @@ angular.module 'jkbs'
     'ngInject'
     vm = this
     vm.formData = {}
-    vm.formData.status = 0
+    vm.formData.status = 1
     vm.admin_group_list = [
       {id: 0,label: "无管理权限"}
       {id: 1,label: "日常管理"}

@@ -64,23 +64,23 @@ form.form-horizontal
   .form-group
     label#province.control-label.col-md-4.required 所在省
     .col-md-4
-      select#province.form-control(ng-model="vm.formData.province" ng-options="item.name as item.name for item in vm.province_list" ng-click="vm.getLocaleList(vm.formData.province, 'province_list', 'city_list')")
+      select#province.form-control(ng-model="vm.formData.province" ng-options="item.name as item.name for item in vm.province_list" ng-change="vm.getCityList()")
         option(value="") 选择省
-      input#province.form-control.input-cover(type="text" ng-model="vm.formData.province" ng-hide="vm.state || tmpProvince" ng-click="tmpProvince = true" placeholder="选择省")
+      //- input#province.form-control.input-cover(type="text" ng-model="vm.formData.province" ng-hide="vm.state || tmpProvince" ng-click="tmpProvince = true" placeholder="选择省")
   
   .form-group
     label#city.control-label.col-md-4.required 所在市
     .col-md-4
-      select#city.form-control(ng-model="vm.formData.city" ng-options="item.name as item.name for item in vm.city_list" ng-click="vm.getLocaleList(vm.formData.city, 'city_list', 'country_list')")
+      select#city.form-control(ng-model="vm.formData.city" ng-options="item.name as item.name for item in vm.city_list" ng-change="vm.getCountryList()")
         option(value="") 选择市
-      input#city.form-control.input-cover(type="text" ng-model="vm.formData.city" ng-hide="vm.state || tmpCity" ng-click="tmpCity = true" placeholder="选择市")
+      //- input#city.form-control.input-cover(type="text" ng-model="vm.formData.city" ng-hide="vm.state || tmpCity" ng-click="tmpCity = true" placeholder="选择市")
         
   .form-group
     label#county.control-label.col-md-4.required 所在区/县
     .col-md-4
       select#county.form-control(ng-model="vm.formData.county" ng-options="item.name as item.name for item in vm.country_list")
         option(value="") 选择区/县
-      input#county.form-control.input-cover(type="text" ng-model="vm.formData.county" ng-hide="vm.state || tmpCountry" ng-click="tmpCountry = true" placeholder="选择区/县")
+      //- input#county.form-control.input-cover(type="text" ng-model="vm.formData.county" ng-hide="vm.state || tmpCountry" ng-click="tmpCountry = true" placeholder="选择区/县")
         
   .form-group
     label#address.control-label.col-md-4 地址

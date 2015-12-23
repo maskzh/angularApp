@@ -46,9 +46,10 @@ angular.module 'jkbs'
       ]
     return
 
-  .controller 'ShopNewController', (Util, $stateParams, toastr, Uploader) ->
+  .controller 'ShopNewController', (Util, $stateParams, toastr, Uploader, $timeout) ->
     'ngInject'
     vm = this
+
     # init methods
     resMethods = Util.res('/shop')
     vm.save = () ->
@@ -68,16 +69,23 @@ angular.module 'jkbs'
     vm.formData.status = 1 #是否可用
     vm.formData.template_id = 0 #默认模板
 
-    # init 省市区域
-    vm.getLocaleList = (name, parent, child)->
-      if vm[parent] and vm[parent].length
-        for item in vm[parent]
-          if item.name is name
-            id = item.id or ''
-      Util.get '/area/get-list', {parent: id}
+    # 省市区域
+    vm.getPrivinceList = ()->
+      Util.get '/area/get-list'
       .then (res) ->
-        vm[child] = res.data.items
+        vm.province_list = res.data.items
 
+    vm.getCityList = ()->
+      Util.get '/area/get-list',{name: vm.formData.province}
+      .then (res) ->
+        vm.city_list = res.data.items
+
+    vm.getCountryList = ()->
+      Util.get '/area/get-list',{name: vm.formData.city}
+      .then (res) ->
+        vm.country_list = res.data.items
+
+    # 粘贴自动补全经纬度
     vm.setLonAndLat = (str)->
       xyz = str.split ','
       if xyz.length > 1
@@ -90,9 +98,11 @@ angular.module 'jkbs'
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
+          vm.getCityList()
+          vm.getCountryList()
     else
       # true 为新增，不存在 为编辑
       vm.state = true
+    vm.getPrivinceList()
 
-    vm.getLocaleList(null, null, 'province_list')
     return

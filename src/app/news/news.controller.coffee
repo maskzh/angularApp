@@ -14,7 +14,7 @@ angular.module 'jkbs'
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
-            "<a class='J_image' href=#{imgUrl}><img width=120 src=#{imgUrl}></a>"
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
         },
         {
           text:"创建时间",
@@ -88,7 +88,7 @@ angular.module 'jkbs'
       vm.state = true
     return
 
-  .controller 'NewsNewController', (Util, $stateParams, toastr) ->
+  .controller 'NewsNewController', (Util, $stateParams, toastr, Uploader) ->
     'ngInject'
     vm = this
     vm.formData = {}
@@ -103,6 +103,7 @@ angular.module 'jkbs'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+    vm.upload = Uploader.upload
 
     # init
     if id
