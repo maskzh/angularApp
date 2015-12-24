@@ -6,23 +6,23 @@ form.form-horizontal
       span.help-block 医生/专家手机号，必须已经是注册用户
       
   .form-group
-    label.control-label.col-md-4(for="type") 医生类别
+    label.control-label.col-md-4.required(for="type") 医生类别
     .col-md-4
       select#type.form-control(ng-model="vm.formData.type" ng-options="i for i in vm.typeList")
         option(value="") 选择类别
 
   .form-group
-    label.control-label.col-md-4(for="title") 职称
+    label.control-label.col-md-4.required(for="title") 职称
     .col-md-4
       input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="职称")
   
   .form-group
-    label.control-label.col-md-4(for="hospital") 医院
+    label.control-label.col-md-4.required(for="hospital") 医院
     .col-md-4
-      input#hospital.form-control(type="text" ng-model="vm.formData.hospital" placeholder="医院")
+      input#hospital.form-control.required(type="text" ng-model="vm.formData.hospital" placeholder="医院")
   
   .form-group
-    label.control-label.col-md-4(for="department") 科室
+    label.control-label.col-md-4.required(for="department") 科室
     .col-md-4
       select#department.form-control(ng-model="vm.formData.department" ng-options="i.value as i.label for i in vm.departmentList")
         option(value="") 选择科室
@@ -43,7 +43,7 @@ form.form-horizontal
       input#consultation_fee.form-control(type="text" ng-model="vm.formData.consultation_fee" placeholder="咨询费用")
     
   .form-group
-    label.control-label.col-md-4.required(for="onsale") 是否义诊
+    label.control-label.col-md-4(for="onsale") 是否义诊
     .col-md-4
       .row
         .col-xs-6
@@ -58,11 +58,11 @@ form.form-horizontal
               不义诊
       span.help-block 是否义诊，义诊时全部收费1元，类似促销
     
-  .form-group
-    label.control-label.col-md-4(for="star") 用户评价
-    .col-md-4
-      input#star.form-control(type="text" ng-model="vm.formData.star" placeholder="手机号")
-      span.help-block 用户评价星级，1-5
+  //- .form-group
+  //-   label.control-label.col-md-4(for="star") 用户评价
+  //-   .col-md-4
+  //-     input#star.form-control(type="text" ng-model="vm.formData.star" placeholder="手机号")
+  //-     span.help-block 用户评价星级，1-5
   
   .form-group
     label.control-label.col-md-4.required(for="pic1") 身份证图片

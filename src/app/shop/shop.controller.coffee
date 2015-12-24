@@ -22,19 +22,25 @@ angular.module 'jkbs'
             "<a class='J_image' href='#{imgUrl}'><img width=30 src='#{imgUrl}'></a>"
         },
         { text:"店名", field: "title"},
-        { text:"公司名", field: "company"},
+        # { text:"公司名", field: "company"},
         {
           text:"联系",
           field: '',
           render: (field, full) ->
-            "管理员：#{full.user_id}<br>"+
             "联系人：#{full.contact}<br>"+
-            "联系电话：#{full.tel}<br>"
+            "联系电话：#{full.tel}<br>"+
+            "地址：#{full.address}"
         },
-        { text: '地址', field: 'address' },
+        {
+          text: '更多',
+          field: '',
+          render: (field, full) ->
+            "收藏次数：#{full.favor_num}<br>"+
+            "访问次数：#{full.view_num}<br>"+
+            "评价：#{full.star}"
+        },
         # { text:"营业时间", field: "open_time"},
         # { text:"主营内容", field: "sale_content"},
-        { text:"评价", field: "star"},
         {
           text:"操作",
           field: "",

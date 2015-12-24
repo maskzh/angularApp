@@ -103,9 +103,10 @@ form.form-horizontal
       span.help-block 是否隐藏
       
   .form-group
+    {{vm.formData.content_html}}
     label.control-label.col-md-4.required(for="content_html") 药品内容
-    .col-md-4
-      textarea#content_html.form-control(type="text" row="5" ng-model="vm.formData.content_html" required placeholder="药品内容")
+    #content_html.col-md-12(simditor ng-model="vm.formData.content_html" placeholder="药品内容" style="margin-top:20px")
+      //- textarea#content_html.form-control(type="text" row="5" ng-model="vm.formData.content_html" required placeholder="药品内容")
 
   .form-group
     label.control-label.col-md-4.required(for="content") 药品内容(详细)

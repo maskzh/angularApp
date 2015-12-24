@@ -76,6 +76,24 @@ $jkbs-box-shadow = 0 0 1px 1px #eee
     margin-right 5px
     vertical-align -1px
 
+// tree
+.tree li
+  cursor pointer
+  padding-left 1.3em
+.tree
+  .tree-hover-trigger
+    .tree-hover-box
+      display none
+      a
+        margin-left 5px
+    &:hover
+      .tree-hover-box
+        display inline
+
+.tree ul
+  list-style none
+  padding-left 0
+
 // 自定义
 body
   background-color #e7e8eb

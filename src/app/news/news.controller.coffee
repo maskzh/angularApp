@@ -6,6 +6,7 @@ angular.module 'jkbs'
       api:
         base: '/news'
         list: ''
+      operation: "delete search"
       table: [
         { text:"ID", field: "id"},
         { text:"标题", field: "title"},
@@ -22,18 +23,18 @@ angular.module 'jkbs'
           render: (field, full) ->
             Util.timeFormat field
         },
-        {
-          text:"最后修改",
-          field: "updated_at",
-          render: (field, full) ->
-            Util.timeFormat field
-        },
-        {
-          text:"推送时间",
-          field: "send_at",
-          render: (field, full) ->
-            Util.timeFormat field
-        },
+        # {
+        #   text:"最后修改",
+        #   field: "updated_at",
+        #   render: (field, full) ->
+        #     Util.timeFormat field
+        # },
+        # {
+        #   text:"推送时间",
+        #   field: "send_at",
+        #   render: (field, full) ->
+        #     Util.timeFormat field
+        # },
         {
           text:"操作",
           field: "",

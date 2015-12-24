@@ -1,3 +1,4 @@
+h2 {{title}}
 form.form-horizontal
   .form-group
     label#title.control-label.col-md-4.required 疾病名称
@@ -5,17 +6,17 @@ form.form-horizontal
       input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="疾病名称" required)
 
   .form-group
+    label#link.control-label.col-md-4 疾病标题
+    .col-md-4
+      textarea#link.form-control(rows="5" ng-model="vm.formData.link" placeholder="相关疾病标题列表")
+      span.help-block 相关疾病标题列表，每个名称用空格隔开
+
+  .form-group
     label#treat.control-label.col-md-4 可能的治疗方法
     .col-md-4
       textarea#treat.form-control(rows="5" ng-model="vm.formData.treat" placeholder="可能的治疗方法")
       span.help-block 可能的治疗方法，每行一个。支持：药店/机构名、医生/健康天使手机号、药品名、机构套餐名
-      
-  .form-group
-    label#link.control-label.col-md-4 链接疾病
-    .col-md-4
-      textarea#link.form-control(rows="5" ng-model="vm.formData.link" placeholder="链接疾病")
-      span.help-block 链接疾病列表，每个名称用空格隔开
-  
+          
   .form-group
     label#description.control-label.col-md-4 疾病描述
     .col-md-4
@@ -60,12 +61,7 @@ form.form-horizontal
     label#prevention.control-label.col-md-4 预防和预后
     .col-md-4
       textarea#prevention.form-control(rows="5" ng-model="vm.formData.prevention" placeholder="预防和预后")
-      
-  .form-group
-    label#department.control-label.col-md-4 科室
-    .col-md-4
-      input#department.form-control(type="text" ng-model="vm.formData.department" placeholder="科室")
-  
+        
   .form-group
     .col-sm-offset-4.col-sm-8
       input(type="hidden" ng-model="vm.formData.id")

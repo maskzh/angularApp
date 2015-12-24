@@ -10,5 +10,6 @@ angular.module 'jkbs',
     'toastr',
     'picardy.fontawesome',
     'LocalStorageModule',
-    'ngFileUpload'
+    'ngFileUpload',
+    'simditor'
   ]

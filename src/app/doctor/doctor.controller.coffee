@@ -60,14 +60,13 @@ angular.module 'jkbs'
           render: (field, full) ->
             if full.user?
               "<div class='row'>"+
-              "<div class='col-xs-4'><img class='J_image' src='#{Util.img full.user.pic}' width=30></div>" +
-              "<div class='col-xs-8'>"+
-              "<div>#{full.user_id}</div>" +
+              "<div class='col-xs-3'><img class='J_image' src='#{Util.img full.user.pic}' width=30></div>" +
+              "<div class='col-xs-9'>"+
+              "<div>用户ID：#{full.user_id}</div>" +
               "<div>#{full.user.name}</div>" +
               "<div>#{full.user.mobile}</div>"+
               "</div></div>"
         },
-        { text:"医生ID", field: "doctor_id" },
         {
           text:"下单时间",
           field: "created_at",

@@ -189,6 +189,22 @@ angular.module 'jkbs'
         controller: 'UserNewController'
         controllerAs: 'vm'
 
+      # 活动
+      .state 'base.activity',
+        url: '/activity'
+        templateUrl: 'app/activity/index.html'
+        controller: 'ActivityController'
+        controllerAs: 'vm'
+      .state 'base.activity_new',
+        url: '/activity/new'
+        templateUrl: 'app/activity/new.html'
+        controller: 'ActivityNewController'
+        controllerAs: 'vm'
+      .state 'base.activity_edit',
+        url: '/activity/:id/edit'
+        templateUrl: 'app/activity/new.html'
+        controller: 'ActivityNewController'
+        controllerAs: 'vm'
 
       # # 提成
       # .state 'base.home',
@@ -210,10 +226,10 @@ angular.module 'jkbs'
       #   controllerAs: 'circle'
 
       # 代理商
-      .state 'base.agent',
-        url: '/agent'
-        templateUrl: 'app/agent/index.html'
-        controller: 'AgentController'
-        controllerAs: 'agent'
+      # .state 'base.agent',
+      #   url: '/agent'
+      #   templateUrl: 'app/agent/index.html'
+      #   controller: 'AgentController'
+      #   controllerAs: 'agent'
 
     $urlRouterProvider.otherwise '/'

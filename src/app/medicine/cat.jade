@@ -1,2 +1,28 @@
 h2 {{title}}
-grid(grid="grid")
+div(style="margin-bottom: 20px")
+  a.btn.btn-default(href="#/medicine-category/new") 添加
+
+.tree
+  ul
+    li(ng-repeat="level1 in vm.cats")
+      div.tree-hover-trigger(ng-click="level1.closed=!level1.closed")
+        i.fa(ng-class="level1.closed?'fa-plus':'fa-minus'")  
+        {{' '+level1.title}}
+        span.tree-hover-box
+          a(href="#/medicine-category/{{level1.id}}/edit"): i.fa.fa-edit
+          a(href="javascript:;" data-delete="{{level1.id}}"): i.fa.fa-remove
+      ul(ng-class="{hidden: level1.closed}")
+        li(ng-repeat="level2 in level1.child_list")
+          div.tree-hover-trigger(ng-click="level2.closed=!level2.closed" ng-init="level2.closed = true")
+            i.fa(ng-class="level2.closed?'fa-plus':'fa-minus'")  
+            {{' '+level2.title}}
+            span.tree-hover-box
+              a(href="#/medicine-category/{{level2.id}}/edit"): i.fa.fa-edit
+              a(href="javascript:;" data-delete="{{level2.id}}"): i.fa.fa-remove
+          ul(ng-class="{hidden: level2.closed}")
+            li(ng-repeat="level3 in level2.child_list")
+              .tree-hover-trigger
+                {{' '+level3.title}}
+                span.tree-hover-box
+                  a(href="#/medicine-category/{{level3.id}}/edit"): i.fa.fa-edit
+                  a(href="javascript:;" data-delete="{{level3.id}}"): i.fa.fa-remove

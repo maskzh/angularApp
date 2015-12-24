@@ -1,0 +1,10 @@
+form.form-horizontal
+  .form-group
+    label.control-label.col-md-4.required(for="title") 活动名称
+    .col-md-4
+      input#title.form-control(ng-model="vm.formData.title" required placeholder="请填写活动名称")
+  
+  .form-group
+    .col-sm-offset-4.col-sm-8
+      button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消
+      button.btn.btn-success(type="button" ng-click="vm.save()") 保存

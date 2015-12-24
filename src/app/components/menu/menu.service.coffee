@@ -16,7 +16,7 @@ angular.module 'jkbs'
       },
       {
         title: '疾病|demo',
-        menus: ['#/disease|疾病管理', '#/disease-title|疾病分类']
+        menus: ['#/disease|疾病管理', '#/disease-title|疾病标题']
       },
       {
         title: '药品|demo',
@@ -29,6 +29,10 @@ angular.module 'jkbs'
       {
         title: '用户|demo',
         menus: ['#/user|用户管理']
+      },
+      {
+        title: '活动|demo',
+        menus: ['#/activity|二维码']
       },
       # {
       #   title: '代理商|demo',

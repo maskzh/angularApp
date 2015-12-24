@@ -33,9 +33,9 @@ form.form-horizontal
       input#author.form-control(type="text" ng-model="vm.formData.author" placeholder="作者")
     
   .form-group
-    label.control-label.col-md-4.required(for="order_id") 置顶
+    label.control-label.col-md-4(for="order_id") 置顶
     .col-md-4
-      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" placeholder="置顶" required)
+      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" placeholder="置顶")
       span.help-block 大于0则置顶，从大到小排列
     
   .form-group
@@ -56,9 +56,10 @@ form.form-horizontal
       
   
   .form-group
-    label.control-label.col-md-4(for="content") 内容
-    .col-md-4
-      textarea#content.form-control(row="5" ng-model="vm.formData.content")
+    label.control-label.col-md-4.required(for="content") 内容
+    #content.col-md-12(simditor ng-model="vm.formData.content" placeholder="some 咨询内容" style="margin-top:20px")
+    //- .col-md-4
+    //-   textarea#content.form-control(row="5" ng-model="vm.formData.content")
 
   .form-group
     .col-sm-offset-4.col-sm-8

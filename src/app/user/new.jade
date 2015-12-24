@@ -7,12 +7,12 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="name") 姓名
     .col-md-4
-      input#name.form-control(type="text" ng-model="vm.formData.name" required placeholder="姓名" autocomplete="false")
+      input#name.form-control(type="text" ng-model="vm.formData.name" required placeholder="姓名" autocomplete="off")
 
   .form-group
-    label.control-label.col-md-4.required(for="password") 新密码
+    label.control-label.col-md-4.required(for="password") 密码
     .col-md-4
-      input#password.form-control(type="password" ng-model="vm.formData.password" required placeholder="密码" autocomplete="false")
+      input#password.form-control(type="password" ng-model="vm.formData.password" required placeholder="密码" autocomplete="off")
       span.help-block(ng-show="vm.formData.mobile") 不填则不修改密码
 
   .form-group
@@ -26,6 +26,7 @@ form.form-horizontal
     label.control-label.col-md-4.required(for="admin_group_id") 管理员类型
     .col-md-4
       select#admin_group_id.form-control(ng-model="vm.formData.admin_group_id" ng-options="i.id as i.label for i in vm.admin_group_list" required)
+        option(value="") 选择管理员类型
       span.help-block 目前支持无管理权限、一般管理、总管理三种类型
   
   .form-group
