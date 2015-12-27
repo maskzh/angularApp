@@ -14,6 +14,14 @@ angular.module 'jkbs'
         { text:"ID", field: "id"},
         { text:"活动标题", field: "title"},
         {
+          text:"二维码",
+          field: "",
+          render: (field, full) ->
+            "<a class='J_image' " +
+            "href='/front/qr/index?data=http://www.jkbs365.com/wx2.html?id=#{full.id}'>"+
+            "<img width=60 src='/front/qr/index?data=http://www.jkbs365.com/wx2.html?id=#{full.id}'></a>"
+        },
+        {
           text:"添加时间",
           field: "created_at",
           render: (field, full) ->
@@ -32,7 +40,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "disease/#{full.id}/edit", icon: 'edit'}
+              {type: 'default', title: '编辑', href: "activity/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]

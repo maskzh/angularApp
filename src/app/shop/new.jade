@@ -150,11 +150,8 @@ form.form-horizontal
   .form-group(ng-hide="form_data.type==20")
     label.control-label.col-md-4.required(for="template_id") 店铺模板
     .col-md-4
-      select#template_id.form-control(ng-model="vm.formData.template_id")
-        option(value="0" ng-selected="vm.formData.template_id == 0") 默认模板
-        option(value="1" ng-selected="vm.formData.template_id == 1") 模板1
-        option(value="2" ng-selected="vm.formData.template_id == 2") 模板2
-        option(value="3" ng-selected="vm.formData.template_id == 3") 模板3
+      select#template_id.form-control(ng-model="vm.formData.template_id" ng-options="i.id as i.label for i in [{label: '默认模板', id: 0},{label: '模板1', id: 1},{label: '模板2', id: 2},{label: '模板3', id: 3}]")
+        option(value="") 请选择药店模版
       span.help-block 药店模板
       //- 点击此处预览模板
   

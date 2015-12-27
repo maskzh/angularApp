@@ -21,19 +21,19 @@ angular.module 'jkbs'
 
       status =
         error: () ->
-          vm.noData = false
+          vm.isNoData = false
           vm.isLoading = false
           vm.isError = true
         loading: () ->
           vm.isLoading = true
-          vm.noData = false
+          vm.isNoData = false
           vm.isError = false
         noData: () ->
-          vm.noData = true
+          vm.isNoData = true
           vm.isLoading = false
           vm.isError = false
         hide: () ->
-          vm.noData = false
+          vm.isNoData = false
           vm.isLoading = false
           vm.isError = false
 
