@@ -188,6 +188,11 @@ angular.module 'jkbs'
         templateUrl: 'app/user/new.html'
         controller: 'UserNewController'
         controllerAs: 'vm'
+      .state 'base.user_i',
+        url: '/user/i'
+        templateUrl: 'app/user/i.html'
+        controller: 'UserIController'
+        controllerAs: 'vm'
 
       # 活动
       .state 'base.activity',

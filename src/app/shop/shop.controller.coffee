@@ -22,7 +22,7 @@ angular.module 'jkbs'
             "<a class='J_image' href='#{imgUrl}'><img width=30 src='#{imgUrl}'></a>"
         },
         { text:"店名", field: "title"},
-        # { text:"公司名", field: "company"},
+        { text:"管理员ID", field: "user_id"},
         {
           text:"联系",
           field: '',

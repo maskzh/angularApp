@@ -7,6 +7,7 @@ angular.module 'jkbs'
       api:
         base: '/user'
         list: ''
+      operation: 'delete search'
       table: [
         { text:"ID", field: "id"},
         {
@@ -52,8 +53,6 @@ angular.module 'jkbs'
     resMethods = Util.res('/user')
 
     vm.save = () ->
-      if vm.formData.password
-        vm.formData.password = Sha1.hash vm.formData.password
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
@@ -64,7 +63,24 @@ angular.module 'jkbs'
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
-          vm.formData.password = ''
     else
       vm.state = true
+    return
+
+  .controller 'UserIController', (Util, toastr, Uploader, Sha1, User) ->
+    'ngInject'
+    vm = this
+    vm.formData = {}
+    vm.confirm = ->
+      if vm.confirmPassword isnt vm.formData.password_new
+        toastr.error '请确认两次新密码是否一致'
+        return false
+      return true
+    vm.save = ->
+      return if !vm.confirm()
+      vm.formData.password = Sha1.hash vm.formData.password
+      vm.formData.password_new = Sha1.hash vm.formData.password_new
+      Util.post '/user/update-password', vm.formData
+      .then (res) ->
+        toastr.success '密码修改成功, 下次登录有效'
     return
