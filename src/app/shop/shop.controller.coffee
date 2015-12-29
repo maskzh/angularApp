@@ -101,12 +101,14 @@ angular.module 'jkbs'
     # init
     id = if $stateParams.id? then $stateParams.id else false
     if id
+      vm.title = "修改微店"
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
           vm.getCityList()
           vm.getCountryList()
     else
+      vm.title = "添加微店"
       # true 为新增，不存在 为编辑
       vm.state = true
     vm.getPrivinceList()

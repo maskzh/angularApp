@@ -60,10 +60,12 @@ angular.module 'jkbs'
 
     # init
     if id
+      vm.title = "修改用户"
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
     else
+      vm.title = "添加用户"
       vm.state = true
     return
 

@@ -117,9 +117,11 @@ angular.module 'jkbs'
 
     # init
     if vm.id
+      vm.title = "修改医生"
       resMethods.get vm.id
         .then (res) ->
           vm.formData = res.data
     else
+      vm.title = "添加医生"
       vm.state = true
     return

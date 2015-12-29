@@ -18,7 +18,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             "<a class='J_image' " +
-            "href='/front/qr/index?data=http://www.jkbs365.com/wx2.html?id=#{full.id}'>"+
+            "href='/front/qr/create-qr?data=http://www.jkbs365.com/wx2.html?id=#{full.id}'>"+
             "<img width=60 src='/front/qr/index?data=http://www.jkbs365.com/wx2.html?id=#{full.id}'></a>"
         },
         {
@@ -31,9 +31,9 @@ angular.module 'jkbs'
           text:"统计信息",
           field: "",
           render: (field, full) ->
-            "二维码扫码次数：#{full.count&&full.count.opennum}<br>"+
-            "ios下载：#{full.count&&full.count.iosdownnum}<br>" +
-            "android下载：#{full.count&&full.count.andownnum}<br>"
+            "二维码扫码次数：#{full.count&&full.count.opennum || 0}<br>"+
+            "ios下载：#{full.count&&full.count.iosdownnum || 0}<br>" +
+            "android下载：#{full.count&&full.count.andownnum || 0}<br>"
         },
         {
           text:"操作",
@@ -45,10 +45,9 @@ angular.module 'jkbs'
         }
       ]
     return
-  .controller 'ActivityNewController', (Util, $scope, $stateParams, toastr) ->
+  .controller 'ActivityNewController', (Util, $stateParams, toastr) ->
     'ngInject'
     vm = this
-    $scope.title = "添加活动"
     vm.formData = {}
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/e-activity')
@@ -60,9 +59,11 @@ angular.module 'jkbs'
 
     # init
     if id
+      vm.title = "修改活动"
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
     else
+      vm.title = "添加活动"
       vm.state = true
     return

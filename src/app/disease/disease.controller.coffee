@@ -73,10 +73,12 @@ angular.module 'jkbs'
 
     # init
     if id
+      vm.title = "修改疾病标题"
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
     else
+      vm.title = "添加疾病标题"
       vm.state = true
     return
 
@@ -94,9 +96,11 @@ angular.module 'jkbs'
 
     # init
     if id
+      vm.title = "修改疾病"
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
     else
+      vm.title = "增加疾病"
       vm.state = true
     return
