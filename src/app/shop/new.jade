@@ -11,11 +11,17 @@ form.form-horizontal
     .col-md-4
       input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="店名" required)
           
-  .form-group(ng-hide="vm.formData.type==10")
+  .form-group
+    label.control-label.col-md-4.required(for="type")  微店类型
+    .col-md-4
+      select#type.form-control(ng-model="vm.formData.type" ng-options="i.id as i.label for i in [{id: 10, label: '药店'},{id: 20, label: '机构'}]")
+        option(value="") --微店类型--
+          
+  .form-group(ng-show="vm.formData.type==20")
     label.control-label.col-md-4.required(for="category") 机构类别
     .col-md-4
       select#category.form-control(ng-model="vm.formData.category" ng-options="i for i in ['推拿','理疗','足疗','医院']")
-        option(value="") --选择类别--
+        option(value="") --选择机构类别--
       span.help-block 若为机构，可选择机构类别
 
   .form-group

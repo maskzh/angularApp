@@ -43,6 +43,7 @@ angular.module 'jkbs'
     vm = this
     vm.formData = {}
     vm.formData.status = 1
+    vm.formData.admin_group_id = 0
     vm.admin_group_list = [
       {id: 0,label: "无管理权限"}
       {id: 1,label: "日常管理"}
@@ -64,6 +65,7 @@ angular.module 'jkbs'
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
+          vm.formData.password = ''
     else
       vm.title = "添加用户"
       vm.state = true
