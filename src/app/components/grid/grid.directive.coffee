@@ -191,6 +191,12 @@ angular.module 'jkbs'
       # 绑定事件
       handleEvents scope.grid.events
 
+      updateIds = ->
+        vm.ids = []
+        el.find 'tbody input:checked'
+        .each (index, item) ->
+          vm.ids.push $(item).val()
+
       el.on 'click', 'thead input', (e) ->
         checked = $(this).prop 'checked'
         $cboxs = el.find 'tbody input'
@@ -198,16 +204,12 @@ angular.module 'jkbs'
           $cboxs
             .prop 'checked', true
             .parents('tr').addClass('active')
-            .end()
-            .each (item) ->
-              vm.ids.push $(item).val()
+          updateIds()
         else
           $cboxs
             .prop 'checked', false
             .parents('tr').removeClass('active')
-            .end()
-            .each (item) ->
-              vm.ids = []
+          vm.ids = []
         return
 
       el.on 'click', 'tbody input', (e) ->
