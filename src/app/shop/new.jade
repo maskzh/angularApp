@@ -1,5 +1,11 @@
 h2 {{vm.title}}
 form.form-horizontal
+  .form-group(ng-if="vm.state")
+    label.control-label.col-md-4.required(for="mobile") 手机号
+    .col-md-4
+      input#mobile.form-control(type="text" ng-model="vm.formData.mobile" required placeholder="手机号")
+      span.help-block 管理员手机号，必须已经是注册用户
+  
   .form-group
     label.control-label.col-md-4.required(for="title") 店名
     .col-md-4
@@ -15,14 +21,14 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="logo") 店 Logo
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file, vm.formData, 'pic')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
       
   .form-group
     label.control-label.col-md-4.required(for="bg") 顶部图片
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'bg')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'bg')" ngf-drop="vm.upload($file, vm.formData, 'bg')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.bg") 点击或拖拽上传
         img(ng-src="{{vm.formData.bg | img}}" ng-show="vm.formData.bg")
       

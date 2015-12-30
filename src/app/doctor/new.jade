@@ -68,21 +68,21 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="pic1") 身份证图片
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic1')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic1')" ngf-drop="vm.upload($file, vm.formData, 'pic1')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic1") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic1 | img}}" ng-show="vm.formData.pic1")
       
   .form-group
     label.control-label.col-md-4.required(for="pic2") 医师职业证盖章页图片
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic2')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic2')" ngf-drop="vm.upload($file, vm.formData, 'pic2')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic2") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic2 | img}}" ng-show="vm.formData.pic2")
           
   .form-group
     label.control-label.col-md-4.required(for="pic3") 医师职称证
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic3')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic3')" ngf-drop="vm.upload($file, vm.formData, 'pic3')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic3") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic3 | img}}" ng-show="vm.formData.pic3")
       

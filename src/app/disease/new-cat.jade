@@ -15,14 +15,14 @@ form.form-horizontal
   .form-group
     label#pic.control-label.col-md-4.required 分类图标
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file, vm.formData, 'pic')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
   
   .form-group
     label#pic2.control-label.col-md-4.required 当前分类图标
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic2')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic2')" ngf-drop="vm.upload($file, vm.formData, 'pic2')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic2") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic2 | img}}" ng-show="vm.formData.pic2")
   

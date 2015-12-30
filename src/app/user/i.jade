@@ -2,12 +2,12 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="password") 原密码
     .col-md-4
-      input#password.form-control(type="password" ng-model="vm.formData.password" required placeholder="原密码" autocomplete="off")
+      input#password.form-control(type="password" ng-model="vm.password" required placeholder="原密码" autocomplete="off")
       
   .form-group
     label.control-label.col-md-4.required(for="newPassword") 新密码
     .col-md-4
-      input#newPassword.form-control(type="password" ng-model="vm.formData.password_new" required placeholder="新密码" autocomplete="off")
+      input#newPassword.form-control(type="password" ng-model="vm.password_new" required placeholder="新密码" autocomplete="off")
   
   .form-group
     label.control-label.col-md-4.required(for="confirmPassword") 确认新密码

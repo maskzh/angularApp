@@ -104,7 +104,10 @@ angular.module 'jkbs'
     vm.formData.onsale = 0
     vm.formData.status = 0
     vm.typeList = doctorService.type()
-    vm.departmentList = doctorService.department()
+
+    Util.get '/doctor/department/get_list'
+    .then (res) ->
+      vm.departmentList = res.data.items
 
     vm.id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/doctor')

@@ -10,7 +10,7 @@ angular.module 'jkbs'
 
     @login = (credentials) ->
       $http
-        .post '/auth/admin-login', $.extend credentials, {client: 0, app_id: 10}
+        .post '/auth/admin-login', credentials
         .then (res) ->
           if res.data.result is true
             User.set res.data.data, res.data.message

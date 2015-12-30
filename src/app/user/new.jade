@@ -10,16 +10,16 @@ form.form-horizontal
     .col-md-4
       input#name.form-control(type="text" ng-model="vm.formData.name" required placeholder="姓名" autocomplete="off")
 
-  //- .form-group
-  //-   label.control-label.col-md-4.required(for="password") 密码
-  //-   .col-md-4
-  //-     input#password.form-control(type="password" ng-model="vm.formData.password" required placeholder="密码" autocomplete="off")
-  //-     span.help-block(ng-show="vm.formData.mobile") 不填则不修改密码
+  .form-group
+    label.control-label.col-md-4.required(for="password") 密码
+    .col-md-4
+      input#password.form-control(type="password" ng-model="vm.password" required placeholder="密码" autocomplete="off")
+      span.help-block(ng-show="vm.formData.mobile") 不填则不修改密码
 
   .form-group
     label.control-label.col-md-4.required(for="pic") 头像
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file, vm.formData, 'pic')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
 

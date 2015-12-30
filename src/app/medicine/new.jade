@@ -31,7 +31,7 @@ form.form-horizontal
   .form-group
     label#star.control-label.col-md-4.required 图片
     .col-md-4
-      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file)" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file, vm.formData, 'pic')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
         span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
       
