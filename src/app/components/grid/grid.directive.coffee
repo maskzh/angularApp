@@ -76,6 +76,7 @@ angular.module 'jkbs'
         Util.get url, data
           .then (res)->
             if !res.data.items or res.data.items.length is 0
+              vm.list = []
               status.noData()
               return
 
