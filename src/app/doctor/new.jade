@@ -25,7 +25,7 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="department") 科室
     .col-md-4
-      select#department.form-control(ng-model="vm.formData.department" ng-options="i.value as i.label for i in vm.departmentList")
+      select#department.form-control(ng-model="vm.formData.department" ng-options="i.id as i.title group by i.level1 for i in vm.departmentList")
         option(value="") 选择科室
       
   .form-group

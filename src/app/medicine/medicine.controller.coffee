@@ -43,47 +43,15 @@ angular.module 'jkbs'
     # 表格
     vm = this
     $scope.title = '药品分类'
-    Util.get '/medicine-category/get-category'
+    Util.get '/medicine-category/get-category', {type: 'all'}
     .then (res) ->
       vm.cats = res.data.items
-      for i in vm.cats
-        do (i)->
-          Util.get "/medicine-category/get-category?parent=#{i.id}"
-          .then (res) ->
-            i.child_list = res.data.items
 
     $('.tree').on 'click', '[data-delete]', (e) ->
       Util.delete "/medicine-category/#{$(this).data('delete')}"
       .then (res) ->
         toastr.success '删除成功'
         $(this).parents('li').remove()
-
-
-
-    # $scope.grid =
-    #   api:
-    #     base: '/medicine-category'
-    #     list: 'get-category'
-    #   table: [
-    #     { text:"ID", field: "id"},
-    #     {
-    #       text:"图标",
-    #       field: "pic",
-    #       render: (field, full) ->
-    #         imgUrl = Util.img field
-    #         "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.name}></a>"
-    #     },
-    #     { text:"名称", field: "title"},
-    #     { text:"描述", field: "description"},
-    #     {
-    #       text:"操作",
-    #       field: "",
-    #       render: (field, full) ->
-    #         Util.genBtns([
-    #           {type: 'default', title: '编辑', href: "medicine-category/#{full.id}/edit", icon: 'edit'}
-    #         ], full.id)
-    #     }
-    #   ]
     return
 
   .controller 'MedicineNewCatController', (Util, $stateParams, toastr, Uploader, medicineService) ->
@@ -91,7 +59,15 @@ angular.module 'jkbs'
     vm = this
     vm.formData = {}
     vm.formData.order_id = 0
-    vm.typeList = medicineService.catType()
+    vm.typeList = []
+    Util.get '/medicine-category/get-category', {type: 'all'}
+    .then (res) ->
+      for item1 in res.data.items
+        vm.typeList.push {id: item1.id, title: "① #{item1.title}"}
+        for item2 in item1.child_list
+          vm.typeList.push {id: item2.id, title: "----② #{item2.title}"}
+      return
+
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/medicine-category')
 
@@ -119,10 +95,14 @@ angular.module 'jkbs'
     vm.formData.buy_online = 0
     vm.formData.contain_ephedrine = 0
     vm.formData.status = 0
-    # Util.get '/medicine-category/get-category'
-    # .then (res) ->
-    #   vm.typeList = res.data.items
-    vm.typeList = medicineService.type()
+    vm.typeList = []
+    Util.get '/medicine-category/get-category', {type: 'all'}
+    .then (res) ->
+      for item1 in res.data.items
+        vm.typeList.push {id: item1.id, title: "-----------①  #{item1.title}(不可选)------------"}
+        for item2 in item1.child_list
+          for item3 in item2.child_list
+            vm.typeList.push angular.extend item3, {level1: item1.title, level2: '② ' + item2.title}
     id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/medicine')
 

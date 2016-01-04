@@ -8,7 +8,7 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="parent") 上级分类
     .col-md-4
-      select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as i.label for i in vm.typeList")
+      select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as i.title for i in vm.typeList")
         option(value="") --选择上级分类--
 
   .form-group

@@ -46,7 +46,10 @@ angular.module 'jkbs'
     'ngInject'
     # 表格
     $scope.title = ($location.search().name or '') + '医生咨询订单'
-    listUrl = "get-list?doctor_id=#{$stateParams.id}" if $stateParams.id?
+    if $stateParams.id?
+      listUrl = "get-list?doctor_id=#{$stateParams.id}"
+    else
+      listUrl = "get-list"
     $scope.grid =
       api:
         base: '/order-doctor'
@@ -104,10 +107,16 @@ angular.module 'jkbs'
     vm.formData.onsale = 0
     vm.formData.status = 0
     vm.typeList = doctorService.type()
-
-    Util.get '/doctor/department/get_list'
+    vm.departmentList = []
+    Util.get '/hospital-department/get-list?type=all'
     .then (res) ->
-      vm.departmentList = res.data.items
+      for item1 in res.data.items
+        # vm.departmentList.push {id: item1.id, title: "-----------①  #{item1.title}(不可选)------------"}
+        if item1.child_list?
+          for item2 in item1.child_list
+            # if item2.child_list?
+            #   for item3 in item2.child_list
+            vm.departmentList.push angular.extend item2, {level1: item1.title}
 
     vm.id = if $stateParams.id? then $stateParams.id else false
     resMethods = Util.res('/doctor')

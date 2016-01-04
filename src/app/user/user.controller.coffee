@@ -53,7 +53,7 @@ angular.module 'jkbs'
     resMethods = Util.res('/user')
 
     vm.save = () ->
-      vm.formData.password = Sha1.hash vm.password
+      # vm.formData.password = Sha1.hash vm.password
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
