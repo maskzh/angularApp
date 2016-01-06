@@ -145,7 +145,7 @@ angular.module 'jkbs'
         url: '/news'
         templateUrl: 'app/news/index.html'
         controller: 'NewsController'
-        controllerAs: 'news'
+        controllerAs: 'vm'
       .state 'base.news_new', # 添加资讯
         url: '/news/new'
         templateUrl: 'app/news/new.html'
@@ -170,6 +170,11 @@ angular.module 'jkbs'
         url: '/news-category/:id/edit'
         templateUrl: 'app/news/new-cat.html'
         controller: 'NewsNewCatController'
+        controllerAs: 'vm'
+      .state 'base.new_cat_news', # 资讯分类下资讯
+        url: '/news-category/:id/news'
+        templateUrl: 'app/news/index.html'
+        controller: 'NewsController'
         controllerAs: 'vm'
 
       # 用户

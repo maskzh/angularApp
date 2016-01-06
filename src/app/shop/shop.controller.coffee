@@ -7,7 +7,8 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/shop'
-        list: "shop-list"
+        list: "all-list"
+        search: ''
       tabs: [
         {title:'药店', query: {type:10}},
         {title:'机构', query:{type:20}},
@@ -22,15 +23,22 @@ angular.module 'jkbs'
             "<a class='J_image' href='#{imgUrl}'><img width=30 src='#{imgUrl}'></a>"
         },
         { text:"店名", field: "title"},
-        { text:"管理员ID", field: "user_id"},
         {
-          text:"联系",
-          field: '',
+          text:"管理员信息",
+          field: "",
           render: (field, full) ->
-            "联系人：#{full.contact}<br>"+
-            "联系电话：#{full.tel}<br>"+
-            "地址：#{full.address}"
+            "ID: #{full.user_id}<br>" +
+            "用户名: #{full.user_name}<br>" +
+            "手机: #{full.user_mobile}"
         },
+        # {
+        #   text:"联系信息",
+        #   field: '',
+        #   render: (field, full) ->
+        #     "联系人：#{full.contact}<br>"+
+        #     "联系电话：#{full.tel}<br>"+
+        #     "地址：#{full.address}"
+        # },
         {
           text: '更多',
           field: '',

@@ -6,9 +6,9 @@ form.form-horizontal
       input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="资讯标题" required)
       
   .form-group
-    label.control-label.col-md-4.required(for="type") 所属分类
+    label.control-label.col-md-4.required(for="category_id") 所属分类
     .col-md-4
-      select#type.form-control(ng-model="vm.formData.type" ng-options="i.id as i.title for i in vm.typeList")
+      select#category_id.form-control(ng-model="vm.formData.category_id" ng-options="i.id as i.title for i in vm.typeList")
         option(value="") --选择分类--
 
   .form-group
@@ -27,18 +27,7 @@ form.form-horizontal
     label.control-label.col-md-4(for="source") 资讯来源
     .col-md-4
       input#source.form-control(type="text" ng-model="vm.formData.source" placeholder="资讯来源")
-      
-  .form-group
-    label.control-label.col-md-4(for="author") 作者
-    .col-md-4
-      input#author.form-control(type="text" ng-model="vm.formData.author" placeholder="作者")
-    
-  .form-group
-    label.control-label.col-md-4(for="order_id") 置顶
-    .col-md-4
-      input#order_id.form-control(type="text" ng-model="vm.formData.order_id" placeholder="置顶")
-      span.help-block 大于0则置顶，从大到小排列
-    
+          
   .form-group
     label.control-label.col-md-4.required(for="status") 状态
     .col-md-4

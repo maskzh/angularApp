@@ -1,12 +1,17 @@
 angular.module 'jkbs'
-  .controller 'NewsController', (Util, $scope) ->
+  .controller 'NewsController', (Util, $scope, $stateParams) ->
     'ngInject'
-    # 表格
+    # 分类目录进来是有ID的
+    if $stateParams.id
+      listUrl = "news-list?type=10&category_id=#{$stateParams.id}"
+    else
+      listUrl = "news-list?type=10"
+
+    $scope.title = '资讯管理'
     $scope.grid =
       api:
         base: '/news'
-        list: ''
-      operation: "delete search"
+        list: listUrl
       table: [
         { text:"ID", field: "id"},
         { text:"标题", field: "title"},
@@ -49,6 +54,7 @@ angular.module 'jkbs'
   .controller 'NewsCatController', (Util, $scope) ->
     'ngInject'
     # 表格
+    $scope.title = '资讯分类管理'
     $scope.grid =
       api:
         base: '/news-category'
@@ -61,6 +67,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
+              {type: 'default', title: '资讯', href: "news-category/#{full.id}/news", icon: 'navicon'},
               {type: 'default', title: '编辑', href: "news-category/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
@@ -96,6 +103,7 @@ angular.module 'jkbs'
     vm = this
     vm.formData = {}
     vm.formData.status = 1
+    vm.formData.type = 10
     Util.get '/news-category/index'
     .then (res) ->
       vm.typeList = res.data.items
