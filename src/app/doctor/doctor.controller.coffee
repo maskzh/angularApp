@@ -111,7 +111,7 @@ angular.module 'jkbs'
     Util.get '/hospital-department/get-list?type=all'
     .then (res) ->
       for item1 in res.data.items
-        # vm.departmentList.push {id: item1.id, title: "-----------①  #{item1.title}(不可选)------------"}
+        vm.departmentList.push {id: item1.id, title: "①  #{item1.title}"}
         if item1.child_list?
           for item2 in item1.child_list
             # if item2.child_list?
