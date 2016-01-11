@@ -8,7 +8,7 @@ angular.module 'jkbs'
       api:
         base: '/shop'
         list: "all-list"
-        search: ''
+        search: 'all-list'
       tabs: [
         {title:'药店', query: {type:10}},
         {title:'机构', query:{type:20}},

@@ -6,7 +6,8 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/order'
-        list: 'order-list'
+        list: 'all-list'
+        search: 'all-list'
       operation: 'delete search'
       tabs: [
         {title:'全部', query: {whether_done:0}},
