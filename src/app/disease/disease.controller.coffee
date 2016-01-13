@@ -7,6 +7,7 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/disease'
+      operation: 'delete search'
       table: [
         { text:"ID", field: "id"},
         { text:"名称", field: "title"},
@@ -102,13 +103,97 @@ angular.module 'jkbs'
         .then (res) ->
           toastr.success '已成功提交'
 
-    vm.loadLink = (keyword) ->
-      Util.get '/disease-title/title-list', {keyword: keyword}
+    # 添加疾病关联
+    vm.doctor = []
+    vm.medicine = []
+    vm.physiotherapy = []
+    vm.food = []
+    vm.fruit = []
+    updateFormData = (type) ->
+      ids = []
+      for item in vm[type]
+        ids.push item.id
+      ids = ids.join(',')
+      vm.formData["#{type}_id"] = ids
+    vm.removeLabel = (type, label, $event) ->
+      $event.stopPropagation()
+      for item,i in vm[type]
+        if item.id is label.id
+          vm[type].splice i, 1
+      updateFormData(type)
+    vm.grid = (type) ->
+      _vm = vm
+      if type is 'doctor'
+        table =
+          [
+            { text:"ID", field: "id"},
+            { text:"姓名", field: "user_name"},
+            {
+              text:"头像",
+              field: "user_pic",
+              render: (field, full) ->
+                imgUrl = Util.img field
+                "<a class='J_image' href='#{imgUrl}'><img width=30 src='#{imgUrl}' alt='#{full.name}'></a>"
+            },
+            { text:"类型", field: "type"},
+            { text:"职称", field: "title"},
+            {
+              text:"医院/科室",
+              field: null,
+              render: (field, full) ->
+                return "#{full.hospital}/#{full.department}"
+            },
+            { text:"咨询费用", field: "consultation_fee"},
+            { text:"评价", field: "star"}
+          ]
+      else
+        table =
+          [
+            { text:"ID", field: "id"},
+            {
+              text:"图片",
+              field: "pic",
+              render: (field, full) ->
+                imgUrl = Util.img field
+                "<a class='J_image' href='#{imgUrl}'><img width=30 src='#{imgUrl}'></a>"
+            },
+            { text:"药品名称", field: "title"},
+            {
+              text:"规格",
+              field: "spec",
+              render: (field, full) ->
+                field + " #{full.unit}"
+            },
+            { text:"生产厂商", field: "company"},
+            { text:"注册号", field: "register_number"},
+            { text:"类型", field: "type"},
+            { text:"二维码", field: 'barcode' }
+          ]
+      {
+        api:
+          base: "/disease-title/may-be-therapies?type=#{type}&name=#{vm.formData.title}"
+        operation: 'choose'
+        table: table
+        callback: (scope, el, attr, vm) ->
+          console.log _vm
+          vm.choose = ->
+            for itemA in vm.selectedItems
+              flag = true
+              for itemB in _vm[type]
+                flag = false if itemA.id is itemB.id
+              _vm[type].push itemA if flag
+            updateFormData(type)
+            return
+      }
 
-    vm.loadTherapies = (type, keyword) ->
-      Util.get '/disease-title/may-be-therapies', {type: type, keyword: keyword}
-      .then (res) ->
-        return
+    vm.openModal = (type) ->
+      modalInstance = $modal.open
+        templateUrl: 'modal.html'
+        controller: 'DiseaseModalController'
+        size: 'lg'
+        resolve:
+          grid: ->
+            vm.grid(type)
 
     # init
     id = if $stateParams.id? then $stateParams.id else false
@@ -117,91 +202,18 @@ angular.module 'jkbs'
       resMethods.get id
         .then (res) ->
           vm.formData = res.data
+          for type in ['doctor', 'medicine', 'institution', 'food', 'fruit']
+            do (type) ->
+              Util.get '/disease/disease-treat', {type: type, id: id}
+              .then (res) ->
+                vm[type] = res.data.items || []
     else
       vm.title = "增加疾病"
       vm.state = true
-
-    # 添加疾病关联
-    vm.link = []
-    vm.doctor = []
-    vm.medicine = []
-    vm.physiotherapy = []
-    vm.fruit = []
-    vm.grid =
-      link:
-        api:
-          base: '/disease-title'
-        operation: 'search choose'
-        table: [
-          { text:"ID", field: "id"},
-          {
-            text:"图片",
-            field: "pic",
-            render: (field, full) ->
-              imgUrl = Util.img field
-              "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.title}></a>"
-          },
-          { text:"类别", field: "type" },
-          { text:"标题", field: "title" }
-        ]
-      therapies: (type) ->
-        {
-          api:
-            base: "/disease-title/may-be-therapies?type=#{type}"
-          operation: 'search choose'
-          table: [
-            { text:"ID", field: "id"},
-            {
-              text:"图片",
-              field: "pic",
-              render: (field, full) ->
-                imgUrl = Util.img field
-                "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl} alt=#{full.title}></a>"
-            },
-            { text:"标题", field: "title" }
-          ]
-        }
-
-    vm.openModal = (grid, type) ->
-      modalInstance = $modal.open
-        templateUrl: 'modal.html'
-        controller: 'DiseaseModalController'
-        size: 'lg'
-        resolve:
-          parentCtrl: ->
-            vm
-          grid: ->
-            grid
-          type: ->
-            type
-
     return
 
-  .controller 'DiseaseModalController', ($scope, Util, $modalInstance, parentCtrl, grid, type) ->
-    data = if type? then parentCtrl[type] else parentCtrl[grid]
-    gridConfig = if type? then parentCtrl.grid[grid](type) else parentCtrl.grid[grid]
+  .controller 'DiseaseModalController', ($scope, Util, $modalInstance, grid) ->
     $scope.title = '选择'
-    $scope.grid = angular.extend {}, gridConfig, {
-      callback: (scope, el, attr, vm) ->
-        vm.choose = ->
-          for itemA in vm.selectedItems
-            flag = true
-            for itemB in data
-              flag = false if itemA.id is itemB.id
-            data.push itemA if flag
-
-          if type?
-            ids = []
-            for item in data
-              ids.push item.id
-            ids = ids.join(',')
-          else
-            ids = []
-            for item in data
-              ids.push item.title
-            ids = ids.join(' ')
-          if type? then parentCtrl.formData["#{type}_id"] = ids else parentCtrl.formData[grid] = ids
-          return
-    }
+    $scope.grid = grid
     $scope.cancel = ->
       $modalInstance.dismiss 'cancel'

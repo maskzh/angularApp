@@ -8,44 +8,48 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4 疾病标题
     .col-md-4
-      .tags-container(ng-model="vm.link" ng-click="vm.openModal('link')") 
-        span.tags-container-placeholder(ng-hide="vm.link.length") 选择疾病标题
-        span.label.label-primary(ng-repeat="i in vm.link") {{i.title}}
+      textarea.form-control(ng-model="vm.formData.link" row="5" placeholder="疾病标题")
+      span.help-block 疾病标题以空格分隔
   
   .form-group
     label.control-label.col-md-4 医生
     .col-md-4
-      .tags-container(del="vm.doctor" ng-click="vm.openModal('therapies', 'doctor')") 
-        span.tags-container-placeholder(ng-hide="vm.doctor") 选择医生
+      .tags-container(del="vm.doctor" ng-click="vm.openModal('doctor')") 
+        span.tags-container-placeholder(ng-hide="vm.doctor.length") 选择医生
         span.label.label-primary(ng-repeat="i in vm.doctor") {{i.title}}
+          span(ng-click="vm.removeLabel('doctor', i, $event)") &times;
               
   .form-group
     label.control-label.col-md-4 药品
     .col-md-4
-      .tags-container(ng-model="vm.medicine" ng-click="vm.openModal('therapies', 'medicine')") 
-        span.tags-container-placeholder(ng-hide="vm.medicine") 选择药品
+      .tags-container(ng-model="vm.medicine" ng-click="vm.openModal('medicine')") 
+        span.tags-container-placeholder(ng-hide="vm.medicine.length") 选择药品
         span.label.label-primary(ng-repeat="i in vm.medicine") {{i.title}}
+          span(ng-click="vm.removeLabel('medicine', i, $event)") &times;
                     
   .form-group
     label.control-label.col-md-4 理疗
     .col-md-4
-      .tags-container(ng-model="vm.physiotherapy" ng-click="vm.openModal('therapies', 'physiotherapy')") 
-        span.tags-container-placeholder(ng-hide="vm.physiotherapy") 选择理疗
+      .tags-container(ng-model="vm.physiotherapy" ng-click="vm.openModal('physiotherapy')") 
+        span.tags-container-placeholder(ng-hide="vm.physiotherapy.length") 选择理疗
         span.label.label-primary(ng-repeat="i in vm.physiotherapy") {{i.title}}
+          span(ng-click="vm.removeLabel('physiotherapy', i, $event)") &times;
                           
   .form-group
     label.control-label.col-md-4 营养健康品
     .col-md-4
-      .tags-container(ng-model="vm.nourishment" ng-click="vm.openModal('therapies', 'nourishment')") 
-        span.tags-container-placeholder(ng-hide="vm.nourishment") 选择营养健康品
-        span.label.label-primary(ng-repeat="i in vm.nourishment") {{i.title}}
+      .tags-container(ng-model="vm.food" ng-click="vm.openModal('food')") 
+        span.tags-container-placeholder(ng-hide="vm.food.length") 选择营养健康品
+        span.label.label-primary(ng-repeat="i in vm.food") {{i.title}}
+          span(ng-click="vm.removeLabel('food', i, $event)") &times;
         
   .form-group
     label.control-label.col-md-4 健康果蔬
     .col-md-4
-      .tags-container(ng-model="vm.fruit" ng-click="vm.openModal('therapies', 'fruit')") 
-        span.tags-container-placeholder(ng-hide="vm.fruit") 选择健康果蔬
+      .tags-container(ng-model="vm.fruit" ng-click="vm.openModal('fruit')") 
+        span.tags-container-placeholder(ng-hide="vm.fruit.length") 选择健康果蔬
         span.label.label-primary(ng-repeat="i in vm.fruit") {{i.title}}
+          span(ng-click="vm.removeLabel('fruit', i, $event)") &times;
 
   .form-group
     label#treat.control-label.col-md-4 可能的治疗方法
