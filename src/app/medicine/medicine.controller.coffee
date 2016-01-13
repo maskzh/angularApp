@@ -64,7 +64,7 @@ angular.module 'jkbs'
     # 初始化表单数据
     vm.formData = {}
     vm.formData.order_id = 0
-    MedicineService.getMedicineCat.then (data) ->
+    MedicineService.getMedicineCat().then (data) ->
       vm.typeList = []
       for item1 in data
         vm.typeList.push {id: item1.id, title: "① #{item1.title}"}
