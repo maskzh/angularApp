@@ -7,6 +7,15 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/user'
+        list: 'get-list'
+        search: 'get-list'
+      tabs2: [
+        {title:'全部', query: {identity:''}},
+        {title:'老板', query: {identity:'boss'}},
+        {title:'天使', query:{identity:'angel'}},
+        {title:'医生', query:{identity:'doctor'}},
+        {title:'客服', query:{identity:'service'}}
+      ]
       table: [
         { text:"ID", field: "id"},
         {

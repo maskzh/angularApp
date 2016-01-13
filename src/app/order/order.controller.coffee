@@ -16,7 +16,7 @@ angular.module 'jkbs'
         {title:'已完成', query:{whether_done:1}}
       ]
       tabs2: [
-        {title: '全部', query: {type: 10}},
+        {title: '全部', query: {type: ''}},
         {title: '药店', query: {type: 10}},
         {title: '机构', query: {type: 20}}
       ]
