@@ -113,7 +113,6 @@ angular.module 'jkbs'
         ids = []
         for item in selectedItems
           ids.push item.id
-        console.log ids
         if confirm(if selectedItems.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
           Util.delete url, {ids: ids.join(',')}
             .then (res) ->
@@ -131,6 +130,16 @@ angular.module 'jkbs'
       # 页码修改，重新请求
       vm.pageChanged = () ->
         getList vm.currentListApi, angular.extend sendData, {page: vm.currentPage}
+
+      # 导入
+      vm.importItems = (url, selectedItems) ->
+        return false if selectedItems.length is 0
+        ids = []
+        for item in selectedItems
+          ids.push item.id
+        Util.post url, {ids: ids.join(','), shop_id: Shop.get()}
+          .then (res) ->
+            toastr.success '添加成功'
 
       # 根据字段搜索并加载数据
       _timer = null # 搜索时keyup定时器
@@ -153,6 +162,9 @@ angular.module 'jkbs'
       vm.delete = () ->
         vm.deleteItems vm.api.delete, vm.selectedItems
 
+      vm.import = ->
+        vm.importItems vm.api.import, vm.selectedItems
+
       return
 
     handleApi = (api) ->
@@ -162,6 +174,7 @@ angular.module 'jkbs'
       apiTmp.search = if api.search? then "#{api.base}/#{api.search}" else "#{api.base}/search"
       apiTmp.delete = if api.delete? then "#{api.base}/#{api.delete}" else api.base
       apiTmp.addHref = if api.addHref? then "##{api.addHref}/new" else "##{api.base}/new"
+      apiTmp.import = api.import
       apiTmp
 
     handleOperation = (operation) ->
@@ -170,6 +183,7 @@ angular.module 'jkbs'
           add: true
           delete: true
           search: true
+          import: false
         }
       a = {}
       os = operation.split(' ')
