@@ -1,4 +1,5 @@
 angular.module 'jkbs'
+  # 资讯列表
   .controller 'NewsController', (Util, $scope, $stateParams) ->
     'ngInject'
     # 分类目录进来是有ID的
@@ -28,18 +29,12 @@ angular.module 'jkbs'
           render: (field, full) ->
             Util.timeFormat field
         },
-        # {
-        #   text:"最后修改",
-        #   field: "updated_at",
-        #   render: (field, full) ->
-        #     Util.timeFormat field
-        # },
-        # {
-        #   text:"推送时间",
-        #   field: "send_at",
-        #   render: (field, full) ->
-        #     Util.timeFormat field
-        # },
+        {
+          text:"状态",
+          field: "status",
+          render: (field, full) ->
+            Util.renderBl field
+        },
         {
           text:"操作",
           field: "",
@@ -51,6 +46,7 @@ angular.module 'jkbs'
       ]
     return
 
+  # 资讯分类列表
   .controller 'NewsCatController', (Util, $scope) ->
     'ngInject'
     # 表格
@@ -74,13 +70,17 @@ angular.module 'jkbs'
       ]
     return
 
+  # 新建和修改资讯分类
   .controller 'NewsNewCatController', (Util, $stateParams, toastr) ->
     'ngInject'
     vm = this
+
+    # 初始化表单数据
     vm.formData = {}
     vm.formData.status = 0
+    vm.formData.order_id = 0
 
-    id = if $stateParams.id? then $stateParams.id else false
+    # 初始化表单方法
     resMethods = Util.res('/news-category')
     vm.save = () ->
       resMethods.save vm.formData, id
@@ -88,6 +88,7 @@ angular.module 'jkbs'
           toastr.success '已成功提交'
 
     # init
+    id = if $stateParams.id? then $stateParams.id else false
     if id
       vm.title = "修改资讯分类"
       resMethods.get id
@@ -98,25 +99,28 @@ angular.module 'jkbs'
       vm.state = true
     return
 
-  .controller 'NewsNewController', (Util, $stateParams, toastr, Uploader) ->
+  # 新建和修改资讯
+  .controller 'NewsNewController', (Util, $stateParams, toastr, Uploader, NewsService) ->
     'ngInject'
     vm = this
+
+    # 初始化表单数据
     vm.formData = {}
     vm.formData.status = 1
     vm.formData.type = 10
-    Util.get '/news-category/index'
-    .then (res) ->
-      vm.typeList = res.data.items
+    NewsService.getNewsCat().then (data)->
+      vm.typeList = data
 
-    id = if $stateParams.id? then $stateParams.id else false
+    # 初始化表单方法
     resMethods = Util.res('/news')
+    vm.upload = Uploader.upload
     vm.save = () ->
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
-    vm.upload = Uploader.upload
 
     # init
+    id = if $stateParams.id? then $stateParams.id else false
     if id
       vm.title = "修改资讯"
       resMethods.get id

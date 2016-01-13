@@ -1,4 +1,5 @@
 angular.module 'jkbs'
+  # 药品列表
   .controller 'MedicineController', (Util, $scope) ->
     'ngInject'
     # 表格
@@ -6,7 +7,6 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/medicine'
-        list: ''
       table: [
         { text:"ID", field: "id"},
         {
@@ -38,46 +38,51 @@ angular.module 'jkbs'
       ]
     return
 
-  .controller 'MedicineCatController', (Util, $scope) ->
+  # 药品分类
+  .controller 'MedicineCatController', (Util, MedicineService) ->
     'ngInject'
     # 表格
     vm = this
-    $scope.title = '药品分类'
-    Util.get '/medicine-category/get-category', {type: 'all'}
-    .then (res) ->
-      vm.cats = res.data.items
+    vm.title = '药品分类'
+    MedicineService.getMedicineCat().then (data) ->
+      vm.cats = data
 
+    # 绑定树节点删除事件
     $('.tree').on 'click', '[data-delete]', (e) ->
       Util.delete "/medicine-category/#{$(this).data('delete')}"
       .then (res) ->
         toastr.success '删除成功'
         $(this).parents('li').remove()
+
     return
 
-  .controller 'MedicineNewCatController', (Util, $stateParams, toastr, Uploader, medicineService) ->
+  # 新增药品分类
+  .controller 'MedicineNewCatController', (Util, $stateParams, toastr, Uploader, MedicineService) ->
     'ngInject'
     vm = this
+
+    # 初始化表单数据
     vm.formData = {}
     vm.formData.order_id = 0
-    vm.typeList = []
-    Util.get '/medicine-category/get-category', {type: 'all'}
-    .then (res) ->
-      for item1 in res.data.items
+    MedicineService.getMedicineCat.then (data) ->
+      vm.typeList = []
+      for item1 in data
         vm.typeList.push {id: item1.id, title: "① #{item1.title}"}
-        for item2 in item1.child_list
-          vm.typeList.push {id: item2.id, title: "----② #{item2.title}"}
+        if item1.child_list
+          for item2 in item1.child_list
+            vm.typeList.push {id: item2.id, title: "----② #{item2.title}"}
       return
 
-    id = if $stateParams.id? then $stateParams.id else false
+    # 初始化表单方法
     resMethods = Util.res('/medicine-category')
-
+    vm.upload = Uploader.upload
     vm.save = () ->
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
-    vm.upload = Uploader.upload
 
     # init
+    id = if $stateParams.id? then $stateParams.id else false
     if id
       vm.title = "修改药品分类"
       resMethods.get id
@@ -88,31 +93,37 @@ angular.module 'jkbs'
       vm.state = true
     return
 
-  .controller 'MedicineNewController', (Util, $stateParams, toastr, Uploader, medicineService) ->
+  # 新增药品
+  .controller 'MedicineNewController', (Util, $stateParams, toastr, Uploader, MedicineService) ->
     'ngInject'
     vm = this
+
+    # 初始化表单数据
     vm.formData = {}
     vm.formData.buy_online = 0
     vm.formData.contain_ephedrine = 0
     vm.formData.status = 0
-    vm.typeList = []
-    Util.get '/medicine-category/get-category', {type: 'all'}
-    .then (res) ->
-      for item1 in res.data.items
+    MedicineService.getMedicineCat().then (data) ->
+      vm.typeList = []
+      for item1 in data
         vm.typeList.push {id: item1.id, title: "-----------①  #{item1.title}(不可选)------------"}
-        for item2 in item1.child_list
-          for item3 in item2.child_list
-            vm.typeList.push angular.extend item3, {level1: item1.title, level2: '② ' + item2.title}
-    id = if $stateParams.id? then $stateParams.id else false
-    resMethods = Util.res('/medicine')
+        if item1.child_list?
+          for item2 in item1.child_list
+            if item2.child_list?
+              for item3 in item2.child_list
+                vm.typeList.push angular.extend item3, {level1: item1.title, level2: '② ' + item2.title}
+      return
 
+    # 初始化表单方法
+    resMethods = Util.res('/medicine')
+    vm.upload = Uploader.upload
     vm.save = () ->
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
-    vm.upload = Uploader.upload
 
     # init
+    id = if $stateParams.id? then $stateParams.id else false
     if id
       vm.title = "修改药品"
       resMethods.get id

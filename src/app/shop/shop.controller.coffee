@@ -1,9 +1,9 @@
 angular.module 'jkbs'
+  # 微店列表
   .controller 'ShopController', (Util, $scope, $stateParams) ->
     'ngInject'
     # 表格
     $scope.title = '微店管理'
-
     $scope.grid =
       api:
         base: '/shop'
@@ -31,14 +31,14 @@ angular.module 'jkbs'
             "用户名: #{full.user_name}<br>" +
             "手机: #{full.user_mobile}"
         },
-        # {
-        #   text:"联系信息",
-        #   field: '',
-        #   render: (field, full) ->
-        #     "联系人：#{full.contact}<br>"+
-        #     "联系电话：#{full.tel}<br>"+
-        #     "地址：#{full.address}"
-        # },
+        {
+          text:"联系信息",
+          field: '',
+          render: (field, full) ->
+            "联系人：#{full.contact}<br>"+
+            "联系电话：#{full.tel}<br>"+
+            "地址：#{full.address}"
+        },
         {
           text: '更多',
           field: '',
@@ -60,20 +60,12 @@ angular.module 'jkbs'
       ]
     return
 
+  # 新增和修改微店
   .controller 'ShopNewController', (Util, $stateParams, toastr, Uploader, $timeout) ->
     'ngInject'
     vm = this
 
-    # init methods
-    resMethods = Util.res('/shop')
-    vm.save = () ->
-      resMethods.save vm.formData, id
-        .then (res) ->
-          toastr.success '已成功提交'
-
-    vm.upload = Uploader.upload
-
-    # init data
+    # 初始化表单数据
     vm.formData = {}
     vm.formData.is_boss_customer_service = 0 #管理员帐号是否作为客服出现
     vm.formData.service_insurance = 0 #医保支持
@@ -83,17 +75,27 @@ angular.module 'jkbs'
     vm.formData.status = 1 #是否可用
     vm.formData.template_id = 0 #默认模板
 
-    # 省市区域
+    # 初始化表单方法
+    resMethods = Util.res('/shop')
+    vm.upload = Uploader.upload
+    vm.save = () ->
+      resMethods.save vm.formData, id
+        .then (res) ->
+          toastr.success '已成功提交'
+
+    # 获取省列表
     vm.getPrivinceList = ()->
       Util.get '/area/get-list'
       .then (res) ->
         vm.province_list = res.data.items
 
+    # 获取市列表
     vm.getCityList = ()->
       Util.get '/area/get-list',{name: vm.formData.province}
       .then (res) ->
         vm.city_list = res.data.items
 
+    # 获取县列表
     vm.getCountryList = ()->
       Util.get '/area/get-list',{name: vm.formData.city}
       .then (res) ->

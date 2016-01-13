@@ -43,7 +43,9 @@ angular.module 'jkbs'
 
     # 给图片地址加上绝对路径
     @img = (url) ->
-      URL.img + url
+      return URL.img + url if url
+      'assets/common/default.gif'
+
 
     # 给 grid 生成操作按钮
     @genBtns = (btns, id) ->
@@ -57,6 +59,14 @@ angular.module 'jkbs'
       if id?
         html += "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{id}'><i class='fa fa-close'></i></a>"
       html += '</div>'
+
+    # 给 grid 生成 布尔 状态
+    @renderBl = (bl) ->
+      if bl is 1 or bl is '1'
+        return '<i class="fa fa-check" alt="open"></i>'
+      else
+        return '<i class="fa fa-close" alt="close"></i>'
+
 
     # 时间转换工具
     @timeFormat = (timestamp, fmt) ->
@@ -114,6 +124,5 @@ angular.module 'jkbs'
         delete: (id) ->
           vm.delete "#{url}/#{id}"
       }
-
 
     return

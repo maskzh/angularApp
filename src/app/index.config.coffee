@@ -1,9 +1,11 @@
+# 所有模块初始化配置
 angular.module 'jkbs'
   .config ($logProvider, localStorageServiceProvider, toastrConfig) ->
     'ngInject'
-    # Enable log
+    # 配置日志
     $logProvider.debugEnabled true
 
+    # 配置 localStorage
     localStorageServiceProvider
       .setPrefix 'jkbs'
       .setStorageType 'localStorage'
@@ -11,7 +13,7 @@ angular.module 'jkbs'
       # .setStorageCookieDomain ''
       .setNotify true, true
 
-    # Set options third-party lib
+    # 配置 toastr
     toastrConfig.allowHtml = true
     toastrConfig.closeButton = true
     toastrConfig.tapToDismiss = true

@@ -11,5 +11,6 @@ angular.module 'jkbs',
     'picardy.fontawesome',
     'LocalStorageModule',
     'ngFileUpload',
-    'simditor'
+    'simditor',
+    'bootstrap-tagsinput'
   ]

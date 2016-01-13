@@ -1,12 +1,12 @@
 angular.module 'jkbs'
-  .controller 'UserController', (Util, $scope) ->
+  # 用户列表
+  .controller 'UserController', (Util, $scope, UserService) ->
     'ngInject'
     # 表格
     $scope.title = '用户管理'
     $scope.grid =
       api:
         base: '/user'
-        list: ''
       table: [
         { text:"ID", field: "id"},
         {
@@ -18,15 +18,29 @@ angular.module 'jkbs'
         },
         { text:"姓名", field: "name"},
         { text:"手机号", field: "mobile"},
-        { text:"用户组", field: "group_id"},
-        { text:"管理员组", field: "admin_group_id"},
         {
-          text: "注册时间",
-          field: 'created_at',
+          text:"用户角色",
+          field: "",
           render: (field, full) ->
-             (Util.timeFormat field) + "<br>#{full.client}"
+            html = ''
+            for item in UserService.renderRole full
+              html += "<span class='label label-#{item.type}'>#{item.value}</span> "
+            html
         },
-        { text:"状态", field: "status"},
+        # { text:"用户组", field: "group_id"},
+        # { text:"管理员组", field: "admin_group_id"},
+        # {
+        #   text: "注册时间",
+        #   field: 'created_at',
+        #   render: (field, full) ->
+        #      (Util.timeFormat field) + "<br>#{full.client}"
+        # },
+        {
+          text:"状态",
+          field: "status",
+          render: (field, full) ->
+            Util.renderBl field
+        },
         {
           text:"操作",
           field: "",
@@ -38,29 +52,28 @@ angular.module 'jkbs'
       ]
     return
 
-  .controller 'UserNewController', (Util, $scope, $stateParams, toastr, Uploader, Sha1) ->
+  # 新增或修改用户
+  .controller 'UserNewController', (Util, $stateParams, toastr, Uploader, Sha1, UserService) ->
     'ngInject'
     vm = this
+
+    # 表单初始值
     vm.formData = {}
     vm.formData.status = 1
     vm.formData.admin_group_id = 0
-    vm.admin_group_list = [
-      {id: 0,label: "无管理权限"}
-      {id: 1,label: "日常管理"}
-      {id: 2,label: "总管理"}
-    ]
-    id = if $stateParams.id? then $stateParams.id else false
-    resMethods = Util.res('/user')
+    vm.admin_group_list = UserService.getAdminGroupList()
 
+    # 表单方法
+    resMethods = Util.res('/user')
+    vm.upload = Uploader.upload
     vm.save = () ->
-      console.log vm.password
       vm.formData.password = Sha1.hash vm.password
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
-    vm.upload = Uploader.upload
 
     # init
+    id = if $stateParams.id? then $stateParams.id else false
     if id
       vm.title = "修改用户"
       resMethods.get id
@@ -72,9 +85,11 @@ angular.module 'jkbs'
       vm.state = true
     return
 
-  .controller 'UserIController', (Util, toastr, Uploader, Sha1, User) ->
+  # 修改账户密码
+  .controller 'UserIController', (Util, toastr, Uploader, Sha1) ->
     'ngInject'
     vm = this
+    vm.title = '修改账户密码'
     vm.formData = {}
     vm.confirm = ->
       if vm.confirmPassword isnt vm.password_new

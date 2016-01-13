@@ -6,10 +6,46 @@ form.form-horizontal
       input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="疾病名称" required)
 
   .form-group
-    label#link.control-label.col-md-4 疾病标题
+    label.control-label.col-md-4 疾病标题
     .col-md-4
-      textarea#link.form-control(rows="5" ng-model="vm.formData.link" placeholder="相关疾病标题列表")
-      span.help-block 相关疾病标题列表，每个名称用空格隔开
+      .tags-container(ng-model="vm.link" ng-click="vm.openModal('link')") 
+        span.tags-container-placeholder(ng-hide="vm.link.length") 选择疾病标题
+        span.label.label-primary(ng-repeat="i in vm.link") {{i.title}}
+  
+  .form-group
+    label.control-label.col-md-4 医生
+    .col-md-4
+      .tags-container(del="vm.doctor" ng-click="vm.openModal('therapies', 'doctor')") 
+        span.tags-container-placeholder(ng-hide="vm.doctor") 选择医生
+        span.label.label-primary(ng-repeat="i in vm.doctor") {{i.title}}
+              
+  .form-group
+    label.control-label.col-md-4 药品
+    .col-md-4
+      .tags-container(ng-model="vm.medicine" ng-click="vm.openModal('therapies', 'medicine')") 
+        span.tags-container-placeholder(ng-hide="vm.medicine") 选择药品
+        span.label.label-primary(ng-repeat="i in vm.medicine") {{i.title}}
+                    
+  .form-group
+    label.control-label.col-md-4 理疗
+    .col-md-4
+      .tags-container(ng-model="vm.physiotherapy" ng-click="vm.openModal('therapies', 'physiotherapy')") 
+        span.tags-container-placeholder(ng-hide="vm.physiotherapy") 选择理疗
+        span.label.label-primary(ng-repeat="i in vm.physiotherapy") {{i.title}}
+                          
+  .form-group
+    label.control-label.col-md-4 营养健康品
+    .col-md-4
+      .tags-container(ng-model="vm.nourishment" ng-click="vm.openModal('therapies', 'nourishment')") 
+        span.tags-container-placeholder(ng-hide="vm.nourishment") 选择营养健康品
+        span.label.label-primary(ng-repeat="i in vm.nourishment") {{i.title}}
+        
+  .form-group
+    label.control-label.col-md-4 健康果蔬
+    .col-md-4
+      .tags-container(ng-model="vm.fruit" ng-click="vm.openModal('therapies', 'fruit')") 
+        span.tags-container-placeholder(ng-hide="vm.fruit") 选择健康果蔬
+        span.label.label-primary(ng-repeat="i in vm.fruit") {{i.title}}
 
   .form-group
     label#treat.control-label.col-md-4 可能的治疗方法
@@ -67,3 +103,10 @@ form.form-horizontal
       input(type="hidden" ng-model="vm.formData.id")
       button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消
       button.btn.btn-success(type="button" ng-click="vm.save()") 保存
+      
+script(type="text/ng-template" id="modal.html")
+  .modal-header
+    button.close(type="button" ng-click="cancel()"): span &times;
+    h4.modal-title {{title}}
+  .modal-body
+    <grid grid="grid">

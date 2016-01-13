@@ -1,5 +1,5 @@
 angular.module 'jkbs'
-  .service 'orderService', () ->
+  .service 'OrderService', () ->
     'ngInject'
     @type = (val) ->
       type =

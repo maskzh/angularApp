@@ -5,6 +5,7 @@ angular.module 'jkbs'
       vm = this
       # 数据和分页
       vm.list = []
+      vm.htmlList = []
       vm.currentPage = 1
       vm.totalItems = 0
 
@@ -17,7 +18,7 @@ angular.module 'jkbs'
       vm.currentListApi = '' # 当前请求的地址
       vm.operation = null
       vm.ths = [] # 表头的标题们
-      vm.ids = [] # 被选中的条目的 id
+      vm.selectedItems = [] # 被选中的条目
 
       status =
         error: () ->
@@ -70,7 +71,7 @@ angular.module 'jkbs'
       # 发起请求获取数据，并处理生成传递到模板中的字段
       getList = (url, data) ->
         # reset
-        vm.ids = []
+        vm.selectedItems = []
         status.loading()
 
         Util.get url, data
@@ -81,7 +82,8 @@ angular.module 'jkbs'
               return
 
             # 赋值
-            vm.list = handleList res.data.items, vm.table
+            vm.list = res.data.items
+            vm.htmlList = handleList res.data.items, vm.table
             vm.currentPage = (res.data._meta and res.data._meta.currentPage) || 1
             vm.totalItems = (res.data._meta and res.data._meta.totalCount) || 0
             status.hide()
@@ -106,9 +108,13 @@ angular.module 'jkbs'
               vm.pageChanged()
 
       # 删除多个条目
-      vm.deleteItems = (url, ids) ->
-        return false if ids.length is 0
-        if confirm(if ids.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
+      vm.deleteItems = (url, selectedItems) ->
+        return false if selectedItems.length is 0
+        ids = []
+        for item in selectedItems
+          ids.push item.id
+        console.log ids
+        if confirm(if selectedItems.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
           Util.delete url, {ids: ids.join(',')}
             .then (res) ->
               toastr.success '删除成功'
@@ -145,17 +151,18 @@ angular.module 'jkbs'
 
       # 删除多个
       vm.delete = () ->
-        vm.deleteItems vm.api.delete, vm.ids
+        vm.deleteItems vm.api.delete, vm.selectedItems
 
       return
 
     handleApi = (api) ->
       throw new Error "api and api.base must be set" if !api? or !api.base?
-      api.list = if api.list? then "#{api.base}/#{api.list}" else api.base
-      api.search = if api.search? then "#{api.base}/#{api.search}" else "#{api.base}/search"
-      api.delete = if api.delete? then "#{api.base}/#{api.delete}" else api.base
-      api.addHref = if api.addHref? then "##{api.addHref}/new" else "##{api.base}/new"
-      api
+      apiTmp = {}
+      apiTmp.list = if api.list? then "#{api.base}/#{api.list}" else api.base
+      apiTmp.search = if api.search? then "#{api.base}/#{api.search}" else "#{api.base}/search"
+      apiTmp.delete = if api.delete? then "#{api.base}/#{api.delete}" else api.base
+      apiTmp.addHref = if api.addHref? then "##{api.addHref}/new" else "##{api.base}/new"
+      apiTmp
 
     handleOperation = (operation) ->
       if !operation?
@@ -192,11 +199,11 @@ angular.module 'jkbs'
       # 绑定事件
       handleEvents scope.grid.events
 
-      updateIds = ->
-        vm.ids = []
+      updateSelectedItems = ->
+        vm.selectedItems = []
         el.find 'tbody input:checked'
         .each (index, item) ->
-          vm.ids.push $(item).val()
+          vm.selectedItems.push vm.list[parseInt($(this).val())]
 
       el.on 'click', 'thead input', (e) ->
         checked = $(this).prop 'checked'
@@ -205,12 +212,13 @@ angular.module 'jkbs'
           $cboxs
             .prop 'checked', true
             .parents('tr').addClass('active')
-          updateIds()
+          updateSelectedItems()
         else
           $cboxs
             .prop 'checked', false
             .parents('tr').removeClass('active')
-          vm.ids = []
+          vm.selectedItems = []
+        scope.$apply()
         return
 
       el.on 'click', 'tbody input', (e) ->
@@ -218,12 +226,13 @@ angular.module 'jkbs'
         checked = $this.prop 'checked'
         if checked
           $this.parents('tr').addClass('active')
-          vm.ids.push $(this).val()
+          vm.selectedItems.push vm.list[parseInt($(this).val())]
         else
           $this.parents('tr').removeClass('active')
-          for id, i in vm.ids
-            if $(this).val() is id
-              vm.ids.splice i, 1
+          for item, i in vm.selectedItems
+            if vm.list[parseInt($(this).val())].id is item.id
+              vm.selectedItems.splice i, 1
+        scope.$apply()
 
       el.on 'click', '.J_delete', (e) ->
         vm.deleteItem vm.api.delete, $(this).attr 'alt'
@@ -233,6 +242,8 @@ angular.module 'jkbs'
 
       el.on 'mouseleave', '.J_image', (e) ->
         $(this).removeClass 'on'
+
+      scope.grid.callback && scope.grid.callback scope, el, attr, vm
 
       scope.$on '$destroy', ->
         el.off()

@@ -1,3 +1,4 @@
+# 应用初次载入后执行
 angular.module 'jkbs'
   .run ($rootScope, EVENTS, Auth, $log) ->
     'ngInject'
@@ -19,9 +20,8 @@ angular.module 'jkbs'
         return
 
       # 校验通过广播跳转成功
-      # TODO BUG 刷新页面时 directive 还未初始化，所以无法收到广播
       $rootScope.$broadcast EVENTS.jumpSuccess
 
       return
 
-    $log.debug 'runBlock end'
+    $log.debug '看什么看，逗逼！'

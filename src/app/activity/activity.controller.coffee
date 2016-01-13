@@ -1,8 +1,7 @@
 angular.module 'jkbs'
+  # 活动列表
   .controller 'ActivityController', (Util, $scope) ->
     'ngInject'
-    vm = this
-    # 表格
     $scope.title = "活动二维码"
     $scope.grid =
       api:
@@ -45,19 +44,24 @@ angular.module 'jkbs'
         }
       ]
     return
+
+  # 添加活动二维码
   .controller 'ActivityNewController', (Util, $stateParams, toastr) ->
     'ngInject'
     vm = this
-    vm.formData = {}
-    id = if $stateParams.id? then $stateParams.id else false
-    resMethods = Util.res('/e-activity')
 
+    # 初始化表单数据
+    vm.formData = {}
+    
+    # 初始化表单方法
+    resMethods = Util.res('/e-activity')
     vm.save = () ->
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
 
     # init
+    id = if $stateParams.id? then $stateParams.id else false
     if id
       vm.title = "修改活动"
       resMethods.get id

@@ -1,5 +1,6 @@
 angular.module 'jkbs'
-  .controller 'OrderController', (Util, $scope, orderService) ->
+  # 订单列表
+  .controller 'OrderController', (Util, $scope, OrderService) ->
     'ngInject'
     # 表格
     $scope.title = '订单管理'
@@ -33,13 +34,13 @@ angular.module 'jkbs'
           text:"支付方式",
           field: 'pay',
           render: (field, full) ->
-            orderService.pay field
+            OrderService.pay field
         },
         {
           text:"发货方式",
           field: 'delivery',
           render: (field, full) ->
-            orderService.delivery field
+            OrderService.delivery field
         },
         {
           text:"下单时间",
@@ -52,7 +53,7 @@ angular.module 'jkbs'
           text:"状态",
           field: "status",
           render: (field, full) ->
-            orderService.status field
+            OrderService.status field
         },
         {
           text:"操作",
@@ -65,15 +66,17 @@ angular.module 'jkbs'
       ]
     return
 
-  .controller 'OrderShowController', (Util, $scope, $stateParams, orderService, toastr) ->
+  # 订单详情
+  .controller 'OrderShowController', (Util, $scope, $stateParams, OrderService, toastr) ->
     'ngInject'
     # 表格
     vm = this
-    $scope.title = '订单详情'
+    vm.title = '订单详情'
+
     id = $stateParams.id
     handleData = (data) ->
-      data.delivery = orderService.delivery data.delivery
-      data.pay = orderService.pay data.pay
+      data.delivery = OrderService.delivery data.delivery
+      data.pay = OrderService.pay data.pay
       data
     Util.get "/order/order-info?order_id=#{id}"
       .then (res) ->

@@ -1,3 +1,4 @@
+# 路由配置表
 angular.module 'jkbs'
   .config ($stateProvider, $urlRouterProvider, USER_ROLES) ->
     'ngInject'
@@ -215,31 +216,5 @@ angular.module 'jkbs'
         templateUrl: 'app/activity/new.html'
         controller: 'ActivityNewController'
         controllerAs: 'vm'
-
-      # # 提成
-      # .state 'base.home',
-      #   url: '/'
-      #   templateUrl: 'app/home/index.html'
-      #   controller: 'HomeController'
-      #   controllerAs: 'home'
-
-      # # 圈子
-      # .state 'base.circle',
-      #   url: '/circle'
-      #   templateUrl: 'app/circle/index.html'
-      #   controller: 'CircleController'
-      #   controllerAs: 'circle'
-      # .state 'base.circle_post',
-      #   url: '/circle/post'
-      #   templateUrl: 'app/circle/post.html'
-      #   controller: 'PostController'
-      #   controllerAs: 'circle'
-
-      # 代理商
-      # .state 'base.agent',
-      #   url: '/agent'
-      #   templateUrl: 'app/agent/index.html'
-      #   controller: 'AgentController'
-      #   controllerAs: 'agent'
 
     $urlRouterProvider.otherwise '/'

@@ -76,12 +76,6 @@ angular.module 'jkbs'
           render: (field, full) ->
             Util.timeFormat field
         },
-        # {
-        #   text:"最后修改",
-        #   field: "updated_at",
-        #   render: (field, full) ->
-        #     Util.timeFormat field
-        # },
         { text:"咨询价格", field: "amount"},
         {
           text:"订单状态",
@@ -100,34 +94,28 @@ angular.module 'jkbs'
     return
 
   # 医生新增和编辑
-  .controller 'DoctorNewController', (Util, $stateParams, toastr, doctorService, Uploader) ->
+  .controller 'DoctorNewController', (Util, $stateParams, toastr, DoctorService, Uploader) ->
     'ngInject'
     vm = this
+
+    # 初始化表单数据
     vm.formData = {}
     vm.formData.onsale = 0
     vm.formData.status = 0
-    vm.typeList = doctorService.type()
-    vm.departmentList = []
-    Util.get '/hospital-department/get-list?type=all'
-    .then (res) ->
-      for item1 in res.data.items
-        vm.departmentList.push {id: item1.id, title: "①  #{item1.title}"}
-        if item1.child_list?
-          for item2 in item1.child_list
-            # if item2.child_list?
-            #   for item3 in item2.child_list
-            vm.departmentList.push angular.extend item2, {level1: item1.title}
+    vm.typeList = DoctorService.type()
+    DoctorService.getDepartment().then (data) ->
+      vm.departmentList = data
 
-    vm.id = if $stateParams.id? then $stateParams.id else false
+    # 初始化表单方法
     resMethods = Util.res('/doctor')
-
+    vm.upload = Uploader.upload
     vm.save = () ->
       resMethods.save vm.formData, vm.id
         .then (res) ->
           toastr.success '已成功提交'
-    vm.upload = Uploader.upload
 
     # init
+    vm.id = if $stateParams.id? then $stateParams.id else false
     if vm.id
       vm.title = "修改医生"
       resMethods.get vm.id
