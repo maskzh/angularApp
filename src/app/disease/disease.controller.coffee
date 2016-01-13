@@ -175,7 +175,6 @@ angular.module 'jkbs'
         operation: 'choose'
         table: table
         callback: (scope, el, attr, vm) ->
-          console.log _vm
           vm.choose = ->
             for itemA in vm.selectedItems
               flag = true
