@@ -7,7 +7,7 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/doctor'
-        list: 'recommend-list'
+        list: "recommend-list?type=all"
         search: 'search-list'
       table: [
         { text:"ID", field: "id"},
