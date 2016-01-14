@@ -57,7 +57,7 @@ angular.module 'jkbs'
                 "<i class='fa fa-#{btn.icon}'></i>" +
                 "</a>"
       if id?
-        html += "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{id}'><i class='fa fa-close'></i></a>"
+        html += "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{id}'><i class='fa fa-trash-o'></i></a>"
       html += '</div>'
 
     # 给 grid 生成 布尔 状态

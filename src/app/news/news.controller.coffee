@@ -10,7 +10,6 @@ angular.module 'jkbs'
       $scope.title = '资讯管理'
       listUrl = "news-list?type=10"
 
-    $scope.title = '资讯管理'
     $scope.grid =
       api:
         base: '/news'
