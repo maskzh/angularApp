@@ -1,1 +1,20 @@
 h2 总览
+alert(ng-repeat="alert in home.alerts" type="{{alert.type}}" close="home.closeAlert($index)") <i class="fa fa-{{alert.type}}-circle"></i> {{alert.msg}}
+
+h5 更新日志
+ul
+  li(ng-repeat="log in home.logs") {{log}}
+//- .row
+//-   .col-md-6
+//-     .panel.panel-info
+//-       .panel-heading
+//-         h3.panel-title 新增订单
+//-       .panel-body
+//-         span 新增订单
+//-   .col-md-6
+//-     .panel.panel-success
+//-       .panel-heading
+//-         h3.panel-title 新增用户
+//-       .panel-body
+//-         span 新增用户
+    

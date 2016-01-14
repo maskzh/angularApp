@@ -17,7 +17,7 @@ angular.module 'jkbs'
       table: [
         { text:"ID", field: "id"},
         {
-          text:"封面",
+          text:"题图",
           field: "pic",
           render: (field, full) ->
             imgUrl = Util.img field
