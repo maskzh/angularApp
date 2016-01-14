@@ -15,7 +15,6 @@ angular.module 'jkbs'
         list: listUrl
       table: [
         { text:"ID", field: "id"},
-        { text:"标题", field: "title"},
         {
           text:"封面",
           field: "pic",
@@ -23,6 +22,7 @@ angular.module 'jkbs'
             imgUrl = Util.img field
             "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
         },
+        { text:"标题", field: "title"},
         {
           text:"创建时间",
           field: "created_at",
@@ -57,7 +57,6 @@ angular.module 'jkbs'
         list: 'index'
       table: [
         { text:"ID", field: "id"},
-        { text:"名称", field: "title"},
         {
           text:"图标",
           field: "pic",
@@ -65,6 +64,7 @@ angular.module 'jkbs'
             imgUrl = Util.img field
             "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
         },
+        { text:"名称", field: "title"},
         {
           text:"操作",
           field: "",
