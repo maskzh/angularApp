@@ -3,7 +3,10 @@
   .btn-group.grid-buttons
     a.btn.btn-default(ng-if="vm.operation.add" href="{{vm.api.addHref}}") 添加
     button.btn.btn-danger(ng-if="vm.operation.delete" ng-class="{disabled: !vm.selectedItems.length}" type="button" ng-click="vm.delete()") 删除
-    button.btn.btn-primary(ng-if="vm.operation.choose" ng-class="{disabled: !vm.selectedItems.length}" ng-click="vm.choose()") 添加
+    
+  .btn-group.grid-buttons
+    button(class="btn btn-{{item[0]}}" ng-class="{disabled: !vm.selectedItems.length}" type="button" ng-click="vm[item[1]]()" ng-repeat="item in vm.btns") {{item[2]}}
+
   .form-inline.grid-search(ng-if="vm.operation.search")
     .form-group
       label.sr-only(for="search") 搜索

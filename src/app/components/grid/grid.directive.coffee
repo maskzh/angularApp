@@ -191,6 +191,21 @@ angular.module 'jkbs'
         a[o] = true
       a
 
+    handleBtns = (btns, scope, el, attr, vm) ->
+      genBtnsHandleName = do ->
+        i = 0
+        return ->
+          i++
+          'btns' + i
+
+      tmp = []
+      for item in btns
+        fnName = genBtnsHandleName()
+        vm[fnName] = item.handle.bind(vm, scope, el, attr, vm)
+        tmp.push [item.type, fnName, item.text]
+
+      tmp
+
     handleEvents = (events, el) ->
       return if !events?
       for event in events
@@ -201,6 +216,7 @@ angular.module 'jkbs'
       throw new Error 'must set grid in controller' if !scope.grid?
       vm.api = handleApi scope.grid.api
       vm.operation = handleOperation scope.grid.operation
+      vm.btns = handleBtns scope.grid.btns, scope, el, attr, vm if scope.grid.btns?
       vm.tabs = scope.grid.tabs
       vm.tabs2 = scope.grid.tabs2
       vm.table = scope.grid.table

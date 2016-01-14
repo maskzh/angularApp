@@ -4,6 +4,13 @@ form.form-horizontal
     label.control-label.col-md-4.required(for="title") 分类名称
     .col-md-4
       input#title.form-control(type="text" ng-model="vm.formData.title" placeholder="分类名称" required)
+  
+  .form-group
+    label.control-label.col-md-4.required(for="pic") 图标
+    .col-md-4
+      .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'pic')" ngf-drop="vm.upload($file, vm.formData, 'pic')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
+        span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
+        img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
     
   .form-group
     label.control-label.col-md-4.required(for="order_id") 排序ID

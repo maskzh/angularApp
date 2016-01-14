@@ -61,7 +61,7 @@ angular.module 'jkbs'
     return
 
   # 新增和修改微店
-  .controller 'ShopNewController', (Util, $stateParams, toastr, Uploader, $timeout) ->
+  .controller 'ShopNewController', (Util, $stateParams, toastr, Uploader, $timeout, $modal) ->
     'ngInject'
     vm = this
 
@@ -82,6 +82,7 @@ angular.module 'jkbs'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+          vm.openModal(res.data.id)
 
     # 获取省列表
     vm.getPrivinceList = ()->
@@ -108,6 +109,50 @@ angular.module 'jkbs'
         vm.formData.lon = xyz[0]
         vm.formData.lat = xyz[1]
 
+    # 打开模态框
+    vm.openModal = (id) ->
+      modalInstance = $modal.open
+        templateUrl: 'modal.html'
+        controller: 'ShopImportModalController'
+        controllerAs: 'vm'
+        size: 'lg'
+        resolve:
+          grid: ->
+            api:
+              base: '/to-lead-medicine'
+              list: 'get-list?type=all'
+            operation: ''
+            btns:[
+              {
+                type: 'default',
+                text: '一键导入',
+                handle: (scope, el, attr, vm) ->
+                  ids = []
+                  for item in vm.selectedItems
+                    ids.push item.id
+                  Util.post '/shop-medicine/to-lead', {shop_id: id, ids: ids.join(',')}
+                  .then (res) ->
+                    toastr.success res.message || '导入成功'
+              }
+            ]
+            table: [
+              { text:"ID", field: "id"},
+              {
+                text:"图片",
+                field: "medicine_pic",
+                render: (field, full) ->
+                  imgUrl = Util.img field
+                  "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
+              },
+              { text:"药品名称", field: "medicine_title"}
+              {
+                text:"操作",
+                field: "",
+                render: (field, full) ->
+                  Util.genBtns([], full.id)
+              }
+            ]
+
     # init
     id = if $stateParams.id? then $stateParams.id else false
     if id
@@ -123,4 +168,13 @@ angular.module 'jkbs'
       vm.state = true
     vm.getPrivinceList()
 
+    return
+
+  # 模态框
+  .controller 'ShopImportModalController', ($scope, Util, toastr, Uploader, $modalInstance, grid) ->
+    'ngInject'
+    $scope.title = "从默认药品库导入"
+    $scope.grid = grid
+    $scope.cancel = ->
+      $modalInstance.dismiss 'cancel'
     return

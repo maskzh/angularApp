@@ -172,17 +172,23 @@ angular.module 'jkbs'
       {
         api:
           base: "/disease-title/may-be-therapies?type=#{type}&name=#{vm.formData.title}"
-        operation: 'choose'
+        operation: ''
+        btns: [
+          {
+            type: 'primary',
+            text: '添加',
+            handle: (scope, el, attr, vm) ->
+              ids = []
+              for itemA in vm.selectedItems
+                flag = true
+                for itemB in _vm[type]
+                  flag = false if itemA.id is itemB.id
+                _vm[type].push itemA if flag
+              updateFormData(type)
+              return
+          }
+        ]
         table: table
-        callback: (scope, el, attr, vm) ->
-          vm.choose = ->
-            for itemA in vm.selectedItems
-              flag = true
-              for itemB in _vm[type]
-                flag = false if itemA.id is itemB.id
-              _vm[type].push itemA if flag
-            updateFormData(type)
-            return
       }
 
     vm.openModal = (type) ->

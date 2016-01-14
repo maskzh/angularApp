@@ -59,6 +59,13 @@ angular.module 'jkbs'
         { text:"ID", field: "id"},
         { text:"名称", field: "title"},
         {
+          text:"图标",
+          field: "pic",
+          render: (field, full) ->
+            imgUrl = Util.img field
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
+        },
+        {
           text:"操作",
           field: "",
           render: (field, full) ->
@@ -71,7 +78,7 @@ angular.module 'jkbs'
     return
 
   # 新建和修改资讯分类
-  .controller 'NewsNewCatController', (Util, $stateParams, toastr) ->
+  .controller 'NewsNewCatController', (Util, $stateParams, Uploader, toastr) ->
     'ngInject'
     vm = this
 
@@ -82,6 +89,7 @@ angular.module 'jkbs'
 
     # 初始化表单方法
     resMethods = Util.res('/news-category')
+    vm.upload = Uploader.upload
     vm.save = () ->
       resMethods.save vm.formData, id
         .then (res) ->

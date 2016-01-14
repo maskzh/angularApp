@@ -252,3 +252,10 @@ form.form-horizontal
       input(type="hidden" ng-model="vm.formData.id")
       button.btn.btn-default(type="button" onclick="javascript:;window.history.go(-1);") 取消
       button.btn.btn-success(type="button" ng-click="vm.save()") 保存
+  
+script(type="text/ng-template" id="modal.html")
+  .modal-header
+    button.close(type="button" ng-click="cancel()"): span &times;
+    h4.modal-title {{title}}
+  .modal-body
+    grid(grid="grid")
