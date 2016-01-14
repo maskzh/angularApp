@@ -11,5 +11,5 @@ angular.module 'jkbs',
     'picardy.fontawesome',
     'LocalStorageModule',
     'ngFileUpload',
-    'simditor'
+    'ng.ueditor'
   ]
