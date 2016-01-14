@@ -133,3 +133,32 @@ angular.module 'jkbs'
       vm.title = "添加药品"
       vm.state = true
     return
+
+  # 默认药品管理
+  .controller 'MedicineDefaultController', (Util, $scope) ->
+    'ngInject'
+    # 表格
+    $scope.title = '默认药品管理'
+    $scope.grid =
+      api:
+        base: '/to-lead-medicine'
+        list: 'get-list'
+      operation: 'delete'
+      table: [
+        { text:"ID", field: "id"},
+        {
+          text:"图片",
+          field: "medicine_pic",
+          render: (field, full) ->
+            imgUrl = Util.img field
+            "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
+        },
+        { text:"药品名称", field: "medicine_title"}
+        {
+          text:"操作",
+          field: "",
+          render: (field, full) ->
+            Util.genBtns([], full.id)
+        }
+      ]
+    return

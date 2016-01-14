@@ -140,6 +140,11 @@ angular.module 'jkbs'
         templateUrl: 'app/medicine/new-cat.html'
         controller: 'MedicineNewCatController'
         controllerAs: 'vm'
+      .state 'base.medicine_default', # 默认药品管理
+        url: '/medicine-default'
+        templateUrl: 'app/medicine/default.html'
+        controller: 'MedicineDefaultController'
+        controllerAs: 'vm'
 
       # 资讯
       .state 'base.news',

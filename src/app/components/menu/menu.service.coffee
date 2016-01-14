@@ -20,7 +20,7 @@ angular.module 'jkbs'
       },
       {
         title: '药品|demo',
-        menus: ['#/medicine|药品管理', '#/medicine-category|药品分类']
+        menus: ['#/medicine|药品管理', '#/medicine-category|药品分类', '#/medicine-default|默认药品']
       },
       {
         title: '资讯|demo',
