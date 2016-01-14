@@ -1,11 +1,13 @@
 angular.module 'jkbs'
   # 资讯列表
-  .controller 'NewsController', (Util, $scope, $stateParams) ->
+  .controller 'NewsController', (Util, $scope, $stateParams, $location) ->
     'ngInject'
     # 分类目录进来是有ID的
     if $stateParams.id
+      $scope.title = "#{$location.search().title}下的资讯"
       listUrl = "news-list?type=10&category_id=#{$stateParams.id}"
     else
+      $scope.title = '资讯管理'
       listUrl = "news-list?type=10"
 
     $scope.title = '资讯管理'
@@ -70,7 +72,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '资讯', href: "news-category/#{full.id}/news", icon: 'navicon'},
+              {type: 'default', title: '资讯', href: "news-category/#{full.id}/news?title=#{full.title}", icon: 'navicon'},
               {type: 'default', title: '编辑', href: "news-category/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
