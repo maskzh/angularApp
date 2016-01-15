@@ -145,12 +145,6 @@ angular.module 'jkbs'
                   "<a class='J_image' href=#{imgUrl}><img width=30 src=#{imgUrl}></a>"
               },
               { text:"药品名称", field: "medicine_title"}
-              {
-                text:"操作",
-                field: "",
-                render: (field, full) ->
-                  Util.genBtns([], full.id)
-              }
             ]
 
     # init
