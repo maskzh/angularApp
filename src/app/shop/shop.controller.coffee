@@ -74,6 +74,7 @@ angular.module 'jkbs'
     vm.formData.chain = 0 #是否连锁
     vm.formData.status = 1 #是否可用
     vm.formData.template_id = 0 #默认模板
+    vm.formData.type = 10
 
     # 初始化表单方法
     resMethods = Util.res('/shop')
