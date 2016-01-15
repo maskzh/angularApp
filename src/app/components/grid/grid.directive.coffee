@@ -98,21 +98,9 @@ angular.module 'jkbs'
           result.push map.text
         result
 
-      # 删除某一个条目
-      vm.deleteItem = (url, id) ->
-        if confirm '确定删除该条目？'
-          Util.delete "#{url}/#{id}", {id: id}
-            .then (res) ->
-              toastr.success '删除成功'
-              vm.pageChanged()
-
       # 删除多个条目
-      vm.deleteItems = (url, selectedItems) ->
-        return false if selectedItems.length is 0
-        ids = []
-        for item in selectedItems
-          ids.push item.id
-        if confirm(if selectedItems.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
+      vm.deleteItems = (url, ids) ->
+        if confirm(if ids.length > 1 then '确定删除多个条目？' else '确定删除该条目？')
           Util.delete url, {ids: ids.join(',')}
             .then (res) ->
               toastr.success '删除成功'
@@ -145,7 +133,11 @@ angular.module 'jkbs'
 
       # 删除多个
       vm.delete = () ->
-        vm.deleteItems vm.api.delete, vm.selectedItems
+        return false if vm.selectedItems.length is 0
+        ids = []
+        for item in vm.selectedItems
+          ids.push item.id
+        vm.deleteItems vm.api.delete, ids
 
       return
 
@@ -154,7 +146,7 @@ angular.module 'jkbs'
       apiTmp = {}
       apiTmp.list = if api.list? then "#{api.base}/#{api.list}" else api.base
       apiTmp.search = if api.search? then "#{api.base}/#{api.search}" else "#{api.base}/search"
-      apiTmp.delete = if api.delete? then "#{api.base}/#{api.delete}" else api.base
+      apiTmp.delete = if api.delete? then "#{api.base}/#{api.delete}" else "#{api.base}/more-delete"
       apiTmp.addHref = if api.addHref? then "##{api.addHref}/new" else "##{api.base}/new"
       apiTmp.import = api.import
       apiTmp
@@ -247,7 +239,7 @@ angular.module 'jkbs'
         scope.$apply()
 
       el.on 'click', '.J_delete', (e) ->
-        vm.deleteItem vm.api.delete, $(this).attr 'alt'
+        vm.deleteItems vm.api.delete, [$(this).attr 'alt']
 
       el.on 'mouseenter', '.J_image', (e) ->
         $(this).addClass 'on'

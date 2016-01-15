@@ -55,7 +55,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             Util.genBtns([
               {type: 'default', title: '编辑', href: "shop/#{full.id}/edit", icon: 'edit'}
-            ], full.id)
+            ]) #, full.id
         }
       ]
     return
@@ -83,7 +83,7 @@ angular.module 'jkbs'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
-          vm.openModal(res.data.id)
+          vm.openModal(res.data.id) if !id
 
     # 获取省列表
     vm.getPrivinceList = ()->

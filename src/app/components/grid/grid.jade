@@ -2,7 +2,7 @@
 .grid-operation
   .btn-group.grid-buttons
     a.btn.btn-default.btn-sm(ng-if="vm.operation.add" href="{{vm.api.addHref}}") <i class="fa fa-plus"></i> 添加
-    //- button.btn.btn-danger.btn-sm(ng-if="vm.operation.delete" ng-disabled="!vm.selectedItems.length" type="button" ng-click="vm.delete()")  <i class="fa fa-trash"></i> 删除
+    button.btn.btn-danger.btn-sm(ng-if="vm.operation.delete" ng-disabled="!vm.selectedItems.length" type="button" ng-click="vm.delete()")  <i class="fa fa-trash"></i> 删除
     
   .btn-group.grid-buttons
     button(class="btn btn-sm btn-{{item[0]}}" ng-disabled="!vm.selectedItems.length" type="button" ng-click="vm[item[1]]()" ng-repeat="item in vm.btns") {{item[2]}}
