@@ -5,6 +5,7 @@ angular.module 'jkbs'
     role =
       shop: '药店老板#primary'
       institution: '机构老板#primary'
+      doctor: '医生#success'
       angel: '健康天使#danger'
       shop_customer_service: '药店客服#info'
       institution_customer_service: '机构客服#info'
@@ -22,7 +23,7 @@ angular.module 'jkbs'
     @renderRole = (full) ->
       roleArr = []
       for key of role
-        if full[key]? and full[key] is 1
+        if full[key]? and (full[key] is '1' or full[key] is 1)
           roleArr.push role[key]
       return roleArr.map (item)->
         tmp = item.split '#'
