@@ -1,6 +1,6 @@
 angular.module 'jkbs'
   .directive 'grid', ->
-    GridController = (Util, $scope, $state, $sce, $timeout, toastr) ->
+    GridController = (Util, $sce, $timeout, toastr) ->
       'ngInject'
       vm = this
       # 数据和分页
@@ -44,7 +44,6 @@ angular.module 'jkbs'
         vm.tabs && vm.tabs[0].active = true
         vm.tabs2 && vm.tabs2[0].active = true
         sendData = {page: 1, 'per-page': 10}
-      vm.toastr = toastr
 
       # 根据提供的 表格table 处理数据
       handleList = (items, table) ->
@@ -131,16 +130,6 @@ angular.module 'jkbs'
       vm.pageChanged = () ->
         getList vm.currentListApi, angular.extend sendData, {page: vm.currentPage}
 
-      # 导入
-      vm.importItems = (url, selectedItems) ->
-        return false if selectedItems.length is 0
-        ids = []
-        for item in selectedItems
-          ids.push item.id
-        Util.post url, {ids: ids.join(','), shop_id: Shop.get()}
-          .then (res) ->
-            toastr.success '添加成功'
-
       # 根据字段搜索并加载数据
       _timer = null # 搜索时keyup定时器
       vm.search = (keyword) ->
@@ -154,16 +143,9 @@ angular.module 'jkbs'
       vm.reload = () ->
         vm.pageChanged()
 
-      # 增加条目
-      vm.add = () ->
-        $state.go vm.addHref
-
       # 删除多个
       vm.delete = () ->
         vm.deleteItems vm.api.delete, vm.selectedItems
-
-      vm.import = ->
-        vm.importItems vm.api.import, vm.selectedItems
 
       return
 
