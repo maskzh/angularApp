@@ -55,7 +55,7 @@ angular.module 'jkbs'
           render: (field, full) ->
             Util.genBtns([
               {type: 'default', title: '编辑', href: "shop/#{full.id}/edit", icon: 'edit'}
-            ]) #, full.id
+            ], full.id)
         }
       ]
     return

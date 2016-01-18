@@ -1,3 +1,7 @@
+div(ng-if="!vm.state")
+  h2 导入默认药品 <span class="small">临时</span>
+  button.btn.btn-default(ng-click="vm.openModal(vm.formData.id)" tooltip="导入药品需要花一点时间，所以只能单个药店导入，请耐心等待" tooltip-placement="right" tooltip-append-to-body="true") 导入
+  hr
 h2 {{vm.title}}
 form.form-horizontal
   .form-group(ng-if="vm.state")
