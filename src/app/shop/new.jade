@@ -31,7 +31,7 @@ form.form-horizontal
         span.upload-box-text(ng-hide="vm.formData.pic") 点击或拖拽上传
         img(ng-src="{{vm.formData.pic | img}}" ng-show="vm.formData.pic")
       
-  .form-group
+  .form-group(ng-show="vm.formData.type==10")
     label.control-label.col-md-4.required(for="bg") 顶部图片
     .col-md-4
       .form-control.upload-box(ngf-select="vm.upload($file, vm.formData, 'bg')" ngf-drop="vm.upload($file, vm.formData, 'bg')" ngf-drag-over-class="'dragover'" ngf-pattern="'image/*'")
@@ -110,7 +110,7 @@ form.form-horizontal
     .col-md-4
       textarea#description.form-control(row="10" ng-model="vm.formData.sale_content" placeholder="主营内容")
         
-  .form-group
+  .form-group(ng-show="vm.formData.type==10")
     label.control-label.col-md-4(for="service_insurance") 医保支持
     .col-md-4
       .row
@@ -125,7 +125,7 @@ form.form-horizontal
               input(type="radio" ng-model="vm.formData.service_insurance" value="0")
               不支持
           
-  .form-group
+  .form-group(ng-show="vm.formData.type==10")
     label.control-label.col-md-4(for="service_chinese_medicine") 中药有售
     .col-md-4
       .row
@@ -140,7 +140,7 @@ form.form-horizontal
               input(type="radio" ng-model="vm.formData.service_chinese_medicine" value="0")
               不支持
     
-  .form-group
+  .form-group(ng-show="vm.formData.type==10")
     label.control-label.col-md-4(for="service_chinese_medicine_agent") 中药代煎
     .col-md-4
       .row
@@ -160,7 +160,7 @@ form.form-horizontal
     .col-md-4
       textarea#description.form-control(row="10" ng-model="vm.formData.description" placeholder="简介")
       
-  .form-group(ng-hide="form_data.type==20")
+  .form-group(ng-show="vm.formData.type==10")
     label.control-label.col-md-4.required(for="template_id") 店铺模板
     .col-md-4
       select#template_id.form-control(ng-model="vm.formData.template_id" ng-options="i.id as i.label for i in [{label: '默认模板', id: 0},{label: '模板1', id: 1},{label: '模板2', id: 2},{label: '模板3', id: 3}]")
@@ -201,7 +201,7 @@ form.form-horizontal
       input#order_id.form-control(type="text" ng-model="vm.formData.order_id" placeholder="排序ID")
       span.help-block 从大到小排
       
-  .form-group
+  .form-group(ng-show="vm.formData.type==10")
     label.control-label.col-md-4(for="deposit") 保证金余额
     .col-md-4
       input#deposit.form-control(type="text" ng-model="vm.formData.deposit" placeholder="保证金余额")

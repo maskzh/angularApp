@@ -5,10 +5,6 @@ angular.module 'jkbs'
 
     vm.alerts = [
       {
-        msg: "药店删除暂不可用，多项删除暂不可用，正在修改...",
-        type: 'danger'
-      },
-      {
         msg: "BUG 问题，请及时与我们反馈。",
         type: 'info'
       }
