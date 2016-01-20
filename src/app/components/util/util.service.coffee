@@ -51,13 +51,13 @@ angular.module 'jkbs'
     @genBtns = (btns, id) ->
       html = '<div class="btn-group table-btns">'
       for btn in btns
-        html += "<a class='btn btn-sm hint hint--top btn-#{btn.type}'" +
+        html += "<a class='btn btn-tiny hint hint--top btn-#{btn.type}'" +
                 " title='#{btn.title}'" +
                 " href='#/#{btn.href}'>" +
                 "<i class='fa fa-#{btn.icon}'></i>" +
                 "</a>"
       if id?
-        html += "<a class='btn btn-sm btn-danger hint hint--top J_delete' title='删除' alt='#{id}'><i class='fa fa-trash'></i></a>"
+        html += "<a class='btn btn-tiny btn-danger hint hint--top J_delete' title='删除' alt='#{id}'><i class='fa fa-trash'></i></a>"
       html += '</div>'
 
     # 给 grid 生成 布尔 状态

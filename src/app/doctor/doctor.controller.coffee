@@ -1,14 +1,24 @@
 angular.module 'jkbs'
   # 医生列表
-  .controller 'DoctorController', (Util, $scope) ->
+  .controller 'DoctorController', (Util, $scope, toastr) ->
     'ngInject'
     # 表格
     $scope.title = '医生管理'
     $scope.grid =
       api:
         base: '/doctor'
-        list: "recommend-list?type=all"
+        list: "recommend-list"
         search: 'search-list'
+      tabs: [
+        {
+          title: '推荐',
+          query: {type: ''}
+        },
+        {
+          title: '全部',
+          query: {type: 'all'}
+        }
+      ]
       table: [
         { text:"ID", field: "id"},
         { text:"姓名", field: "user_name"},
@@ -30,15 +40,34 @@ angular.module 'jkbs'
         { text:"咨询费用", field: "consultation_fee"},
         { text:"评价", field: "star"},
         {
+          text:"推荐",
+          field: "recommend",
+          render: (field, full) ->
+            "<span class='label label-primary'>#{if field is 1 then '已推荐' else ''}</span> " +
+            "<span class='label label-warning'>#{if full.status is 0 then '未审核' else ''}</span> "
+        },
+        {
           text:"操作",
           field: "",
           render: (field, full) ->
-            Util.genBtns([
+            btns = [
               {type: 'default', title: '订单', href: "doctor/order/#{full.id}?name=#{full.user_name}", icon: 'navicon'}
               {type: 'default', title: '编辑', href: "doctor/#{full.id}/edit", icon: 'edit'}
-            ], full.id)
+            ]
+            if full.recommend is 0
+              btns.push {type: 'success', title: '推荐', href: "J_recommend", icon: 'thumbs-up'}
+            else
+              btns.push {type: 'warning', title: '取消推荐', href: "J_recommend", icon: 'thumbs-down'}
+            Util.genBtns(btns, full.id)
         }
       ]
+      callback: (scope, el, attr, vm) ->
+        el.on 'click', 'a[href="#/J_recommend"]', (e) ->
+          e.preventDefault()
+          Util.post '/doctor/recommend', {ids: [$(this).siblings('.J_delete').attr('alt')]}
+          .then (res) ->
+            toastr.success res.data.message || '推荐成功'
+            vm.pageChanged()
     return
 
   # 医生咨询订单
