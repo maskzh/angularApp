@@ -16,7 +16,7 @@ angular.module 'jkbs'
 
       # 其它字段
       vm.currentListApi = '' # 当前请求的地址
-      vm.disabled = null
+      vm.available = null
       vm.ths = [] # 表头的标题们
       vm.selectedItems = [] # 被选中的条目
 
@@ -155,17 +155,17 @@ angular.module 'jkbs'
       apiTmp.addrouter = "#{apiTmp.routing}/new"
       apiTmp
 
-    handleAvailable = (disabled) ->
-      if !disabled?
+    handleAvailable = (available) ->
+      if !available?
         return {
-          add: false
-          delete: false
-          search: false
-          checkbox: false
-          pagination: false
+          add: true
+          delete: true
+          search: true
+          checkbox: true
+          pagination: true
         }
       a = {}
-      os = disabled.split(' ')
+      os = available.split(' ')
       for o in os
         a[o] = true
       a
@@ -209,7 +209,7 @@ angular.module 'jkbs'
     linkFunc = (scope, el, attr, vm) ->
       throw new Error 'must set grid in controller' if !scope.grid?
       vm.api = handleApi scope.grid.api
-      vm.disabled = handleAvailable scope.grid.disabled
+      vm.available = handleAvailable scope.grid.available
       vm.buttons = handleButtons scope.grid.buttons, scope, el, attr, vm
       vm.btns = handleBtns scope.grid.btns, scope, el, attr, vm
       vm.tabs = handleTabs scope.grid.tabs
@@ -271,6 +271,7 @@ angular.module 'jkbs'
 
       # 绑定事件
       handleEvents scope.grid.events, scope, el, attr, vm if scope.grid.events?
+      scope.grid.callback && scope.grid.callback(scope, el, attr, vm)
 
       scope.$on '$destroy', ->
         el.off()

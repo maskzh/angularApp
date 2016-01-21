@@ -97,7 +97,7 @@ angular.module 'jkbs'
       api:
         base: '/order-doctor'
         list: listUrl
-      disabled: 'add'
+      available: 'delete search checkbox pagination'
       table: [
         { text:"订单ID", field: "id"},
         {

@@ -7,7 +7,7 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/disease'
-      disabled: 'add'
+      available: 'delete search checkbox pagination'
       table: [
         { text:"ID", field: "id"},
         { text:"名称", field: "title"},

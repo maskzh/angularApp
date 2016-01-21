@@ -1,11 +1,11 @@
 //- buttuns
 .grid-header
   .btn-group.grid-buttons
-    a.btn.btn-default.btn-sm(ng-if="!vm.disabled.add" href="{{vm.api.addrouter}}") <i class="fa fa-plus"></i> 添加
+    a.btn.btn-default.btn-sm(ng-if="vm.available.add" href="{{vm.api.addrouter}}") <i class="fa fa-plus"></i> 添加
     a.btn.btn-sm(ng-repeat="btn in vm.buttons" href="{{btn.href||'javascript:;'}}" class="btn-{{btn.type}}" ng-disabled="!vm.selectedItems.length && btn.handle" ng-click="btn.handle && vm[btn.handle]()") {{btn.text}}
-    button.btn.btn-danger.btn-sm(ng-if="!vm.disabled.delete" ng-disabled="!vm.selectedItems.length" type="button" ng-click="vm.delete()")  <i class="fa fa-trash"></i> 删除
+    button.btn.btn-danger.btn-sm(ng-if="vm.available.delete" ng-disabled="!vm.selectedItems.length" type="button" ng-click="vm.delete()")  <i class="fa fa-trash"></i> 删除
 
-  .form-inline.grid-search(ng-if="!vm.disabled.search")
+  .form-inline.grid-search(ng-if="vm.available.search")
     .form-group
       label.sr-only(for="search") 搜索
       input#search.form-control(ng-model="vm.keyword" type="text" placeholder="输入您要搜索的关键字" ng-keyup="vm.search(vm.keyword)")
@@ -20,12 +20,12 @@
   table.table.table-hover
     thead
       tr
-        th(ng-if="!vm.disabled.checkbox")
+        th(ng-if="vm.available.checkbox")
           input(type="checkbox")
         th(ng-repeat="th in vm.ths") {{th}}
     tbody
       tr(ng-repeat="item in vm.parsedList")
-        th(ng-if="!vm.disabled.checkbox")
+        th(ng-if="vm.available.checkbox")
           input(type="checkbox" value="{{$index}}")
         td(ng-repeat="value in item track by $index" ng-bind-html="''+value | to_trusted")
         
@@ -38,7 +38,7 @@
     a(href="javascript:;" ng-click="vm.reload()") 重试
 
 //- pagination 分页
-.grid-pagination(ng-if="!vm.disabled.pagination")
+.grid-pagination(ng-if="vm.available.pagination")
   pagination(
     total-items="vm.totalItems"
     items-per-page="10"

@@ -9,7 +9,7 @@ angular.module 'jkbs'
         base: '/order'
         list: 'all-list'
         search: 'all-list'
-      disabled: 'add'
+      available: 'delete search checkbox pagination'
       tabs: [
         [
           {text:'全部', query: {whether_done:0}},

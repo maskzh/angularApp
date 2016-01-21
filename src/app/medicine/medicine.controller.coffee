@@ -148,7 +148,7 @@ angular.module 'jkbs'
       api:
         base: '/to-lead-medicine'
         list: 'get-list'
-      disabled: 'add search'
+      available: 'delete checkbox pagination'
       table: [
         { text:"ID", field: "id"},
         {
