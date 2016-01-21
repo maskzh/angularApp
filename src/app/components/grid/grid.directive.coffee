@@ -78,6 +78,7 @@ angular.module 'jkbs'
           .then (res)->
             if !res.data.items or res.data.items.length is 0
               vm.list = []
+              vm.parsedList = []
               status.noData()
               return
 
