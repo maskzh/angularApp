@@ -48,16 +48,17 @@ angular.module 'jkbs'
 
 
     # 给 grid 生成操作按钮
-    @genBtns = (btns, id) ->
+    @genBtns = (btns, id, hideDelete) ->
       html = '<div class="btn-group table-btns">'
       for btn in btns
-        html += "<a class='btn btn-tiny hint hint--top btn-#{btn.type}'" +
-                " title='#{btn.title}'" +
-                " href='#/#{btn.href}'>" +
+        html += "<a class='btn btn-tiny hint hint--top btn-#{btn.type} #{btn.selector || ''}'" +
+                " title='#{btn.text}'" +
+                " href='#{btn.href || 'javascript:;'}'" +
+                " data-id='#{id}'>" +
                 "<i class='fa fa-#{btn.icon}'></i>" +
                 "</a>"
-      if id?
-        html += "<a class='btn btn-tiny btn-danger hint hint--top J_delete' title='删除' alt='#{id}'><i class='fa fa-trash'></i></a>"
+      unless hideDelete
+        html += "<a class='btn btn-tiny btn-danger hint hint--top J_delete' title='删除' data-id='#{id}'><i class='fa fa-trash'></i></a>"
       html += '</div>'
 
     # 给 grid 生成 布尔 状态

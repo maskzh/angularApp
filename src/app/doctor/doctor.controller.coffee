@@ -11,13 +11,14 @@ angular.module 'jkbs'
         search: 'search-list'
       tabs: [
         {
-          title: '推荐',
+          text: '全部',
+          query: {type: 'all'}
+          active: true
+        }
+        {
+          text: '推荐',
           query: {type: ''}
         },
-        {
-          title: '全部',
-          query: {type: 'all'}
-        }
       ]
       table: [
         { text:"ID", field: "id"},
@@ -51,23 +52,36 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             btns = [
-              {type: 'default', title: '订单', href: "doctor/order/#{full.id}?name=#{full.user_name}", icon: 'navicon'}
-              {type: 'default', title: '编辑', href: "doctor/#{full.id}/edit", icon: 'edit'}
+              {type: 'default', text: '订单', href: "#/doctor/order/#{full.id}?name=#{full.user_name}", icon: 'navicon'}
+              {type: 'default', text: '编辑', href: "#/doctor/#{full.id}/edit", icon: 'edit'}
             ]
             if full.recommend is 0
-              btns.push {type: 'success', title: '推荐', href: "J_recommend", icon: 'thumbs-up'}
+              btns.push
+                type: 'success'
+                text: '推荐'
+                selector: 'recommend'
+                icon: 'thumbs-up'
             else
-              btns.push {type: 'warning', title: '取消推荐', href: "J_recommend", icon: 'thumbs-down'}
-            Util.genBtns(btns, full.id)
+              btns.push
+                type: 'warning'
+                text: '取消推荐'
+                selector: 'recommend'
+                icon: 'thumbs-down'
+            Util.genBtns btns, full.id
         }
       ]
-      callback: (scope, el, attr, vm) ->
-        el.on 'click', 'a[href="#/J_recommend"]', (e) ->
-          e.preventDefault()
-          Util.post '/doctor/recommend', {ids: [$(this).siblings('.J_delete').attr('alt')]}
-          .then (res) ->
-            toastr.success res.data.message || '推荐成功'
-            vm.pageChanged()
+      events: [
+        {
+          type: 'click'
+          selector: '.recommend'
+          handle: (evt, self, scope, el, attr, vm) ->
+            Util.post '/doctor/recommend', {ids:[$(self).data('id')]}
+            .then (res) ->
+              toastr.success res.data.message || '推荐成功'
+              vm.pageChanged()
+        }
+      ]
+
     return
 
   # 医生咨询订单
@@ -83,7 +97,7 @@ angular.module 'jkbs'
       api:
         base: '/order-doctor'
         list: listUrl
-      operation: 'delete search'
+      disabled: 'add'
       table: [
         { text:"订单ID", field: "id"},
         {
@@ -117,7 +131,7 @@ angular.module 'jkbs'
           text:"操作",
           field: "",
           render: (field, full) ->
-            Util.genBtns([], full.id)
+            Util.genBtns [], full.id
         }
       ]
     return

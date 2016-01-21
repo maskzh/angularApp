@@ -48,7 +48,7 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="content") 内容
     .col-md-12
-      #content(class="ueditor" ng-model="vm.formData.content" placeholder="some 咨询内容" style="margin-top:20px")
+      #content(class="ueditor" ready="ueditorReady" ng-model="vm.formData.content" placeholder="some 咨询内容" style="margin-top:20px")
 
   .form-group
     .col-sm-offset-4.col-sm-8

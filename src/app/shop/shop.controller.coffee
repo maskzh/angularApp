@@ -10,8 +10,8 @@ angular.module 'jkbs'
         list: "all-list"
         search: 'all-list'
       tabs: [
-        {title:'药店', query: {type:10}},
-        {title:'机构', query:{type:20}},
+        {text:'药店', query: {type:10}},
+        {text:'机构', query:{type:20}}
       ]
       table: [
         { text:"ID", field: "id"},
@@ -47,15 +47,18 @@ angular.module 'jkbs'
             "访问次数：#{full.view_num}<br>"+
             "评价：#{full.star}"
         },
-        # { text:"营业时间", field: "open_time"},
-        # { text:"主营内容", field: "sale_content"},
         {
           text:"操作",
           field: "",
           render: (field, full) ->
-            Util.genBtns([
-              {type: 'default', title: '编辑', href: "shop/#{full.id}/edit", icon: 'edit'}
-            ], full.id)
+            Util.genBtns [
+              {
+                text: '编辑'
+                type: 'default'
+                href: "#/shop/#{full.id}/edit"
+                icon: 'edit'
+              }
+            ], full.id
         }
       ]
     return
@@ -122,11 +125,11 @@ angular.module 'jkbs'
             api:
               base: '/to-lead-medicine'
               list: 'get-list?type=all'
-            operation: ''
-            btns:[
+            disabled: 'add delete pagination'
+            buttons:[
               {
-                type: 'default',
                 text: '一键导入',
+                type: 'default',
                 handle: (scope, el, attr, vm) ->
                   ids = []
                   for item in vm.selectedItems

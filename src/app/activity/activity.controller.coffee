@@ -6,9 +6,7 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/e-activity'
-        list: ''
-        search: ''
-        addHref: 'activity'
+        routing: 'activity'
       table: [
         { text:"ID", field: "id"},
         { text:"活动标题", field: "title"},
@@ -39,7 +37,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "activity/#{full.id}/edit", icon: 'edit'}
+              {type: 'default', text: '编辑', href: "#/activity/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
@@ -52,7 +50,7 @@ angular.module 'jkbs'
 
     # 初始化表单数据
     vm.formData = {}
-    
+
     # 初始化表单方法
     resMethods = Util.res('/e-activity')
     vm.save = () ->

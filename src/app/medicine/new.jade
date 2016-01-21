@@ -24,7 +24,6 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4(for="category_id") 所属分类
     .col-md-4
-      {{vm.formData.parent}}
       select#parent.form-control(ng-model="vm.formData.parent" ng-options="i.id as i.title group by i.level2 for i in vm.typeList")
         option(value="") --选择分类--
       span.help-block 所属分类，只能选择③开头的分类
@@ -107,7 +106,7 @@ form.form-horizontal
   .form-group
     label.control-label.col-md-4.required(for="content_html") 药品内容
     .col-md-12
-      #content_html(class="ueditor" ng-model="vm.formData.content_html" placeholder="药品内容" style="margin-top:20px")
+      #content_html(class="ueditor" ready="ueditorReady" ng-model="vm.formData.content_html" placeholder="药品内容" style="margin-top:20px")
           
   .form-group
     .col-sm-offset-4.col-sm-8

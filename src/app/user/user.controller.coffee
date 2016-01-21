@@ -9,12 +9,12 @@ angular.module 'jkbs'
         base: '/user'
         list: 'get-list'
         search: 'get-list'
-      tabs2: [
-        {title:'全部', query: {identity:''}},
-        {title:'老板', query: {identity:'boss'}},
-        {title:'天使', query:{identity:'angel'}},
-        {title:'医生', query:{identity:'doctor'}},
-        {title:'客服', query:{identity:'service'}}
+      tabs: [
+        {text:'全部', query: {identity:''}},
+        {text:'老板', query: {identity:'boss'}},
+        {text:'天使', query:{identity:'angel'}},
+        {text:'医生', query:{identity:'doctor'}},
+        {text:'客服', query:{identity:'service'}}
       ]
       table: [
         { text:"ID", field: "id"},
@@ -55,7 +55,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "user/#{full.id}/edit", icon: 'edit'}
+              {type: 'default', text: '编辑', href: "#/user/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]

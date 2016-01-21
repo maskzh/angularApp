@@ -9,16 +9,18 @@ angular.module 'jkbs'
         base: '/order'
         list: 'all-list'
         search: 'all-list'
-      operation: 'delete search'
+      disabled: 'add'
       tabs: [
-        {title:'全部', query: {whether_done:0}},
-        {title:'未完成', query:{whether_done:2}},
-        {title:'已完成', query:{whether_done:1}}
-      ]
-      tabs2: [
-        {title: '全部', query: {type: ''}},
-        {title: '药店', query: {type: 10}},
-        {title: '机构', query: {type: 20}}
+        [
+          {text:'全部', query: {whether_done:0}},
+          {text:'未完成', query:{whether_done:2}},
+          {text:'已完成', query:{whether_done:1}}
+        ],
+        [
+          {text: '全部', query: {type: ''}},
+          {text: '药店', query: {type: 10}},
+          {text: '机构', query: {type: 20}}
+        ]
       ]
       table: [
         { text:"ID", field: "id"},
@@ -59,9 +61,9 @@ angular.module 'jkbs'
           text:"操作",
           field:"",
           render: (field, full) ->
-            Util.genBtns([
-              {type: 'default', title: '查看', href: "order/#{full.id}", icon: 'eye'}
-            ], full.id)
+            Util.genBtns [
+              {type: 'default', text: '查看', href: "#/order/#{full.id}", icon: 'eye'}
+            ], full.id
         }
       ]
     return

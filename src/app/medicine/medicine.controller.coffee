@@ -32,7 +32,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "medicine/#{full.id}/edit", icon: 'edit'}
+              {type: 'default', text: '编辑', href: "#/medicine/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
@@ -94,7 +94,7 @@ angular.module 'jkbs'
     return
 
   # 新增药品
-  .controller 'MedicineNewController', (Util, $stateParams, toastr, Uploader, MedicineService) ->
+  .controller 'MedicineNewController', ($scope, Util, $stateParams, toastr, Uploader, MedicineService) ->
     'ngInject'
     vm = this
 
@@ -118,9 +118,14 @@ angular.module 'jkbs'
     resMethods = Util.res('/medicine')
     vm.upload = Uploader.upload
     vm.save = () ->
+      $scope.$emit 'contentChange'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+    # 编辑器
+    $scope.ueditorReady = (editor) ->
+      $scope.$on 'contentChange', () ->
+        editor.fireEvent 'contentChange'
 
     # init
     id = if $stateParams.id? then $stateParams.id else false
@@ -143,7 +148,7 @@ angular.module 'jkbs'
       api:
         base: '/to-lead-medicine'
         list: 'get-list'
-      operation: 'delete'
+      disabled: 'add search'
       table: [
         { text:"ID", field: "id"},
         {

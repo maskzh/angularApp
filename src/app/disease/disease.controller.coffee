@@ -7,7 +7,7 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/disease'
-      operation: 'delete search'
+      disabled: 'add'
       table: [
         { text:"ID", field: "id"},
         { text:"名称", field: "title"},
@@ -22,9 +22,9 @@ angular.module 'jkbs'
           text:"操作",
           field: "",
           render: (field, full) ->
-            Util.genBtns([
-              {type: 'default', title: '编辑', href: "disease/#{full.id}/edit", icon: 'edit'}
-            ], full.id)
+            Util.genBtns [
+              {type: 'default', text: '编辑', href: "#/disease/#{full.id}/edit", icon: 'edit'}
+            ], full.id
         }
       ]
     return
@@ -37,7 +37,6 @@ angular.module 'jkbs'
     $scope.grid =
       api:
         base: '/disease-title'
-      addHref: 'base.disease_new'
       table: [
         { text:"ID", field: "id"},
         {
@@ -53,9 +52,9 @@ angular.module 'jkbs'
           text:"操作",
           field: "",
           render: (field, full) ->
-            Util.genBtns([
-              {type: 'default', title: '编辑', href: "disease-title/#{full.id}/edit", icon: 'edit'}
-            ], full.id)
+            Util.genBtns [
+              {type: 'default', text: '编辑', href: "#/disease-title/#{full.id}/edit", icon: 'edit'}
+            ], full.id
         }
       ]
     return
@@ -172,8 +171,8 @@ angular.module 'jkbs'
       {
         api:
           base: "/disease-title/may-be-therapies?type=#{type}&name=#{vm.formData.title}"
-        operation: ''
-        btns: [
+        disabled: 'add delete search'
+        buttons: [
           {
             type: 'primary',
             text: '添加',

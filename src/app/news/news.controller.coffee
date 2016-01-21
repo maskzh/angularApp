@@ -41,7 +41,7 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '编辑', href: "news/#{full.id}/edit", icon: 'edit'}
+              {type: 'default', text: '编辑', href: "#/news/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
@@ -71,8 +71,8 @@ angular.module 'jkbs'
           field: "",
           render: (field, full) ->
             Util.genBtns([
-              {type: 'default', title: '资讯', href: "news-category/#{full.id}/news?title=#{full.title}", icon: 'navicon'},
-              {type: 'default', title: '编辑', href: "news-category/#{full.id}/edit", icon: 'edit'}
+              {type: 'default', text: '资讯', href: "#/news-category/#{full.id}/news?title=#{full.title}", icon: 'navicon'},
+              {type: 'default', text: '编辑', href: "#/news-category/#{full.id}/edit", icon: 'edit'}
             ], full.id)
         }
       ]
@@ -109,7 +109,7 @@ angular.module 'jkbs'
     return
 
   # 新建和修改资讯
-  .controller 'NewsNewController', (Util, $stateParams, toastr, Uploader, NewsService) ->
+  .controller 'NewsNewController', ($scope, Util, $stateParams, toastr, Uploader, NewsService) ->
     'ngInject'
     vm = this
 
@@ -124,9 +124,15 @@ angular.module 'jkbs'
     resMethods = Util.res('/news')
     vm.upload = Uploader.upload
     vm.save = () ->
+      $scope.$emit 'contentChange'
       resMethods.save vm.formData, id
         .then (res) ->
           toastr.success '已成功提交'
+
+    # 编辑器
+    $scope.ueditorReady = (editor) ->
+      $scope.$on 'contentChange', () ->
+        editor.fireEvent 'contentChange'
 
     # init
     id = if $stateParams.id? then $stateParams.id else false
