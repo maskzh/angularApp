@@ -102,7 +102,7 @@ angular.module 'jkbs'
     vm.formData = {}
     vm.formData.buy_online = 0
     vm.formData.contain_ephedrine = 0
-    vm.formData.status = 0
+    vm.formData.status = 1
     MedicineService.getMedicineCat().then (data) ->
       vm.typeList = []
       for item1 in data

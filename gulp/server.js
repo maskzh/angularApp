@@ -37,7 +37,7 @@ function browserSyncInit(baseDir, browser) {
   server.middleware = proxyMiddleware([
     '**',
     '!/',
-    '!/(app|bower_components|browser-sync|assets)/**/*',
+    '!/(app|bower_components|browser-sync|assets)/**/*'
   ], {
     target: 'https://api.jkbsapp.com',
     logLevel: 'debug',

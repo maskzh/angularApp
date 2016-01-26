@@ -69,3 +69,11 @@ angular.module 'jkbs'
       vm.title = "添加活动"
       vm.state = true
     return
+
+  # .controller 'DownloadStatController', (Util) ->
+  #   'ngInject'
+  #   vm = this
+  #
+  #   getInfo = (type, versions, cb) ->
+  #     Util.get '/front/app-download', {type: type, versions: versions}
+  #     .then (res) ->
